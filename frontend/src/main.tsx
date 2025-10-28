@@ -4,15 +4,18 @@ import { BrowserRouter, Route, Routes } from 'react-router';
 import { NotFound } from './pages/NotFound.tsx';
 import { Routes as availableRoutes } from './Routes.ts';
 import { Home } from './pages/Home.tsx';
+import { AuthProvider } from './contexts/AuthContext.tsx';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <BrowserRouter>
-            <Routes>
-                <Route path={availableRoutes.HOME} element={<Home />} />
-                <Route path="*" element={<NotFound />} />
-            </Routes>
-        </BrowserRouter>
+        <AuthProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path={availableRoutes.HOME} element={<Home />} />
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </BrowserRouter>
+        </AuthProvider>
         ,
     </StrictMode>,
 );
