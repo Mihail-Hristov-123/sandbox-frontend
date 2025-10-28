@@ -11,6 +11,9 @@ export const Nav = () => {
             <div className="flex gap-20">
                 <NavLink to={Routes.HOME}>Home</NavLink>
                 <NavLink to={Routes.POSTS}>Posts</NavLink>
+                {isLoggedIn && (
+                    <NavLink to={Routes.PROTECTED}>Protected route</NavLink>
+                )}
             </div>
 
             <div className=" flex gap-8 self-end ">

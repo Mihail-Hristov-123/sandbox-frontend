@@ -3,4 +3,5 @@ export enum Routes {
     POSTS = '/posts',
     REGISTER = '/register',
     LOG_IN = '/login',
+    PROTECTED = '/protected',
 }
