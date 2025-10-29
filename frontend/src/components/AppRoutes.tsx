@@ -1,9 +1,5 @@
 import { Route, Routes } from 'react-router';
-import { Home } from '../pages/Home';
-import { Register } from '../pages/Register';
-import { Login } from '../pages/Login';
-import { Posts } from '../pages/Posts';
-import { NotFound } from '../pages/NotFound';
+import { Home, Login, NotFound, Posts, Register } from '../pages/index';
 import { ProtectedRoutes } from './ProtectedRoutes';
 import { PublicOnlyRoutes } from './PublicOnlyRoutes';
 import { Routes as paths } from '../Routes';
