@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router';
 import { Home, Login, NotFound, Posts, Register } from '../pages/index';
-import { ProtectedRoutes } from './ProtectedRoutes';
-import { PublicOnlyRoutes } from './PublicOnlyRoutes';
+
 import { Routes as paths } from '../Routes';
+import { RouteManager } from './RouteManager';
 
 const mapRoutes = (
     routes: { path: keyof typeof paths; element: React.ReactNode }[],
@@ -18,14 +18,14 @@ export const AppRoutes = () => (
             { path: 'POSTS', element: <Posts /> },
         ])}
 
-        <Route element={<PublicOnlyRoutes />}>
+        <Route element={<RouteManager routesToBlock="public" />}>
             {mapRoutes([
                 { path: 'REGISTER', element: <Register /> },
                 { path: 'LOG_IN', element: <Login /> },
             ])}
         </Route>
 
-        <Route element={<ProtectedRoutes />}>
+        <Route element={<RouteManager routesToBlock="protected" />}>
             {mapRoutes([
                 { path: 'PROTECTED', element: <h1>Protected page</h1> },
             ])}
