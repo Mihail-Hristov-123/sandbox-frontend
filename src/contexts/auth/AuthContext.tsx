@@ -5,4 +5,7 @@ interface AuthValues {
     setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
 }
 
-export const AuthContext = createContext<AuthValues | undefined>(undefined);
+export const AuthContext = createContext<AuthValues>({
+    isLoggedIn: false,
+    setIsLoggedIn: () => false,
+});

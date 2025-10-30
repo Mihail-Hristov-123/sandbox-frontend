@@ -2,7 +2,7 @@ import { Navigate, Outlet } from 'react-router';
 import { useAuth } from '../contexts/auth/useAuth';
 import { Routes } from '../Routes';
 
-export const RouteManager = ({
+export const ProtectedRoute = ({
     routesToBlock,
 }: {
     routesToBlock: 'public' | 'protected';
