@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-
+import { useNavigate } from 'react-router';
 import type { HTMLInputTypeAttribute } from 'react';
 import {
     RegisterSchema,
@@ -7,6 +7,8 @@ import {
 } from '../schemas/auth/RegisterSchema';
 import { LabelledInput } from '../components/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Routes } from '../Routes';
+import { useAuth } from '../contexts/auth/useAuth';
 
 const inputFields: {
     type: HTMLInputTypeAttribute;
@@ -43,16 +45,29 @@ export const Register = () => {
     } = useForm<UserRegisterValues>({
         resolver: zodResolver(RegisterSchema),
     });
-    const onSubmit = (data: UserRegisterValues) => {
-        console.log('Register Data:', data);
+    const navigate = useNavigate();
+    const { setIsLoggedIn } = useAuth();
+    const onSubmit = async (data: UserRegisterValues) => {
+        const response = await fetch('/@api/auth/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        });
+
+        if (response.status === 201) {
+            setIsLoggedIn(true);
+            navigate(Routes.HOME);
+        }
     };
 
     return (
         <main>
             <form
-                onSubmit={(e) => {
+                onSubmit={async (e) => {
                     e.preventDefault();
-                    handleSubmit(onSubmit)();
+                    await handleSubmit(onSubmit)();
                 }}
                 className="  flex justify-center items-center  h-[98vh]"
             >
