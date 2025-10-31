@@ -4,4 +4,5 @@ export enum Routes {
     REGISTER = '/register',
     LOG_IN = '/login',
     PROTECTED = '/protected',
+    MY_ACCOUNT = '/me',
 }

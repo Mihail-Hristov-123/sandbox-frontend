@@ -18,7 +18,7 @@ export const Nav = () => {
 
             <div className=" flex gap-8 self-end ">
                 {isLoggedIn ? (
-                    <button>Log out</button>
+                    <NavLink to={Routes.MY_ACCOUNT}>My account</NavLink>
                 ) : (
                     <>
                         <NavLink to={Routes.LOG_IN}>Log in</NavLink>

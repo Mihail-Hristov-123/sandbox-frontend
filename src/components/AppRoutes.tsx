@@ -1,5 +1,12 @@
 import { Route, Routes } from 'react-router';
-import { Home, Login, NotFound, Posts, Register } from '../pages/index';
+import {
+    Home,
+    Login,
+    MyAccount,
+    NotFound,
+    Posts,
+    Register,
+} from '../pages/index';
 
 import { Routes as paths } from '../Routes';
 import { ProtectedRoute } from './ProtectedRoute';
@@ -28,6 +35,7 @@ export const AppRoutes = () => (
         <Route element={<ProtectedRoute routesToBlock="protected" />}>
             {mapRoutes([
                 { path: 'PROTECTED', element: <h1>Protected page</h1> },
+                { path: 'MY_ACCOUNT', element: <MyAccount /> },
             ])}
         </Route>
 
