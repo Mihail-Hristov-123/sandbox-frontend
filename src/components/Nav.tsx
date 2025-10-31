@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router';
 
 import { Routes } from '../Routes';
-import { useAuth } from '../contexts/auth/useAuth';
+import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 export const Nav = () => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn } = useAuthContext();
 
     return (
         <nav className=" bg-gray-700 w-full px-24 py-2 text-white font-bold flex justify-between">

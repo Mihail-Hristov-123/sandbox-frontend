@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
+
 import type { HTMLInputTypeAttribute } from 'react';
 import {
     RegisterSchema,
@@ -7,8 +7,8 @@ import {
 } from '../schemas/auth/RegisterSchema';
 import { LabelledInput } from '../components/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Routes } from '../Routes';
-import { useAuth } from '../contexts/auth/useAuth';
+
+import { useAuthService } from '../hooks/useAuthService';
 
 const inputFields: {
     type: HTMLInputTypeAttribute;
@@ -45,46 +45,34 @@ export const Register = () => {
     } = useForm<UserRegisterValues>({
         resolver: zodResolver(RegisterSchema),
     });
-    const navigate = useNavigate();
-    const { setIsLoggedIn } = useAuth();
-    const onSubmit = async (data: UserRegisterValues) => {
-        const response = await fetch('/@api/auth/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
 
-        if (response.status === 201) {
-            setIsLoggedIn(true);
-            navigate(Routes.HOME);
-        }
+    const { register: createAccount } = useAuthService();
+    const onSubmit = async (data: UserRegisterValues) => {
+        await createAccount(data);
     };
 
     return (
-        <main>
+        <main className=" h-screen flex items-center justify-center">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="  flex justify-center items-center  h-[98vh]"
+                className="  flex flex-col justify-around rounded-3xl items-center bg-gray-700 text-white px-6 py-4 min-w-1/3 min-h-1/2   "
             >
-                <div className="w-1/3 bg-gray-700 rounded-3xl text-white flex flex-col gap-6 px-8 py-8">
-                    <header>
-                        <h1 className="text-center text-3xl">Create account</h1>
-                    </header>
-                    {inputFields.map((field) => (
-                        <LabelledInput
-                            key={field.name}
-                            register={register}
-                            errors={errors}
-                            {...field}
-                        />
-                    ))}
-                    <input
-                        type="submit"
-                        className=" bg-white text-gray-700 w-fit self-center py-1 px-2 rounded-2xl"
+                <header>
+                    <h1 className="text-center text-3xl">Create account</h1>
+                </header>
+                {inputFields.map((field) => (
+                    <LabelledInput
+                        key={field.name}
+                        register={register}
+                        errors={errors}
+                        {...field}
+                        autoComplete="off"
                     />
-                </div>
+                ))}
+                <input
+                    type="submit"
+                    className=" bg-white text-gray-700 w-fit self-center py-1 px-2 rounded-2xl"
+                />
             </form>
         </main>
     );

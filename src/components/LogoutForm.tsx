@@ -1,35 +1,29 @@
-import { useNavigate } from 'react-router';
-import { Routes } from '../Routes';
 import { useForm } from 'react-hook-form';
-import { useLogout } from '../hooks/useLogout';
 
-export type LogoutScope = 'thisDevice' | 'allDevices';
+import { useAuthService } from '../hooks/useAuthService';
+
+export type LogoutPath = 'logout' | 'logout-all';
 
 interface FormValues {
-    logoutScope: LogoutScope;
+    logoutScope: LogoutPath;
 }
 
-const cards: { labelText: string; value: LogoutScope }[] = [
-    { labelText: 'Log me out from this device', value: 'thisDevice' },
-    { labelText: 'Log me out from all devices', value: 'allDevices' },
+const cards: { labelText: string; value: LogoutPath }[] = [
+    { labelText: 'Log me out from this device', value: 'logout' },
+    { labelText: 'Log me out from all devices', value: 'logout-all' },
 ];
 
 export const LogoutForm = () => {
-    const navigate = useNavigate();
-
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<FormValues>();
 
-    const logOut = useLogout();
+    const { logout } = useAuthService();
 
     const onSubmit = async (data: FormValues) => {
-        const logoutSuccessful = await logOut(data.logoutScope);
-        if (logoutSuccessful) {
-            navigate(Routes.HOME);
-        }
+        await logout(data.logoutScope);
     };
 
     return (

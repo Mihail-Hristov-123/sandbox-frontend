@@ -2,9 +2,7 @@ import { useForm } from 'react-hook-form';
 import { LabelledInput } from '../components/LabelledInput';
 import { LoginSchema, type UserLoginValues } from '../schemas/auth/LoginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useLogin } from '../hooks/useLogin';
-import { useNavigate } from 'react-router';
-import { Routes } from '../Routes';
+import { useAuthService } from '../hooks/useAuthService';
 
 export const Login = () => {
     const {
@@ -15,16 +13,10 @@ export const Login = () => {
         resolver: zodResolver(LoginSchema),
     });
 
-    const { logIn } = useLogin();
-
-    const navigate = useNavigate();
+    const { login } = useAuthService();
 
     const onSubmit = async (data: UserLoginValues) => {
-        const resultOK = await logIn(data);
-
-        if (resultOK) {
-            navigate(Routes.HOME);
-        }
+        await login(data);
     };
 
     return (
@@ -46,6 +38,8 @@ export const Login = () => {
                     labelText="Password:"
                     errors={errors}
                     name="password"
+                    type="password"
+                    autoComplete="off"
                     register={register}
                 />
                 <input

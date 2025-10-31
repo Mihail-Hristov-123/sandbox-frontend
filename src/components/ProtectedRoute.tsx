@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from 'react-router';
-import { useAuth } from '../contexts/auth/useAuth';
+import { useAuthContext } from '../contexts/auth/useAuthContext';
 import { Routes } from '../Routes';
 
 export const ProtectedRoute = ({
@@ -7,7 +7,7 @@ export const ProtectedRoute = ({
 }: {
     routesToBlock: 'public' | 'protected';
 }) => {
-    const { isLoggedIn } = useAuth();
+    const { isLoggedIn } = useAuthContext();
 
     if (!isLoggedIn && routesToBlock === 'protected') {
         return <Navigate to={Routes.LOG_IN} replace />;
