@@ -65,10 +65,7 @@ export const Register = () => {
     return (
         <main>
             <form
-                onSubmit={async (e) => {
-                    e.preventDefault();
-                    await handleSubmit(onSubmit)();
-                }}
+                onSubmit={handleSubmit(onSubmit)}
                 className="  flex justify-center items-center  h-[98vh]"
             >
                 <div className="w-1/3 bg-gray-700 rounded-3xl text-white flex flex-col gap-6 px-8 py-8">
