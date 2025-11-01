@@ -5,9 +5,11 @@ import { Nav } from './components/Nav.tsx';
 import { AuthProvider } from './contexts/auth/AuthProvider.tsx';
 
 import { AppRoutes } from './components/AppRoutes.tsx';
+import { Toaster } from 'react-hot-toast';
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
+        <Toaster position="top-center" />
         <AuthProvider>
             <BrowserRouter>
                 <Nav />

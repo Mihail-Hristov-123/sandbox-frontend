@@ -4,6 +4,7 @@ import { useAuthContext } from '../contexts/auth/useAuthContext';
 import { Routes } from '../Routes';
 import type { UserLoginValues } from '../schemas/auth/LoginSchema';
 import type { UserRegisterValues } from '../schemas/auth/RegisterSchema';
+import toast from 'react-hot-toast';
 
 type Logout = 'logout' | 'logout-all';
 
@@ -17,15 +18,16 @@ export const useAuthService = () => {
         action: AuthAction,
         data?: UserLoginValues | UserRegisterValues,
     ) => {
-        const success = await accessAuthAPI(action, data);
+        const result = await accessAuthAPI(action, data);
 
-        if (success) {
+        if (result.ok) {
             const isLoginAction = action === 'login' || action === 'register';
             setIsLoggedIn(isLoginAction);
             navigate(Routes.HOME);
+            return;
         }
-
-        return success;
+        const responseBody = await result.json();
+        toast.error(responseBody.message);
     };
 
     return {

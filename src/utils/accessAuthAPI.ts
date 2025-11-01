@@ -18,5 +18,5 @@ export const accessAuthAPI = async (
             : undefined,
         body: data ? JSON.stringify(data) : undefined,
     });
-    return result.ok;
+    return result;
 };
