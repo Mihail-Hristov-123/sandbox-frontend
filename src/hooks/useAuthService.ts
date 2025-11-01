@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router';
-import { accessAuthAPI } from '../utils/accessAuthAPI';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 import { Routes } from '../Routes';
 import type { UserLoginValues } from '../schemas/auth/LoginSchema';
 import type { UserRegisterValues } from '../schemas/auth/RegisterSchema';
 import toast from 'react-hot-toast';
+import { useFetch } from './useFetch';
 
 type Logout = 'logout' | 'logout-all';
 
@@ -12,22 +12,25 @@ type AuthAction = 'login' | 'register' | Logout;
 
 export const useAuthService = () => {
     const navigate = useNavigate();
-    const { setIsLoggedIn } = useAuthContext();
-
+    const { refresh } = useAuthContext();
+    const { fetchOrLogout } = useFetch();
     const handleAuthAction = async (
         action: AuthAction,
         data?: UserLoginValues | UserRegisterValues,
     ) => {
-        const result = await accessAuthAPI(action, data);
-
+        const result = await fetchOrLogout(`auth/${action}`, 'POST', data);
         if (result.ok) {
-            const isLoginAction = action === 'login' || action === 'register';
-            setIsLoggedIn(isLoginAction);
+            await refresh();
             navigate(Routes.HOME);
             return;
         }
-        const responseBody = await result.json();
-        toast.error(responseBody.message);
+
+        try {
+            const responseBody = await result.json();
+            toast.error(responseBody.message);
+        } catch {
+            toast.error('Unknown error occurred');
+        }
     };
 
     return {

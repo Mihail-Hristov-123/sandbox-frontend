@@ -7,28 +7,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState(true);
 
+    const refresh = async () => {
+        try {
+            await getUserInfo();
+            setIsLoggedIn(true);
+        } catch (error) {
+            setIsLoggedIn(false);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                await getUserInfo();
-                setIsLoggedIn(true);
-            } catch (error) {
-                setIsLoggedIn(false);
-            } finally {
-                setIsLoading(false);
-            }
-        };
-        setTimeout(() => {
-            checkAuth();
-            // add loading screen
-        }, 10000);
+        refresh();
     }, []);
 
     if (isLoading) {
         return <LoadingScreen />;
     }
     return (
-        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+        <AuthContext.Provider value={{ isLoggedIn, refresh }}>
             {children}
         </AuthContext.Provider>
     );
