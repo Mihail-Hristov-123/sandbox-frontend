@@ -7,7 +7,6 @@ import {
 } from '../schemas/auth/RegisterSchema';
 import { LabelledInput } from '../components/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { useAuthService } from '../hooks/useAuthService';
 
 const inputFields: {
@@ -47,9 +46,8 @@ export const Register = () => {
     });
 
     const { register: createAccount } = useAuthService();
-    const onSubmit = async (data: UserRegisterValues) => {
+    const onSubmit = async (data: UserRegisterValues) =>
         await createAccount(data);
-    };
 
     return (
         <main className=" h-screen flex items-center justify-center">

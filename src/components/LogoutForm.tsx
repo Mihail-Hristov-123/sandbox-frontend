@@ -1,16 +1,15 @@
 import { useForm } from 'react-hook-form';
-
 import { useAuthService } from '../hooks/useAuthService';
 
-export type LogoutPath = 'logout' | 'logout-all';
+type LogoutScope = 'thisDevice' | 'allDevices';
 
 interface FormValues {
-    logoutScope: LogoutPath;
+    logoutScope: LogoutScope;
 }
 
-const cards: { labelText: string; value: LogoutPath }[] = [
-    { labelText: 'Log me out from this device', value: 'logout' },
-    { labelText: 'Log me out from all devices', value: 'logout-all' },
+const cards: { labelText: string; value: LogoutScope }[] = [
+    { labelText: 'Log me out from this device', value: 'thisDevice' },
+    { labelText: 'Log me out from all devices', value: 'allDevices' },
 ];
 
 export const LogoutForm = () => {
@@ -20,11 +19,10 @@ export const LogoutForm = () => {
         formState: { errors },
     } = useForm<FormValues>();
 
-    const { logout } = useAuthService();
+    const { logOut } = useAuthService();
 
-    const onSubmit = async (data: FormValues) => {
-        await logout(data.logoutScope);
-    };
+    const onSubmit = async ({ logoutScope }: FormValues) =>
+        await logOut(logoutScope);
 
     return (
         <div className="bg-gray-700 p-4 rounded-md">

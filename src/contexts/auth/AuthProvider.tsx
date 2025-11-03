@@ -1,21 +1,23 @@
 import { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { getUserInfo } from '../../utils/getUserInfo';
+
 import { LoadingScreen } from '../../components/LoadingSVG';
+import { useApi } from '../../hooks/useApi';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState(true);
+    const { makeApiRequest } = useApi();
 
     const refresh = async () => {
-        try {
-            await getUserInfo();
+        const result = await makeApiRequest({ path: 'ME' });
+        console.log(result.ok);
+        if (result.ok) {
             setIsLoggedIn(true);
-        } catch (_) {
+        } else {
             setIsLoggedIn(false);
-        } finally {
-            setIsLoading(false);
         }
+        setIsLoading(false);
     };
 
     useEffect(() => {

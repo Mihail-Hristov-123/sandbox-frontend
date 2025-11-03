@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form';
 import { LabelledInput } from '../components/LabelledInput';
 import { LoginSchema, type UserLoginValues } from '../schemas/auth/LoginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
+
 import { useAuthService } from '../hooks/useAuthService';
 
 export const Login = () => {
@@ -13,12 +14,9 @@ export const Login = () => {
         resolver: zodResolver(LoginSchema),
     });
 
-    const { login } = useAuthService();
+    const { logIn } = useAuthService();
 
-    const onSubmit = async (data: UserLoginValues) => {
-        await login(data);
-    };
-
+    const onSubmit = async (data: UserLoginValues) => await logIn(data);
     return (
         <main className=" h-screen flex items-center justify-center">
             <form
