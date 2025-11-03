@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 
 import { LoadingScreen } from '../../components/LoadingSVG';
-import { useApi } from '../../hooks/useApi';
+import { useUserService } from '../../hooks/useUserService';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState(true);
-    const { makeApiRequest } = useApi();
+    const { getCurrentUserInfo } = useUserService();
 
     const refresh = async () => {
-        const result = await makeApiRequest({ path: 'ME' });
+        const result = await getCurrentUserInfo();
         console.log(result.ok);
         if (result.ok) {
             setIsLoggedIn(true);

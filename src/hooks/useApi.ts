@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 import { apiRoutes } from '../routes';
 type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -10,10 +9,14 @@ export interface FetchOptions {
 }
 
 type Path = keyof typeof apiRoutes;
-type Response = {
+export type Response<T> = {
     ok: boolean;
     status: number;
-    data: { success: boolean; message: string } | null;
+    body: {
+        success: boolean;
+        message: string;
+        data: T | null;
+    } | null;
 };
 
 export const useApi = () => {
@@ -25,7 +28,7 @@ export const useApi = () => {
         'LOGOUT',
         'LOGOUT_ALL',
     ];
-    const handleDynamicAuth = async (path: Path, response: Response) => {
+    const handleDynamicAuth = async <T>(path: Path, response: Response<T>) => {
         if (authPaths.includes(path) && response.ok) {
             await refresh();
         }
@@ -35,44 +38,41 @@ export const useApi = () => {
         }
     };
 
-    const showErrorToast = (path: Path, response: Response) => {
-        if (!authPaths.includes(path) && response.status === 401) {
-            toast('Session expired, updating authentication status');
-        } else if (!response.ok) {
-            toast.error(
-                response.data?.message
-                    ? response.data.message
-                    : 'Failed to connect to the server',
-            );
-        }
-    };
-
-    const makeApiRequest = async ({
+    const makeApiRequest = async <T>({
         path,
         body,
         method = 'GET',
-    }: FetchOptions) => {
+    }: FetchOptions): Promise<Response<T>> => {
         const options: RequestInit = {
             method,
             headers: body ? { 'Content-Type': 'application/json' } : undefined,
             body: body ? JSON.stringify(body) : undefined,
         };
-        let result = { ok: false, status: 0, data: null };
+        let result: Response<T> = {
+            ok: false,
+            status: 0,
+            body: null,
+        };
         try {
             const response = await fetch(`/@api${apiRoutes[path]}`, options);
-            let data = null;
-
+            let body: {
+                success: boolean;
+                message: string;
+                data: T | null;
+            } | null = null;
             try {
-                data = await response.json();
+                body = await response.json();
             } catch {}
-
-            result = { ok: response.ok, status: response.status, data };
+            result = {
+                ok: response.ok,
+                status: response.status,
+                body,
+            };
 
             await handleDynamicAuth(path, result);
         } catch (err) {
             console.error('API request failed', err);
         } finally {
-            showErrorToast(path, result);
             return result;
         }
     };

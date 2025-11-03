@@ -1,10 +1,51 @@
+import { useEffect, useState } from 'react';
 import { LogoutForm } from '../components/LogoutForm';
+import { useUserService } from '../hooks/useUserService';
+import { LoadingScreen } from '../components/LoadingSVG';
+import type { UserReturnValues } from '../schemas/auth/RegisterSchema';
 
 export const MyAccount = () => {
+    const { getCurrentUserInfo } = useUserService();
+
+    const [userInfo, setUserInfo] = useState<UserReturnValues | null>(null);
+
+    useEffect(() => {
+        const updateUserInfo = async () => {
+            const response = await getCurrentUserInfo();
+            if (response.body?.data) {
+                setUserInfo(response.body.data);
+            }
+        };
+        updateUserInfo();
+    }, []);
+
+    if (!userInfo) {
+        return <LoadingScreen />;
+    }
+
     return (
         <main>
-            <h1 className=" text-center text-3xl my-8">My account</h1>
-            <LogoutForm />
+            <h1 className="text-center text-3xl font-semibold my-8 text-gray-800">
+                My Account
+            </h1>
+
+            <div className="flex flex-col gap-20 w-full items-center">
+                <dl className="max-w-md w-full bg-white shadow-md rounded-lg p-6 divide-y divide-gray-200">
+                    <div className="py-2 flex justify-between">
+                        <dt className="text-gray-600 font-medium">Username:</dt>
+                        <dd className="text-gray-700 font-semibold">
+                            {userInfo.username}
+                        </dd>
+                    </div>
+                    <div className="py-2 flex justify-between">
+                        <dt className="text-gray-600 font-medium">Email:</dt>
+                        <dd className="text-gray-700 font-semibold">
+                            {userInfo.email}
+                        </dd>
+                    </div>
+                </dl>
+                <LogoutForm />
+            </div>
         </main>
     );
 };
