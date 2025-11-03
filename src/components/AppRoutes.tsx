@@ -8,14 +8,14 @@ import {
     Register,
 } from '../pages/index';
 
-import { Routes as paths } from '../Routes';
+import { clientRoutes } from '../routes';
 import { ProtectedRoute } from './ProtectedRoute';
 
 const mapRoutes = (
-    routes: { path: keyof typeof paths; element: React.ReactNode }[],
+    routes: { path: keyof typeof clientRoutes; element: React.ReactNode }[],
 ) =>
     routes.map(({ path, element }) => (
-        <Route key={path} path={paths[path]} element={element} />
+        <Route key={path} path={clientRoutes[path]} element={element} />
     ));
 
 export const AppRoutes = () => (

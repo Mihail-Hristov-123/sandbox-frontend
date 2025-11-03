@@ -1,8 +1,23 @@
-export enum Routes {
-    HOME = '/',
-    POSTS = '/posts',
-    REGISTER = '/register',
-    LOG_IN = '/login',
-    PROTECTED = '/protected',
-    MY_ACCOUNT = '/me',
-}
+export const clientRoutes = {
+    HOME: '/',
+    POSTS: '/posts',
+    REGISTER: '/register',
+    LOG_IN: '/login',
+    PROTECTED: '/protected',
+    MY_ACCOUNT: '/me',
+};
+
+// to be mostly replaced by types from open-api
+
+type RouteGroup = 'auth' | 'users';
+
+const createApiRoute = (routeGroup: RouteGroup, path: string) =>
+    `/${routeGroup}/${path}`;
+
+export const apiRoutes = {
+    REGISTER: createApiRoute('auth', 'register'),
+    LOGIN: createApiRoute('auth', 'login'),
+    LOGOUT: createApiRoute('auth', 'logout'),
+    LOGOUT_ALL: createApiRoute('auth', 'logout-all'),
+    ME: createApiRoute('users', 'me'),
+};

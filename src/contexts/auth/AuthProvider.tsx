@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         try {
             await getUserInfo();
             setIsLoggedIn(true);
-        } catch (error) {
+        } catch (_) {
             setIsLoggedIn(false);
         } finally {
             setIsLoading(false);

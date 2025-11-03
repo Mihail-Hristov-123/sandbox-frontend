@@ -1,16 +1,19 @@
 import { useAuthContext } from '../contexts/auth/useAuthContext';
+import { apiRoutes } from '../routes';
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
+
+const PROXY_ALIAS = '/@api';
 
 export const useFetch = () => {
     const { refresh } = useAuthContext();
 
     const fetchOrLogout = async (
-        path: string,
+        path: keyof typeof apiRoutes,
         method?: HttpMethod,
         body?: unknown,
     ) => {
-        const result = await fetch(`/@api/${path}`, {
+        const result = await fetch(`${PROXY_ALIAS}/${apiRoutes[path]}`, {
             method,
             headers: body ? { 'Content-Type': 'application/json' } : undefined,
             body: body ? JSON.stringify(body) : undefined,
