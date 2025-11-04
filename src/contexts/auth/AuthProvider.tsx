@@ -11,12 +11,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const refresh = async () => {
         const result = await getCurrentUserInfo();
-        console.log(result.ok);
-        if (result.ok) {
-            setIsLoggedIn(true);
-        } else {
-            setIsLoggedIn(false);
-        }
+        setIsLoggedIn(result?.ok ?? false);
         setIsLoading(false);
     };
 
@@ -28,7 +23,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         return <LoadingScreen />;
     }
     return (
-        <AuthContext.Provider value={{ isLoggedIn, refresh }}>
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
             {children}
         </AuthContext.Provider>
     );

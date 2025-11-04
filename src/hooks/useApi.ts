@@ -1,14 +1,7 @@
-import type { apiRoutes } from '../Routes';
+import { apiRoutes } from '../Routes';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 type Path = keyof typeof apiRoutes;
-
-const authPaths: Partial<Path>[] = [
-    'LOGIN',
-    'LOGOUT',
-    'LOGOUT_ALL',
-    'REGISTER',
-];
 export interface FetchParams {
     path: Path;
     method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
@@ -17,37 +10,36 @@ export interface FetchParams {
 
 interface ResponseBody<Data> {
     success: boolean;
-    message: string;
+    message?: string;
     data?: Data;
 }
 
 export interface Response<Data> {
     status: number;
     ok: boolean;
-    body: ResponseBody<Data>;
+    body?: ResponseBody<Data>;
 }
 
 export const useApi = () => {
-    const { refresh } = useAuthContext();
+    const { setIsLoggedIn } = useAuthContext();
 
     const fetchWithAuthCheck = async <Data>({
         path,
         method = 'GET',
         body,
-    }: FetchParams): Promise<Response<Data>> => {
-        const response = await fetch(path, {
+    }: FetchParams): Promise<Response<Data> | undefined> => {
+        const response = await fetch(`/@api${apiRoutes[path]}`, {
             method,
             headers: body ? { 'Content-Type': 'application/json' } : undefined,
             body: body ? JSON.stringify(body) : undefined,
         });
 
-        if (response.status === 401) {
-            await refresh();
-        } else if (authPaths.includes(path) && response.status === 200) {
-            await refresh();
+        if (response.status === 401 && path !== 'LOGIN') {
+            setIsLoggedIn(false);
+            return;
         }
 
-        const responseBody: ResponseBody<Data> = await response.json();
+        const responseBody = await response.json();
 
         return {
             status: response.status,

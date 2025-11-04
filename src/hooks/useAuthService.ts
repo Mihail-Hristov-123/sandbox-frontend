@@ -1,10 +1,12 @@
+import { useAuthContext } from '../contexts/auth/useAuthContext';
 import type { UserLoginValues } from '../schemas/auth/LoginSchema';
 import type { UserRegisterValues } from '../schemas/auth/RegisterSchema';
+import { displayErrorToast } from '../utils/displayErrorToast';
 import { useApi } from './useApi';
-import toast from 'react-hot-toast';
 
 export const useAuthService = () => {
     const { fetchWithAuthCheck } = useApi();
+    const { setIsLoggedIn } = useAuthContext();
 
     const logIn = async (data: UserLoginValues) => {
         try {
@@ -13,17 +15,15 @@ export const useAuthService = () => {
                 path: 'LOGIN',
                 body: data,
             });
-            if (!result.ok) {
-                throw new Error(result.body.message);
+            if (result && !result.ok) {
+                throw new Error(result.body?.message);
             }
+
+            setIsLoggedIn(true);
 
             return result;
         } catch (error) {
-            toast.error(
-                error instanceof Error
-                    ? error.message
-                    : 'Error occurred during registration',
-            );
+            displayErrorToast(error, 'Error occurred during login');
         }
     };
     const logOut = async (logoutScope: 'thisDevice' | 'allDevices') => {
@@ -32,8 +32,9 @@ export const useAuthService = () => {
                 path: logoutScope === 'thisDevice' ? 'LOGOUT' : 'LOGOUT_ALL',
                 method: 'POST',
             });
+            setIsLoggedIn(false);
         } catch (error) {
-            toast.error(`Error occurred during logout`);
+            displayErrorToast(error, 'Error occurred during logout');
         }
     };
     const register = async (data: UserRegisterValues) => {
@@ -43,17 +44,15 @@ export const useAuthService = () => {
                 path: 'REGISTER',
                 body: data,
             });
-            if (!result.ok) {
-                throw new Error(result.body.message);
+            if (result && !result.ok) {
+                throw new Error(result.body?.message);
             }
+
+            setIsLoggedIn(true);
 
             return result;
         } catch (error) {
-            toast.error(
-                error instanceof Error
-                    ? error.message
-                    : 'Error occurred during registration',
-            );
+            displayErrorToast(error, 'Error occurred during registration');
         }
     };
 

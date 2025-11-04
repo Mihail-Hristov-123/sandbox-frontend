@@ -3,6 +3,7 @@ import { LogoutForm } from '../components/LogoutForm';
 import { useUserService } from '../hooks/useUserService';
 import { LoadingScreen } from '../components/LoadingSVG';
 import type { UserReturnValues } from '../schemas/auth/RegisterSchema';
+import { displayErrorToast } from '../utils/displayErrorToast';
 
 export const MyAccount = () => {
     const { getCurrentUserInfo } = useUserService();
@@ -11,9 +12,14 @@ export const MyAccount = () => {
 
     useEffect(() => {
         const updateUserInfo = async () => {
-            const response = await getCurrentUserInfo();
-            if (response.body.data) {
+            try {
+                const response = await getCurrentUserInfo();
+                if (!response?.body?.data) {
+                    throw new Error('Failed to fetch user info');
+                }
                 setUserInfo(response.body.data);
+            } catch (error) {
+                displayErrorToast(error, ' Could not fetch user data');
             }
         };
         updateUserInfo();
