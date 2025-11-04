@@ -23,7 +23,7 @@ export const MyAccount = () => {
             }
         };
         updateUserInfo();
-    }, []);
+    }, [getCurrentUserInfo]);
 
     if (!userInfo) {
         return <LoadingScreen />;

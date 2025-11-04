@@ -10,7 +10,7 @@ import {
 
 import { clientRoutes } from '../routes';
 import { ProtectedRoute } from './ProtectedRoute';
-import { QuestionsAndAnswers } from '../pages/Discussions';
+import { QuestionsAndAnswers } from '../pages/Questions';
 
 const mapRoutes = (
     routes: { path: keyof typeof clientRoutes; element: React.ReactNode }[],

@@ -9,15 +9,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isLoading, setIsLoading] = useState(true);
     const { getCurrentUserInfo } = useUserService();
 
-    const refresh = async () => {
-        const result = await getCurrentUserInfo();
-        setIsLoggedIn(result?.ok ?? false);
-        setIsLoading(false);
-    };
-
     useEffect(() => {
+        const refresh = async () => {
+            const result = await getCurrentUserInfo();
+            setIsLoggedIn(result?.ok ?? false);
+            setIsLoading(false);
+        };
         refresh();
-    }, []);
+    }, [getCurrentUserInfo]);
 
     if (isLoading) {
         return <LoadingScreen />;
