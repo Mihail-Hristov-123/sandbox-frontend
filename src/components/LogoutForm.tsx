@@ -25,7 +25,7 @@ export const LogoutForm = () => {
         await logOut(logoutScope);
 
     return (
-        <div className="bg-gray-700 p-4 w-full rounded-md">
+        <div className="bg-gray-700 p-4 w-full">
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className="text-white flex flex-col space-y-4"

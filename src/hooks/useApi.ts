@@ -1,4 +1,4 @@
-import { apiRoutes } from '../Routes';
+import { apiRoutes } from '../routes';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 type Path = keyof typeof apiRoutes;

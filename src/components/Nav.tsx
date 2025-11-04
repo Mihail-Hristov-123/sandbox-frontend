@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router';
 
-import { clientRoutes } from '../routes';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
+import { clientRoutes } from '../routes';
 
-const { HOME, POSTS, MY_ACCOUNT, PROTECTED, LOG_IN, REGISTER } = clientRoutes;
+const { HOME, POSTS, MY_ACCOUNT, QUESTIONS, LOG_IN, REGISTER } = clientRoutes;
 
 export const Nav = () => {
     const { isLoggedIn } = useAuthContext();
@@ -13,9 +13,7 @@ export const Nav = () => {
             <div className="flex gap-20">
                 <NavLink to={HOME}>Home</NavLink>
                 <NavLink to={POSTS}>Posts</NavLink>
-                {isLoggedIn && (
-                    <NavLink to={PROTECTED}>Protected route</NavLink>
-                )}
+                <NavLink to={QUESTIONS}>Q&A</NavLink>
             </div>
 
             <div className=" flex gap-8 self-end ">

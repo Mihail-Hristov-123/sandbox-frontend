@@ -50,7 +50,10 @@ export const MyAccount = () => {
                         </dd>
                     </div>
                 </dl>
-                <LogoutForm />
+                <div className=" fixed bottom-0 w-full">
+                    {' '}
+                    <LogoutForm />
+                </div>
             </div>
         </main>
     );

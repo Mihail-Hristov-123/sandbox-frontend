@@ -5,6 +5,7 @@ export const clientRoutes = {
     LOG_IN: '/login',
     PROTECTED: '/protected',
     MY_ACCOUNT: '/me',
+    QUESTIONS: '/questions',
 };
 
 // to be mostly replaced by types from open-api
