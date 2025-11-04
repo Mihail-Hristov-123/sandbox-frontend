@@ -12,7 +12,7 @@ export const MyAccount = () => {
     useEffect(() => {
         const updateUserInfo = async () => {
             const response = await getCurrentUserInfo();
-            if (response.body?.data) {
+            if (response.body.data) {
                 setUserInfo(response.body.data);
             }
         };

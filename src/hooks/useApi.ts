@@ -1,81 +1,60 @@
+import type { apiRoutes } from '../Routes';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
-import { apiRoutes } from '../routes';
-type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
-export interface FetchOptions {
-    path: keyof typeof apiRoutes;
-    method?: Method;
+type Path = keyof typeof apiRoutes;
+
+const authPaths: Partial<Path>[] = [
+    'LOGIN',
+    'LOGOUT',
+    'LOGOUT_ALL',
+    'REGISTER',
+];
+export interface FetchParams {
+    path: Path;
+    method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     body?: unknown;
 }
 
-type Path = keyof typeof apiRoutes;
-export type Response<T> = {
-    ok: boolean;
+interface ResponseBody<Data> {
+    success: boolean;
+    message: string;
+    data?: Data;
+}
+
+export interface Response<Data> {
     status: number;
-    body: {
-        success: boolean;
-        message: string;
-        data: T | null;
-    } | null;
-};
+    ok: boolean;
+    body: ResponseBody<Data>;
+}
 
 export const useApi = () => {
     const { refresh } = useAuthContext();
 
-    const authPaths: Partial<Path>[] = [
-        'REGISTER',
-        'LOGIN',
-        'LOGOUT',
-        'LOGOUT_ALL',
-    ];
-    const handleDynamicAuth = async <T>(path: Path, response: Response<T>) => {
-        if (authPaths.includes(path) && response.ok) {
-            await refresh();
-        }
-
-        if (!authPaths.includes(path) && response.status === 401) {
-            await refresh();
-        }
-    };
-
-    const makeApiRequest = async <T>({
+    const fetchWithAuthCheck = async <Data>({
         path,
-        body,
         method = 'GET',
-    }: FetchOptions): Promise<Response<T>> => {
-        const options: RequestInit = {
+        body,
+    }: FetchParams): Promise<Response<Data>> => {
+        const response = await fetch(path, {
             method,
             headers: body ? { 'Content-Type': 'application/json' } : undefined,
             body: body ? JSON.stringify(body) : undefined,
-        };
-        let result: Response<T> = {
-            ok: false,
-            status: 0,
-            body: null,
-        };
-        try {
-            const response = await fetch(`/@api${apiRoutes[path]}`, options);
-            let body: {
-                success: boolean;
-                message: string;
-                data: T | null;
-            } | null = null;
-            try {
-                body = await response.json();
-            } catch {}
-            result = {
-                ok: response.ok,
-                status: response.status,
-                body,
-            };
+        });
 
-            await handleDynamicAuth(path, result);
-        } catch (err) {
-            console.error('API request failed', err);
-        } finally {
-            return result;
+        if (response.status === 401) {
+            await refresh();
+        } else if (authPaths.includes(path) && response.status === 200) {
+            await refresh();
         }
+
+        const responseBody: ResponseBody<Data> = await response.json();
+
+        return {
+            status: response.status,
+            ok: response.ok,
+            body: responseBody,
+        };
     };
 
-    return { makeApiRequest };
+    return { fetchWithAuthCheck };
 };
