@@ -7,9 +7,8 @@ const { HOME, POSTS, MY_ACCOUNT, QUESTIONS, LOG_IN, REGISTER } = clientRoutes;
 
 export const Nav = () => {
     const { isLoggedIn } = useAuthContext();
-
     return (
-        <nav className=" bg-gray-700 w-full px-24 py-2 text-white font-bold flex justify-between">
+        <nav className=" bg-gray-700 w-full px-24 py-4 text-white font-bold flex justify-between ">
             <div className="flex gap-20">
                 <NavLink to={HOME}>Home</NavLink>
                 <NavLink to={POSTS}>Posts</NavLink>

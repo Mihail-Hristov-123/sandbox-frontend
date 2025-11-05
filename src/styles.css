@@ -5,7 +5,13 @@ html {
 }
 
 a.active {
-    color: greenyellow;
+    color: rgb(4, 183, 4);
+}
+
+a:not(.active):hover {
+    color: yellowgreen;
+    transition: all;
+    transition-duration: 300ms;
 }
 
 main {
