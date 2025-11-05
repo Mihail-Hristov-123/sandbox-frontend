@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { LogoutForm } from '../components/LogoutForm';
+import { LogoutForm } from '../components/formRelated/LogoutForm';
 import { useUserService } from '../hooks/useUserService';
 import { LoadingScreen } from '../components/LoadingScreen';
 import type { UserReturnValues } from '../schemas/auth/RegisterSchema';
