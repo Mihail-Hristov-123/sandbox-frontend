@@ -4,13 +4,10 @@ import { useApi } from './useApi';
 export const useUserService = () => {
     const { fetchWithAuthCheck } = useApi();
 
-    const getCurrentUserInfo = async () => {
-        const result = await fetchWithAuthCheck<UserReturnValues>({
+    const getCurrentUserInfo = () =>
+        fetchWithAuthCheck<UserReturnValues>({
             path: 'ME',
         });
-
-        return result;
-    };
 
     return { getCurrentUserInfo };
 };
