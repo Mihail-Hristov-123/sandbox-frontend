@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { QuestionCard } from '../components/QuestionCard';
 import { QuestionForm } from '../components/QuestionForm';
-import { useAuthContext } from '../contexts/auth/useAuthContext';
 import type { QuestionValues } from '../schemas/questions/QuestionSchema';
 
 export type Question = QuestionValues & {
@@ -23,11 +22,9 @@ export const Questions = () => {
         },
     ]);
 
-    const { isLoggedIn } = useAuthContext();
-
     return (
         <main className="min-h-screen bg-gray-50  ">
-            {isLoggedIn && <QuestionForm />}
+            <QuestionForm />
             <div className="max-w-[60vw] py-10 mx-auto">
                 <h1 className="text-3xl font-bold text-gray-800 mb-10 text-center">
                     Latest questions
