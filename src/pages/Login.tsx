@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { LabelledInput } from '../components/LabelledInput';
+import { LabelledInput } from '../components/formRelated/LabelledInput';
 import { LoginSchema, type UserLoginValues } from '../schemas/auth/LoginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 

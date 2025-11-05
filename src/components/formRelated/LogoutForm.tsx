@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { useAuthService } from '../hooks/useAuthService';
+import { useAuthService } from '../../hooks/useAuthService';
+import { ErrorMessage } from './ErrorMessage';
 
 type LogoutScope = 'thisDevice' | 'allDevices';
 
@@ -24,6 +25,8 @@ export const LogoutForm = () => {
     const onSubmit = async ({ logoutScope }: FormValues) =>
         await logOut(logoutScope);
 
+    const errorMessage=errors.logoutScope?.message
+
     return (
         <div className="bg-gray-700 p-4 w-full rounded-md">
             <form
@@ -39,7 +42,7 @@ export const LogoutForm = () => {
                 <div className="flex justify-around">
                     {cards.map(({ value, labelText }) => (
                         <label
-                            className="bg-white text-gray-700 flex flex-col items-center p-2 rounded cursor-pointer"
+                            className={`bg-white text-gray-700 flex flex-col items-center p-2 rounded cursor-pointer ${errorMessage && 'border-2 border-red-400'}`}
                             key={value}
                         >
                             {labelText}
@@ -54,11 +57,7 @@ export const LogoutForm = () => {
                     ))}
                 </div>
 
-                {errors.logoutScope && (
-                    <p className="text-red-400 text-center">
-                        {errors.logoutScope.message}
-                    </p>
-                )}
+                <ErrorMessage errorMessage={errors.logoutScope?.message} className=' text-center'/>
 
                 <button
                     type="submit"
