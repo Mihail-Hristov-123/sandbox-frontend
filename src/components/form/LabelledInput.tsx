@@ -6,8 +6,6 @@ import type {
 } from 'react-hook-form';
 import { ErrorMessage } from './ErrorMessage';
 
-
-
 interface Props<T extends FieldValues>
     extends React.InputHTMLAttributes<HTMLInputElement> {
     labelText: string;
@@ -40,7 +38,11 @@ export const LabelledInput = <T extends FieldValues>({
           ${className}`}
             />
 
+<<<<<<< HEAD
             <ErrorMessage errorMessage={errorMessage}/>
+=======
+            <ErrorMessage errorMessage={errorMessage} />
+>>>>>>> da84b02 (refactor: create an error message component to DRY up form components)
         </div>
     );
 };

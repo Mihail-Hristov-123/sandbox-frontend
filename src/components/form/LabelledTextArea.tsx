@@ -4,6 +4,7 @@ import type {
     UseFormRegister,
     Path,
 } from 'react-hook-form';
+import { ErrorMessage } from './ErrorMessage';
 
 interface Props<T extends FieldValues>
     extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -28,7 +29,7 @@ export const LabelledTextArea = <T extends FieldValues>({
         <div>
             <label htmlFor={name}>{labelText}</label>
             <textarea
-                className="border-2 border-gray-700 w-full max-h-[30vh] min-h-[2em] p-1 indent-2 rounded-md"
+                className={`border-2 border-gray-700 w-full max-h-[30vh] min-h-[2em] p-1 indent-2 rounded-md ${errorMessage && 'border-red-400'}`}
                 id={name}
                 {...register(name)}
                 {...props}
@@ -36,9 +37,7 @@ export const LabelledTextArea = <T extends FieldValues>({
                 {...props}
                 name={name}
             />
-            {errors.content && (
-                <p className="text-red-500 text-sm">{String(errorMessage)}</p>
-            )}
+            <ErrorMessage errorMessage={errorMessage} />
         </div>
     );
 };
