@@ -4,6 +4,7 @@ import type {
     UseFormRegister,
     Path,
 } from 'react-hook-form';
+import { ErrorMessage } from './ErrorMessage';
 
 interface Props<T extends FieldValues>
     extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -37,9 +38,7 @@ export const LabelledInput = <T extends FieldValues>({
           ${className}`}
             />
 
-            {errorMessage && (
-                <p className="text-xs text-red-500 ">{String(errorMessage)}</p>
-            )}
+            <ErrorMessage errorMessage={errorMessage} />
         </div>
     );
 };
