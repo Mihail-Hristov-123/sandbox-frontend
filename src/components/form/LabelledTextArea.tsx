@@ -1,0 +1,44 @@
+import type {
+    FieldErrors,
+    FieldValues,
+    UseFormRegister,
+    Path,
+} from 'react-hook-form';
+
+interface Props<T extends FieldValues>
+    extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+    labelText: string;
+    errors: FieldErrors<T>;
+    name: Path<T>;
+    register: UseFormRegister<T>;
+    className?: string;
+}
+
+export const LabelledTextArea = <T extends FieldValues>({
+    labelText,
+    errors,
+    name,
+    register,
+    className = '',
+    ...props
+}: Props<T>) => {
+    const errorMessage = errors[name]?.message;
+
+    return (
+        <div>
+            <label htmlFor={name}>{labelText}</label>
+            <textarea
+                className="border-2 border-gray-700 w-full max-h-[30vh] min-h-[2em] p-1 indent-2 rounded-md"
+                id={name}
+                {...register(name)}
+                {...props}
+                placeholder="Share your thoughts..."
+                {...props}
+                name={name}
+            />
+            {errors.content && (
+                <p className="text-red-500 text-sm">{String(errorMessage)}</p>
+            )}
+        </div>
+    );
+};

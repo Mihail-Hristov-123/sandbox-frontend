@@ -24,6 +24,7 @@ export const AppRoutes = () => (
         {mapRoutes([
             { path: 'HOME', element: <Home /> },
             { path: 'POSTS', element: <Posts /> },
+            { path: 'QUESTIONS', element: <QuestionsAndAnswers /> },
         ])}
 
         <Route element={<ProtectedRoute routesToBlock="public" />}>
@@ -34,10 +35,7 @@ export const AppRoutes = () => (
         </Route>
 
         <Route element={<ProtectedRoute routesToBlock="protected" />}>
-            {mapRoutes([
-                { path: 'QUESTIONS', element: <QuestionsAndAnswers /> },
-                { path: 'MY_ACCOUNT', element: <MyAccount /> },
-            ])}
+            {mapRoutes([{ path: 'MY_ACCOUNT', element: <MyAccount /> }])}
         </Route>
 
         <Route path="*" element={<NotFound />} />

@@ -5,7 +5,7 @@ import {
     RegisterSchema,
     type UserRegisterValues,
 } from '../schemas/auth/RegisterSchema';
-import { LabelledInput } from '../components/LabelledInput';
+import { LabelledInput } from '../components/form/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthService } from '../hooks/useAuthService';
 
