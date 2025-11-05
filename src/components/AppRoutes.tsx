@@ -5,12 +5,12 @@ import {
     MyAccount,
     NotFound,
     Posts,
+    Questions,
     Register,
 } from '../pages/index';
 
 import { clientRoutes } from '../routes';
 import { ProtectedRoute } from './ProtectedRoute';
-import { QuestionsAndAnswers } from '../pages/Questions';
 
 const mapRoutes = (
     routes: { path: keyof typeof clientRoutes; element: React.ReactNode }[],
@@ -24,7 +24,7 @@ export const AppRoutes = () => (
         {mapRoutes([
             { path: 'HOME', element: <Home /> },
             { path: 'POSTS', element: <Posts /> },
-            { path: 'QUESTIONS', element: <QuestionsAndAnswers /> },
+            { path: 'QUESTIONS', element: <Questions /> },
         ])}
 
         <Route element={<ProtectedRoute routesToBlock="public" />}>

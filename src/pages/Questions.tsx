@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import { QuestionCard } from '../components/QuestionCard';
-import { QuestionForm } from '../components/QuestionForm';
-import { useAuthContext } from '../contexts/auth/useAuthContext';
+import { QuestionForm } from '../components/formRelated/QuestionForm';
+import type { QuestionValues } from '../schemas/questions/QuestionSchema';
 
-export interface Question {
+export type Question = QuestionValues & {
     author: string;
-    title: string;
-    description: string;
-}
+};
 
-export const QuestionsAndAnswers = () => {
-    const [questions, setQuestions] = useState<Question[]>([
+export const Questions = () => {
+    const [questions, _setQuestions] = useState<Question[]>([
         {
             author: 'Fred',
             title: 'How do I tie a hook?',
@@ -24,11 +22,9 @@ export const QuestionsAndAnswers = () => {
         },
     ]);
 
-    const { isLoggedIn } = useAuthContext();
-
     return (
         <main className="min-h-screen bg-gray-50  ">
-            {isLoggedIn && <QuestionForm />}
+            <QuestionForm />
             <div className="max-w-[60vw] py-10 mx-auto">
                 <h1 className="text-3xl font-bold text-gray-800 mb-10 text-center">
                     Latest questions

@@ -1,9 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { LabelledInput } from '../components/form/LabelledInput';
+import { LabelledInput } from '../components/formRelated/LabelledInput';
 import { LoginSchema, type UserLoginValues } from '../schemas/auth/LoginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useAuthService } from '../hooks/useAuthService';
+import { Link } from 'react-router';
+import { clientRoutes } from '../routes';
 
 export const Login = () => {
     const {
@@ -18,7 +20,7 @@ export const Login = () => {
 
     const onSubmit = async (data: UserLoginValues) => await logIn(data);
     return (
-        <main className="flex items-center justify-center">
+        <main className="flex items-center justify-center gap-8 flex-col">
             <form
                 onSubmit={handleSubmit(onSubmit)}
                 className=" bg-gray-700 text-white flex flex-col justify-around w-1/3 p-6 gap-8 rounded-3xl"
@@ -45,6 +47,15 @@ export const Login = () => {
                     className=" bg-white text-gray-700 w-fit self-center py-1 px-2 rounded-2xl"
                 />
             </form>
+            <p>
+                Don't have an account?{' '}
+                <Link
+                    to={clientRoutes.REGISTER}
+                    className=" bg-gray-700 text-white p-2 rounded-3xl"
+                >
+                    Register
+                </Link>
+            </p>
         </main>
     );
 };

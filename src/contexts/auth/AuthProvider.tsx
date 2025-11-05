@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 
-import { LoadingScreen } from '../../components/LoadingSVG';
+import { LoadingScreen } from '../../components/LoadingScreen';
 import { useUserService } from '../../hooks/useUserService';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
