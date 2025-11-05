@@ -11,7 +11,6 @@ import {
 
 import { clientRoutes } from '../routes';
 import { ProtectedRoute } from './ProtectedRoute';
-import { QuestionsAndAnswers } from '../pages/Questions';
 
 const mapRoutes = (
     routes: { path: keyof typeof clientRoutes; element: React.ReactNode }[],
@@ -36,10 +35,7 @@ export const AppRoutes = () => (
         </Route>
 
         <Route element={<ProtectedRoute routesToBlock="protected" />}>
-            {mapRoutes([
-                { path: 'QUESTIONS', element: <QuestionsAndAnswers /> },
-                { path: 'MY_ACCOUNT', element: <MyAccount /> },
-            ])}
+            {mapRoutes([{ path: 'MY_ACCOUNT', element: <MyAccount /> }])}
         </Route>
 
         <Route path="*" element={<NotFound />} />
