@@ -24,9 +24,9 @@ export const QuestionsAndAnswers = () => {
     ]);
 
     return (
-        <main className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <main className="min-h-screen bg-gray-50  ">
             <QuestionForm />
-            <div className="max-w-[60vw] mx-auto">
+            <div className="max-w-[60vw] my-10 mx-auto">
                 <h1 className="text-3xl font-bold text-gray-800 mb-10 text-center">
                     Latest questions
                 </h1>
