@@ -1,5 +1,21 @@
 @import 'tailwindcss';
 
+html {
+    font-size: 16px;
+}
+
 a.active {
     color: greenyellow;
+}
+
+main {
+    background-color: #f2f3f4;
+    min-height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    font-size: xx-large;
+    font-weight: 600;
+    padding: 1rem;
 }

@@ -59,7 +59,7 @@ export const QuestionForm = () => {
             <div className="w-fit mx-auto bg-gray-700 rounded-b-2xl flex items-center gap-2 px-3 py-1">
                 <button
                     onClick={() => setExpanded(!expanded)}
-                    className="flex items-center group"
+                    className="flex items-center group cursor-pointer"
                 >
                     <span className="text-white text-sm">
                         {expanded ? 'Hide question form' : 'Ask a question'}

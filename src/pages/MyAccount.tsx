@@ -31,9 +31,7 @@ export const MyAccount = () => {
 
     return (
         <main>
-            <h1 className="text-center text-3xl font-semibold my-8 text-gray-800">
-                My Account
-            </h1>
+            <h1>My Account</h1>
 
             <div className="flex flex-col gap-20 w-full items-center">
                 <dl className="max-w-md w-full bg-white shadow-md rounded-lg p-6 divide-y divide-gray-200">

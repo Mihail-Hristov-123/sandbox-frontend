@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { QuestionCard } from '../components/QuestionCard';
 import { QuestionForm } from '../components/QuestionForm';
+import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 export interface Question {
     author: string;
@@ -23,10 +24,12 @@ export const QuestionsAndAnswers = () => {
         },
     ]);
 
+    const { isLoggedIn } = useAuthContext();
+
     return (
         <main className="min-h-screen bg-gray-50  ">
-            <QuestionForm />
-            <div className="max-w-[60vw] my-10 mx-auto">
+            {isLoggedIn && <QuestionForm />}
+            <div className="max-w-[60vw] py-10 mx-auto">
                 <h1 className="text-3xl font-bold text-gray-800 mb-10 text-center">
                     Latest questions
                 </h1>

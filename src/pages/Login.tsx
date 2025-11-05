@@ -18,13 +18,13 @@ export const Login = () => {
 
     const onSubmit = async (data: UserLoginValues) => await logIn(data);
     return (
-        <main className=" h-screen flex items-center justify-center">
+        <main className="flex items-center justify-center">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className=" bg-gray-700 text-white  flex flex-col justify-around size-1/3 p-6 rounded-3xl"
+                className=" bg-gray-700 text-white flex flex-col justify-around w-1/3 p-6 gap-8 rounded-3xl"
             >
                 <header>
-                    <h1 className=" text-center text-3xl">Log in</h1>
+                    <h2 className=" text-center text-3xl">Log in</h2>
                 </header>
                 <LabelledInput
                     labelText="Email:"
