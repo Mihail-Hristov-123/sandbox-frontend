@@ -25,7 +25,7 @@ export const LogoutForm = () => {
     const onSubmit = async ({ logoutScope }: FormValues) =>
         await logOut(logoutScope);
 
-    const errorMessage=errors.logoutScope?.message
+    const errorMessage = errors.logoutScope?.message;
 
     return (
         <div className="bg-gray-700 p-4 w-full rounded-md">
@@ -33,11 +33,9 @@ export const LogoutForm = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 className="text-white flex flex-col space-y-4"
             >
-                <header>
-                    <h3 className="text-center text-2xl font-semibold">
-                        Need a break?
-                    </h3>
-                </header>
+                <h3 className="text-center text-2xl font-semibold">
+                    Need a break?
+                </h3>
 
                 <div className="flex justify-around">
                     {cards.map(({ value, labelText }) => (
@@ -57,7 +55,10 @@ export const LogoutForm = () => {
                     ))}
                 </div>
 
-                <ErrorMessage errorMessage={errors.logoutScope?.message} className=' text-center'/>
+                <ErrorMessage
+                    errorMessage={errors.logoutScope?.message}
+                    className="text-center"
+                />
 
                 <button
                     type="submit"

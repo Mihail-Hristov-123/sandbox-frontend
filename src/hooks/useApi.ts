@@ -8,16 +8,14 @@ export interface FetchParams {
     body?: unknown;
 }
 
-interface ResponseBody<Data> {
-    success: boolean;
-    message?: string;
-    data?: Data;
-}
-
-export interface Response<Data> {
+export interface Response<ExpectedResponseBody> {
     status: number;
     ok: boolean;
-    body?: ResponseBody<Data>;
+    body: {
+        success: boolean;
+        message: string;
+        data?: ExpectedResponseBody;
+    };
 }
 
 export const useApi = () => {
@@ -27,25 +25,38 @@ export const useApi = () => {
         path,
         method = 'GET',
         body,
-    }: FetchParams): Promise<Response<Data> | undefined> => {
-        const response = await fetch(`/@api${apiRoutes[path]}`, {
-            method,
-            headers: body ? { 'Content-Type': 'application/json' } : undefined,
-            body: body ? JSON.stringify(body) : undefined,
-        });
+    }: FetchParams): Promise<Response<Data>> => {
+        try {
+            const response = await fetch(`/@api${apiRoutes[path]}`, {
+                method,
+                headers: body
+                    ? { 'Content-Type': 'application/json' }
+                    : undefined,
+                body: body ? JSON.stringify(body) : undefined,
+            });
 
-        if (response.status === 401 && path !== 'LOGIN') {
-            setIsLoggedIn(false);
-            return;
+            if (response.status === 401) {
+                setIsLoggedIn(false);
+            }
+
+            const responseBody = await response.json();
+
+            return {
+                status: response.status,
+                ok: response.ok,
+                body: responseBody,
+            };
+        } catch (error) {
+            console.error(`Error occurred during API fetch: ${error}`);
+            return {
+                status: 0,
+                ok: false,
+                body: {
+                    success: false,
+                    message: 'Failed to fetch',
+                },
+            };
         }
-
-        const responseBody = await response.json();
-
-        return {
-            status: response.status,
-            ok: response.ok,
-            body: responseBody,
-        };
     };
 
     return { fetchWithAuthCheck };
