@@ -23,9 +23,8 @@ export const Login = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 className=" bg-gray-700 text-white  flex flex-col justify-around size-1/3 p-6 rounded-3xl"
             >
-                <header>
-                    <h1 className=" text-center text-3xl">Log in</h1>
-                </header>
+                <h1 className=" text-center text-3xl">Log in</h1>
+
                 <LabelledInput
                     labelText="Email:"
                     errors={errors}

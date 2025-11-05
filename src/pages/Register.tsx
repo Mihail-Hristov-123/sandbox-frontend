@@ -55,9 +55,8 @@ export const Register = () => {
                 onSubmit={handleSubmit(onSubmit)}
                 className="  flex flex-col justify-around rounded-3xl items-center bg-gray-700 text-white px-6 py-4 min-w-1/3 min-h-1/2   "
             >
-                <header>
-                    <h1 className="text-center text-3xl">Create account</h1>
-                </header>
+                <h1 className="text-center text-3xl">Create account</h1>
+
                 {inputFields.map((field) => (
                     <LabelledInput
                         key={field.name}
