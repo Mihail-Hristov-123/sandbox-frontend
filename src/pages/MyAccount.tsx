@@ -1,29 +1,11 @@
-import { useEffect, useState } from 'react';
 import { LogoutForm } from '../components/formRelated/LogoutForm';
-import { useUserService } from '../hooks/useUserService';
+
 import { LoadingScreen } from '../components/LoadingScreen';
-import type { UserReturnValues } from '../schemas/auth/RegisterSchema';
-import { displayErrorToast } from '../utils/displayErrorToast';
+
+import { useCurrentUserInfo } from '../hooks/useCurrentUserInfo';
 
 export const MyAccount = () => {
-    const { getCurrentUserInfo } = useUserService();
-
-    const [userInfo, setUserInfo] = useState<UserReturnValues | null>(null);
-
-    useEffect(() => {
-        const updateUserInfo = async () => {
-            try {
-                const response = await getCurrentUserInfo();
-                if (!response?.body?.data) {
-                    throw new Error('Failed to fetch user info');
-                }
-                setUserInfo(response.body.data);
-            } catch (error) {
-                displayErrorToast(error, ' Could not fetch user data');
-            }
-        };
-        updateUserInfo();
-    }, []);
+    const { userInfo } = useCurrentUserInfo();
 
     if (!userInfo) {
         return <LoadingScreen />;
