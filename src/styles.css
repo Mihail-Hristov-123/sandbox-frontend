@@ -2,26 +2,28 @@
 
 html {
     font-size: 16px;
-}
-
-a.active {
-    color: rgb(4, 183, 4);
-}
-
-a:not(.active):hover {
-    color: yellowgreen;
-    transition: all;
-    transition-duration: 300ms;
+    @apply text-white;
 }
 
 main {
-    background-color: #f2f3f4;
+    @apply bg-bg;
     min-height: 100vh;
+}
+a.active {
+    @apply text-accent;
 }
 
 h1 {
+    color: white;
     text-align: center;
     font-size: xx-large;
     font-weight: 600;
     padding: 1rem;
+}
+
+@theme {
+    --color-primary: #2a2e36;
+    --color-secondary: #3b3f46;
+    --color-accent: #d68a1d;
+    --color-bg: #121212;
 }
