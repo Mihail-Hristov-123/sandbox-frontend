@@ -1,6 +1,6 @@
 import { LogoutForm } from '../components/formRelated/LogoutForm';
 
-import { LoadingScreen } from '../components/LoadingScreen';
+import { LoadingScreen } from '../components/loading/LoadingScreen';
 
 import { useCurrentUserInfo } from '../hooks/useCurrentUserInfo';
 
