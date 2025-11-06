@@ -2,7 +2,7 @@
 
 html {
     font-size: 16px;
-    @apply text-white;
+    @apply text-primary;
 }
 
 main {
@@ -13,8 +13,18 @@ a.active {
     @apply text-accent;
 }
 
+a {
+    text-decoration: underline;
+}
+
+a,
+input[type='submit'],
+button {
+    cursor: pointer;
+}
+
 h1 {
-    color: white;
+    @apply text-primary;
     text-align: center;
     font-size: xx-large;
     font-weight: 600;
@@ -22,8 +32,11 @@ h1 {
 }
 
 @theme {
-    --color-primary: #2a2e36;
-    --color-secondary: #3b3f46;
+    --color-primary: var(--color-blue-950);
+    --color-secondary: var(--color-gray-400);
     --color-accent: #d68a1d;
-    --color-bg: #121212;
+    --color-bg: var(--color-white);
+    --color-error: var(--color-red-700);
+    --radius-small: var(--radius-md);
+    --radius-big: var(--radius-xl);
 }

@@ -33,8 +33,8 @@ export const LabelledInput = <T extends FieldValues>({
                 id={name}
                 {...register(name)}
                 {...props}
-                className={`border rounded-xl px-3 py-2  transition-all duration-300 
-          ${errorMessage ? 'border-red-400' : 'border-gray-300'}
+                className={`border rounded-small px-3 py-2  transition-all duration-300 
+          ${errorMessage ? 'border-error' : 'border-primary'}
           ${className}`}
             />
 

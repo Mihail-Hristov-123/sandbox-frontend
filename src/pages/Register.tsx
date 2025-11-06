@@ -55,7 +55,7 @@ export const Register = () => {
         <main className=" h-screen flex items-center justify-center flex-col gap-8">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="  flex flex-col justify-around rounded-3xl items-center gap-8 bg-gray-700 text-white px-6 py-4 min-w-1/3   "
+                className="  flex flex-col justify-around rounded-big items-center gap-8 bg-gray-700 text-white px-6 py-4 min-w-1/3   "
             >
                 <h1 className="text-center text-3xl">Create account</h1>
 
@@ -70,15 +70,12 @@ export const Register = () => {
                 ))}
                 <input
                     type="submit"
-                    className=" bg-white text-gray-700 w-fit self-center py-1 px-2 rounded-2xl"
+                    className=" bg-white text-gray-700 w-fit self-center py-1 px-2 rounded-small"
                 />
             </form>
             <p>
                 Already have an account?{' '}
-                <Link
-                    to={clientRoutes.LOG_IN}
-                    className=" bg-gray-700 text-white p-2 rounded-3xl"
-                >
+                <Link to={clientRoutes.LOG_IN} className="p-2 rounded-small">
                     Log in
                 </Link>
             </p>

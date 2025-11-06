@@ -20,40 +20,38 @@ export const Login = () => {
 
     const onSubmit = async (data: UserLoginValues) => await logIn(data);
     return (
-        <main className="flex items-center justify-center gap-8 flex-col">
+        <main className="flex flex-col items-center justify-center gap-8 px-8">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className=" bg-gray-700 text-white flex flex-col justify-around w-1/3 p-6 gap-8 rounded-3xl"
+                className=" border-2 border-primary flex flex-col min-w-1/3 justify-around rounded-big"
             >
-                <h1 className=" text-center text-3xl">Log in</h1>
+                <h1>Log in</h1>
 
-                <LabelledInput
-                    labelText="Email:"
-                    errors={errors}
-                    name="email"
-                    register={register}
-                />
-                <LabelledInput
-                    labelText="Password:"
-                    errors={errors}
-                    name="password"
-                    type="password"
-                    autoComplete="off"
-                    register={register}
-                />
+                <div className=" flex flex-col items-center gap-10 px-12 pb-12">
+                    <LabelledInput
+                        labelText="Email:"
+                        errors={errors}
+                        name="email"
+                        register={register}
+                    />
+                    <LabelledInput
+                        labelText="Password:"
+                        errors={errors}
+                        name="password"
+                        type="password"
+                        autoComplete="off"
+                        register={register}
+                    />
+                </div>
+
                 <input
                     type="submit"
-                    className=" bg-white text-gray-700 w-fit self-center py-1 px-2 rounded-2xl"
+                    className=" w-full bg-primary self-center py-2 text-white rounded-b-small"
                 />
             </form>
             <p>
                 Don't have an account?{' '}
-                <Link
-                    to={clientRoutes.REGISTER}
-                    className=" bg-gray-700 text-white p-2 rounded-3xl"
-                >
-                    Register
-                </Link>
+                <Link to={clientRoutes.REGISTER}>Register</Link>
             </p>
         </main>
     );

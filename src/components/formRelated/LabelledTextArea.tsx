@@ -29,7 +29,7 @@ export const LabelledTextArea = <T extends FieldValues>({
         <div>
             <label htmlFor={name}>{labelText}</label>
             <textarea
-                className={`border w-full max-h-[30vh] min-h-[2em] p-1 indent-2 rounded-md ${errorMessage ? 'border-red-400' : 'border-gray-300'} ${className}`}
+                className={`border w-full max-h-[30vh] min-h-[2em] p-1 indent-2 rounded-small ${errorMessage ? 'border-error' : 'border-primary'} ${className}`}
                 id={name}
                 {...register(name)}
                 {...props}

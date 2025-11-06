@@ -1,11 +1,11 @@
-import profilePicPlaceholder from '../assets/profile-pic-white.svg';
+import profilePicPlaceholder from '../assets/user.png';
 interface Props {
     profilePictureLink?: string;
     name: string;
 }
 
 export const AuthorField = ({ profilePictureLink, name }: Props) => (
-    <section className="flex bg-gray-700 w-fit px-2 py-1 group rounded-2xl items-center text-white">
+    <section className="flex bg-secondary w-fit px-2 py-1 group rounded-small items-center text-white">
         <img
             src={profilePictureLink || profilePicPlaceholder}
             alt="Profile picture"

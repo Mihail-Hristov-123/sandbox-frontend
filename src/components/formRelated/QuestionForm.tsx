@@ -36,8 +36,8 @@ export const QuestionForm = () => {
     return (
         <section className="flex flex-col w-2/3 mx-auto">
             <div
-                className={`transition-all duration-500 ease-linear overflow-hidden border-gray-700 border-t-0 
-                    ${expanded ? ' opacity-100 py-4 px-5 border-2 rounded-b-xl' : 'opacity-0 py-0 px-5'}
+                className={`transition-all duration-500 ease-linear overflow-hidden border-primary border-t-0 
+                    ${expanded ? ' opacity-100 py-4 px-5 border-2 rounded-b-small' : 'opacity-0 py-0 px-5'}
                 `}
             >
                 {expanded &&
@@ -77,7 +77,7 @@ export const QuestionForm = () => {
                     ))}
             </div>
 
-            <div className="w-fit mx-auto bg-gray-700 rounded-b-2xl flex items-center gap-2 px-3 py-1">
+            <div className="w-fit mx-auto  rounded-b-big flex items-center gap-2 px-3 py-1">
                 <button
                     onClick={() => setExpanded(!expanded)}
                     className="flex items-center group cursor-pointer"

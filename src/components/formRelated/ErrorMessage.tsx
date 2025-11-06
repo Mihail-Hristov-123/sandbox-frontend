@@ -10,7 +10,7 @@ export const ErrorMessage = ({
     }
 
     return (
-        <p className={`text-red-400 ${className} `}>
+        <p className={`text-error ${className} `}>
             {typeof errorMessage === 'string' ? errorMessage : 'Invalid input'}
         </p>
     );
