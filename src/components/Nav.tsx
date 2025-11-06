@@ -1,88 +1,36 @@
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 import { clientRoutes } from '../routes';
-import burgerMenuSVG from '../assets/burger.svg';
-import profilePic from '../assets/user.png';
-import { useAuthService } from '../hooks/useAuthService';
-import type { ReactNode } from 'react';
+import logo from '../assets/logo.png';
 
 const { HOME, POSTS, MY_ACCOUNT, QUESTIONS, LOG_IN, REGISTER } = clientRoutes;
 
-interface DropdownMenuProps {
-    trigger: ReactNode;
-    children: ReactNode;
-    className?: string;
-}
-
-const DropdownMenu = ({
-    trigger,
-    children,
-    className = '',
-}: DropdownMenuProps) => (
-    <div className="relative group cursor-pointer">
-        {trigger}
-        <menu
-            className={`absolute flex-col items-center gap-2 top-full bg-primary hidden group-hover:flex whitespace-nowrap ${className}`}
-        >
-            <div className="w-48 [&>a,&>button]:hover:bg-secondary [&>a,&>button]:px-4 flex flex-col items-center gap-2 ">
-                {children}
-            </div>
-        </menu>
-    </div>
-);
-
 export const Nav = () => {
     const { isLoggedIn } = useAuthContext();
-    const { logOut } = useAuthService();
-
     return (
-        <nav className="bg-primary w-full px-8 py-4 text-white font-bold flex justify-between items-center">
-            <DropdownMenu
-                trigger={
-                    <img
-                        src={burgerMenuSVG}
-                        className="w-12"
-                        alt="Dropdown menu icon"
-                    />
-                }
-            >
-                <NavLink className="px-8 py-4 w-full" to={POSTS}>
-                    Posts
-                </NavLink>
-                <NavLink className="px-8 py-4 w-full" to={QUESTIONS}>
-                    Questions
-                </NavLink>
-            </DropdownMenu>
+        <nav className=" text-xl font-medium  ">
+            <div className="bg-primary flex justify-between items-center text-white py-2 px-10 ">
+                <Link to={HOME}>
+                    <img src={logo} className=" w-36" alt="Tackle box logo" />
+                </Link>
 
-            <NavLink to={HOME}>The Tackle Box</NavLink>
-
-            <DropdownMenu
-                trigger={
-                    <img
-                        src={profilePic}
-                        className="w-12"
-                        alt="User profile pic"
-                    />
-                }
-                className="right-0"
-            >
-                {isLoggedIn ? (
-                    <>
-                        <NavLink to={MY_ACCOUNT}>My account</NavLink>
-                        <button onClick={() => logOut('thisDevice')}>
-                            Log out
-                        </button>
-                        <button onClick={() => logOut('allDevices')}>
-                            Log out from all devices
-                        </button>
-                    </>
-                ) : (
-                    <>
-                        <NavLink to={LOG_IN}>Log in</NavLink>
-                        <NavLink to={REGISTER}>Register</NavLink>
-                    </>
-                )}
-            </DropdownMenu>
+                <div className=" space-x-10">
+                    {isLoggedIn ? (
+                        <>
+                            <Link to={MY_ACCOUNT}>My profile</Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to={LOG_IN}>Log in</Link>
+                            <Link to={REGISTER}>Register</Link>
+                        </>
+                    )}
+                </div>
+            </div>
+            <menu className="no-underline py-2 flex justify-center gap-8  ">
+                <NavLink to={POSTS}>Posts</NavLink>
+                <NavLink to={QUESTIONS}>Questions</NavLink>
+            </menu>
         </nav>
     );
 };

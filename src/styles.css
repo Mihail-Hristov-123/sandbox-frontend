@@ -13,10 +13,6 @@ a.active {
     @apply text-accent;
 }
 
-a {
-    text-decoration: underline;
-}
-
 a,
 input[type='submit'],
 button {
