@@ -1,11 +1,11 @@
-import { createContext, type Dispatch, type SetStateAction } from 'react';
+import { createContext } from 'react';
 
 interface AuthValues {
     isLoggedIn: boolean;
-    setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const AuthContext = createContext<AuthValues>({
     isLoggedIn: false,
-    setIsLoggedIn: () => false,
+    setIsLoggedIn: () => undefined,
 });
