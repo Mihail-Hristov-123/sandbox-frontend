@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { QuestionCard } from '../components/QuestionCard';
-import { QuestionForm } from '../components/QuestionForm';
+import { QuestionForm } from '../components/formRelated/QuestionForm';
 import type { QuestionValues } from '../schemas/questions/QuestionSchema';
 
 export type Question = QuestionValues & {
