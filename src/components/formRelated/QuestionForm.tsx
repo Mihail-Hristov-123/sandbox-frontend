@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { useAuthContext } from '../../contexts/auth/useAuthContext';
 import { Link } from 'react-router';
 import { clientRoutes } from '../../routes';
+import { useQuestionService } from '../../hooks/useQuestionService';
 
 export const QuestionForm = () => {
     const {
@@ -22,13 +23,14 @@ export const QuestionForm = () => {
     } = useForm({ resolver: zodResolver(QuestionSchema) });
 
     const { isLoggedIn } = useAuthContext();
+    const { createQuestion } = useQuestionService();
 
     const [expanded, setExpanded] = useState(false);
 
-    const onSubmit = (data: QuestionValues) => {
-        console.log(data);
-        reset();
-        setExpanded(false);
+    const onSubmit = async (data: QuestionValues) => {
+        await createQuestion(data, () => {
+            (reset(), setExpanded(false));
+        });
     };
 
     return (

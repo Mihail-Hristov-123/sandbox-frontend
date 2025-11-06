@@ -53,7 +53,7 @@ export const useApi = () => {
                 ok: false,
                 body: {
                     success: false,
-                    message: 'Failed to fetch',
+                    message: 'Failed to connect to the server',
                 },
             };
         }

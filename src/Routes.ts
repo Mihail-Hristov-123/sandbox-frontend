@@ -21,4 +21,5 @@ export const apiRoutes = {
     LOGOUT: createApiRoute('auth', 'logout'),
     LOGOUT_ALL: createApiRoute('auth', 'logout-all'),
     ME: createApiRoute('users', 'me'),
+    QUESTIONS: '/questions',
 };
