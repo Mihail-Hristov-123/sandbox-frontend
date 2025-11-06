@@ -21,13 +21,10 @@ export const Login = () => {
     const onSubmit = async (data: UserLoginValues) => await logIn(data);
     return (
         <main className="flex flex-col items-center justify-center gap-8 px-8">
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className=" border-2 border-primary flex flex-col min-w-1/3 justify-around rounded-big"
-            >
+            <form onSubmit={handleSubmit(onSubmit)} className="form">
                 <h1>Log in</h1>
 
-                <div className=" flex flex-col items-center gap-10 px-12 pb-12">
+                <div className=" input-container">
                     <LabelledInput
                         labelText="Email:"
                         errors={errors}
@@ -44,10 +41,7 @@ export const Login = () => {
                     />
                 </div>
 
-                <input
-                    type="submit"
-                    className=" w-full bg-primary self-center py-2 text-white rounded-b-small"
-                />
+                <input type="submit" />
             </form>
             <p>
                 Don't have an account?{' '}

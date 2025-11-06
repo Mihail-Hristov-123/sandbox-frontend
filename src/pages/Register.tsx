@@ -52,32 +52,29 @@ export const Register = () => {
         await createAccount(data);
 
     return (
-        <main className=" h-screen flex items-center justify-center flex-col gap-8">
+        <main className=" h-screen flex items-center justify-center flex-col gap-8 px-8">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="  flex flex-col justify-around rounded-big items-center gap-8 bg-gray-700 text-white px-6 py-4 min-w-1/3   "
+                className=" flex flex-col justify-around rounded-big items-center gap-8 form "
             >
-                <h1 className="text-center text-3xl">Create account</h1>
+                <h1>Create account</h1>
+                <div className=" input-container">
+                    {inputFields.map((field) => (
+                        <LabelledInput
+                            key={field.name}
+                            register={register}
+                            errors={errors}
+                            {...field}
+                            autoComplete="off"
+                        />
+                    ))}
+                </div>
 
-                {inputFields.map((field) => (
-                    <LabelledInput
-                        key={field.name}
-                        register={register}
-                        errors={errors}
-                        {...field}
-                        autoComplete="off"
-                    />
-                ))}
-                <input
-                    type="submit"
-                    className=" bg-white text-gray-700 w-fit self-center py-1 px-2 rounded-small"
-                />
+                <input type="submit" />
             </form>
             <p>
                 Already have an account?{' '}
-                <Link to={clientRoutes.LOG_IN} className="p-2 rounded-small">
-                    Log in
-                </Link>
+                <Link to={clientRoutes.LOG_IN}>Log in</Link>
             </p>
         </main>
     );
