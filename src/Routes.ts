@@ -3,7 +3,6 @@ export const clientRoutes = {
     POSTS: '/posts',
     REGISTER: '/register',
     LOG_IN: '/login',
-    PROTECTED: '/protected',
     MY_ACCOUNT: '/me',
     QUESTIONS: '/questions',
     EVENTS: '/events',

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useLoadingContext } from '../contexts/loading/useLoadingContext';
-import poleSVG from '../assets/fishing-pole-svgrepo-com.svg';
+import poleSVG from '../assets/pole.svg';
 
 export const LoadingScreen = () => {
     const { isLoading } = useLoadingContext();

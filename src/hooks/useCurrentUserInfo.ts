@@ -1,24 +1,34 @@
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { useUserService } from './useUserService';
+
 import type { UserReturnValues } from '../schemas/auth/RegisterSchema';
+import { useApi } from './useApi';
+import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 export const useCurrentUserInfo = () => {
-    const { getCurrentUserInfo } = useUserService();
+    const { fetchWithAuthCheck } = useApi();
+    const { setIsLoggedIn } = useAuthContext();
 
     const [userInfo, setUserInfo] = useState<UserReturnValues | null>(null);
+
+    const getCurrentUserInfo = () =>
+        fetchWithAuthCheck<UserReturnValues>({
+            path: 'ME',
+        });
 
     useEffect(() => {
         const updateUserInfo = async () => {
             const response = await getCurrentUserInfo();
-            if (response.body.data) {
-                setUserInfo(response.body.data);
+            if (!response || !response.body.data) {
+                setIsLoggedIn(false);
+                setUserInfo(null);
                 return;
             }
-            toast.error(response.body.message);
+
+            setIsLoggedIn(true);
+            setUserInfo(response.body.data);
         };
         updateUserInfo();
     }, []);
 
-    return { userInfo };
+    return { userInfo, getCurrentUserInfo };
 };

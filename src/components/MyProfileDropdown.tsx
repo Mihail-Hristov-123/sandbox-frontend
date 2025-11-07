@@ -5,20 +5,14 @@ import { Link } from 'react-router';
 import { clientRoutes } from '../routes';
 import { useAuthService, type LogoutScope } from '../hooks/useAuthService';
 
-const LogoutButton = ({
-    label,
-    type,
-}: {
-    label: string;
-    type: LogoutScope;
-}) => {
+const LogoutButton = ({ type }: { type: LogoutScope }) => {
     const { logOut } = useAuthService();
     return (
         <button
             onClick={() => logOut(type)}
             className="hover:text-red-500 transition-colors"
         >
-            {label}
+            {type === 'allDevices' ? 'Log out from all devices' : 'Log out'}
         </button>
     );
 };
@@ -58,12 +52,8 @@ export const MyProfileDropdown = () => {
             {expanded && (
                 <menu className="flex flex-col items-center absolute px-6 py-3  right-0 shadow-xl  whitespace-nowrap rounded-small  bg-primary gap-1 text-base">
                     <Link to={clientRoutes.MY_ACCOUNT}>Profile page</Link>
-
-                    <LogoutButton label="Log out" type="thisDevice" />
-                    <LogoutButton
-                        label="Log out from all devices"
-                        type="allDevices"
-                    />
+                    <LogoutButton type="thisDevice" />
+                    <LogoutButton type="allDevices" />
                 </menu>
             )}
         </section>

@@ -1,6 +1,7 @@
 import { apiRoutes } from '../routes';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 import { useLoadingContext } from '../contexts/loading/useLoadingContext';
+import toast from 'react-hot-toast';
 
 type Path = keyof typeof apiRoutes;
 export interface FetchParams {
@@ -26,7 +27,7 @@ export const useApi = () => {
         path,
         method = 'GET',
         body,
-    }: FetchParams): Promise<Response<Data>> => {
+    }: FetchParams): Promise<Response<Data> | void> => {
         setIsLoading(true);
         try {
             const response = await fetch(`/@api${apiRoutes[path]}`, {
@@ -43,6 +44,10 @@ export const useApi = () => {
 
             const responseBody = await response.json();
 
+            if (!response.ok) {
+                toast.error(responseBody.message);
+            }
+
             return {
                 status: response.status,
                 ok: response.ok,
@@ -50,14 +55,7 @@ export const useApi = () => {
             };
         } catch (error) {
             console.error(`Error occurred during API fetch: ${error}`);
-            return {
-                status: 0,
-                ok: false,
-                body: {
-                    success: false,
-                    message: 'Failed to connect to the server',
-                },
-            };
+            toast.error('Failed to connect to the server');
         } finally {
             setIsLoading(false);
         }

@@ -22,23 +22,21 @@ export const useQuestionService = () => {
             body: data,
             path: 'QUESTIONS',
         });
-        if (result.ok) {
+        if (result && result.ok) {
             toast.success('Question published!');
             resetForm();
             await updateQuestions();
             return;
         }
-        toast.error(result.body.message);
     };
 
     const getAllQuestions = async () => {
         const result = await fetchWithAuthCheck<QuestionReturnValue[]>({
             path: 'QUESTIONS',
         });
-        if (result.ok) {
+        if (result && result.ok) {
             return result.body.data;
         }
-        toast.error(result.body.message);
     };
 
     const updateQuestions = async () => {

@@ -1,4 +1,3 @@
-import toast from 'react-hot-toast';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 import type { UserLoginValues } from '../schemas/auth/LoginSchema';
 import type { UserRegisterValues } from '../schemas/auth/RegisterSchema';
@@ -16,23 +15,16 @@ export const useAuthService = () => {
             path: 'LOGIN',
             body: data,
         });
-        if (!result.ok) {
-            toast.error(result.body.message);
-            return;
-        }
-        setIsLoggedIn(true);
+
+        if (result && result.ok) setIsLoggedIn(true);
     };
     const logOut = async (logoutScope: LogoutScope) => {
-        const response = await fetchWithAuthCheck({
+        const result = await fetchWithAuthCheck({
             path: logoutScope === 'thisDevice' ? 'LOGOUT' : 'LOGOUT_ALL',
             method: 'POST',
         });
 
-        if (!response.ok) {
-            toast.error(response.body.message);
-            return;
-        }
-        setIsLoggedIn(false);
+        if (result && result.ok) setIsLoggedIn(false);
     };
     const register = async (data: UserRegisterValues) => {
         const result = await fetchWithAuthCheck({
@@ -40,12 +32,7 @@ export const useAuthService = () => {
             path: 'REGISTER',
             body: data,
         });
-        if (!result.ok) {
-            toast.error(result.body.message);
-            return;
-        }
-
-        setIsLoggedIn(true);
+        if (result && result.ok) setIsLoggedIn(true);
     };
 
     return { logIn, logOut, register };
