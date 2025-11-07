@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { QuestionCard } from '../components/QuestionCard';
 import { QuestionForm } from '../components/formRelated/QuestionForm';
 import type { QuestionValues } from '../schemas/questions/QuestionSchema';
+import { AddButton } from '../components/AddButton';
+import { Modal } from '../components/Modal';
 
 export type Question = QuestionValues & {
     author: string;
@@ -22,20 +24,28 @@ export const Questions = () => {
         },
     ]);
 
+    const [formOpen, setFormOpen] = useState(false);
+
     return (
-        <main className="min-h-screen bg-gray-50  ">
-            <QuestionForm />
-            <div className="max-w-[60vw] py-10 mx-auto">
-                <h1 className="text-3xl font-bold text-gray-800 mb-10 text-center">
+        <main>
+            <div className="max-w-[60vw] mx-auto">
+                <h1 className="text-3xl font-bold text-gray-800 my-10">
                     Latest questions
                 </h1>
 
-                <section className="flex flex-col gap-6 h-[200vh] ">
+                <section className="flex flex-col gap-6">
                     {questions.map((question) => (
                         <QuestionCard key={question.title} {...question} />
                     ))}
                 </section>
             </div>
+            {formOpen ? (
+                <Modal isOpened={true} close={() => setFormOpen(false)}>
+                    <QuestionForm closeModal={() => setFormOpen(false)} />
+                </Modal>
+            ) : (
+                <AddButton onClick={() => setFormOpen(true)} />
+            )}
         </main>
     );
 };

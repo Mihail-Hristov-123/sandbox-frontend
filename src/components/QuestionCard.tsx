@@ -3,7 +3,7 @@ import { AuthorField } from './AuthorField';
 
 export const QuestionCard = ({ author, description, title }: Question) => {
     return (
-        <article className="bg-primary text-white shadow-sm rounded-big p-6 hover:shadow-lg transition-shadow cursor-pointer">
+        <article className="shadow-sm shadow-primary rounded-big p-6 hover:shadow-md  transition-shadow duration-300 cursor-pointer space-y-2">
             <AuthorField name={author} />
 
             <h2 className="text-2xl font-semibold">{title}</h2>

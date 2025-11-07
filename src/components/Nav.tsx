@@ -28,7 +28,7 @@ const pathsMap: { name: string; location: keyof typeof clientRoutes }[] = [
 export const Nav = () => {
     const { isLoggedIn } = useAuthContext();
     return (
-        <header className=" text-xl font-medium  border-b-primary sticky top-0">
+        <header className=" text-xl font-medium  border-b-primary sticky top-0 z-50">
             <nav className="bg-primary flex justify-between items-center text-white py-2 px-10 ">
                 <Link to={HOME}>
                     <img src={logo} className="w-36" alt="Tackle box logo" />
@@ -45,7 +45,7 @@ export const Nav = () => {
                     )}
                 </div>
             </nav>
-            <nav className="no-underline bg-white shadow-lg flex py-2 justify-center gap-8  ">
+            <nav className="no-underline bg-white shadow-lg flex py-2 justify-center flex-wrap gap-8  ">
                 {pathsMap.map(({ name, location }) => (
                     <NavLink to={clientRoutes[location]} key={location}>
                         {name}

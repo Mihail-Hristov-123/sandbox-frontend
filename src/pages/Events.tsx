@@ -1,1 +1,7 @@
-export const Events = () => <h1>Events</h1>;
+export const Events = () => {
+    return (
+        <main>
+            <h1>Events</h1>
+        </main>
+    );
+};
