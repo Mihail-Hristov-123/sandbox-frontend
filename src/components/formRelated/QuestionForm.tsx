@@ -24,7 +24,8 @@ export const QuestionForm = ({ closeModal }: { closeModal: () => void }) => {
 
     const onSubmit = async (data: QuestionValues) => {
         await createQuestion(data, () => {
-            (reset(), closeModal());
+            reset();
+            closeModal();
         });
     };
 
@@ -33,7 +34,7 @@ export const QuestionForm = ({ closeModal }: { closeModal: () => void }) => {
             {isLoggedIn ? (
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="flex flex-col gap-12 min-w-1/3 "
+                    className="flex flex-col gap-12 min-w-[40vw]"
                 >
                     <h2 className="text-center text-3xl">Ask a question</h2>
                     <div className=" px-14 space-y-12">

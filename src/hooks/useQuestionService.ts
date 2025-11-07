@@ -25,6 +25,7 @@ export const useQuestionService = () => {
         if (result.ok) {
             toast.success('Question published!');
             resetForm();
+            await updateQuestions();
             return;
         }
         toast.error(result.body.message);
@@ -35,14 +36,18 @@ export const useQuestionService = () => {
             path: 'QUESTIONS',
         });
         if (result.ok) {
-            setAllQuestions(result.body.data);
-            return;
+            return result.body.data;
         }
         toast.error(result.body.message);
     };
 
+    const updateQuestions = async () => {
+        const allQuestions = await getAllQuestions();
+        setAllQuestions(allQuestions);
+    };
+
     useEffect(() => {
-        getAllQuestions();
+        updateQuestions();
     }, []);
 
     return { createQuestion, allQuestions };

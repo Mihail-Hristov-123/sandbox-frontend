@@ -1,10 +1,23 @@
-import type { Question } from '../pages/Questions';
-import { AuthorField } from './AuthorField';
+import { useNavigate } from 'react-router';
 
-export const QuestionCard = ({ author, description, title }: Question) => {
+import { AuthorField } from './AuthorField';
+import { clientRoutes } from '../routes';
+import type { QuestionReturnValue } from '../schemas/questions/QuestionSchema';
+
+export const QuestionCard = ({
+    authorName,
+    description,
+    title,
+    id,
+}: QuestionReturnValue) => {
+    const navigate = useNavigate();
     return (
-        <article className="shadow-sm shadow-primary rounded-big p-6 hover:shadow-md  transition-shadow duration-300 cursor-pointer space-y-2">
-            <AuthorField name={author} />
+        <article
+            title="View details"
+            onClick={() => navigate(clientRoutes.QUESTIONS + `/${id}`)}
+            className="shadow-sm shadow-primary rounded-big p-6 hover:shadow-md  transition-shadow duration-300 cursor-pointer space-y-2"
+        >
+            <AuthorField name={authorName} />
 
             <h2 className="text-2xl font-semibold">{title}</h2>
 

@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import { QuestionCard } from '../components/QuestionCard';
 import { QuestionForm } from '../components/formRelated/QuestionForm';
-import type { QuestionValues } from '../schemas/questions/QuestionSchema';
 import { AddButton } from '../components/AddButton';
 import { Modal } from '../components/Modal';
 import { useQuestionService } from '../hooks/useQuestionService';
-
-export type Question = QuestionValues & {
-    author: string;
-};
 
 export const Questions = () => {
     const { allQuestions } = useQuestionService();
@@ -28,7 +23,7 @@ export const Questions = () => {
                             <QuestionCard
                                 key={question.title}
                                 {...question}
-                                author={question.authorName}
+                                authorName={question.authorName}
                             />
                         ))
                     ) : (

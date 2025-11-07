@@ -6,6 +6,7 @@ import {
     MyAccount,
     NotFound,
     Posts,
+    QuestionDetails,
     Questions,
     Register,
 } from '../pages/index';
@@ -26,6 +27,7 @@ export const AppRoutes = () => (
             { path: 'HOME', element: <Home /> },
             { path: 'POSTS', element: <Posts /> },
             { path: 'QUESTIONS', element: <Questions /> },
+            { path: 'QUESTION_DETAILS', element: <QuestionDetails /> },
             { path: 'EVENTS', element: <Events /> },
         ])}
 

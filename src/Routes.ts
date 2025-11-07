@@ -7,6 +7,7 @@ export const clientRoutes = {
     MY_ACCOUNT: '/me',
     QUESTIONS: '/questions',
     EVENTS: '/events',
+    QUESTION_DETAILS: '/questions/:questionId',
 };
 
 // to be mostly replaced by types from open-api
