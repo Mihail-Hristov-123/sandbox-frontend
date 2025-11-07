@@ -4,6 +4,8 @@ import type { UserLoginValues } from '../schemas/auth/LoginSchema';
 import type { UserRegisterValues } from '../schemas/auth/RegisterSchema';
 import { useApi } from './useApi';
 
+export type LogoutScope = 'thisDevice' | 'allDevices';
+
 export const useAuthService = () => {
     const { fetchWithAuthCheck } = useApi();
     const { setIsLoggedIn } = useAuthContext();
@@ -20,7 +22,7 @@ export const useAuthService = () => {
         }
         setIsLoggedIn(true);
     };
-    const logOut = async (logoutScope: 'thisDevice' | 'allDevices') => {
+    const logOut = async (logoutScope: LogoutScope) => {
         const response = await fetchWithAuthCheck({
             path: logoutScope === 'thisDevice' ? 'LOGOUT' : 'LOGOUT_ALL',
             method: 'POST',

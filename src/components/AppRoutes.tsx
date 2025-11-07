@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router';
 import {
+    Events,
     Home,
     Login,
     MyAccount,
@@ -25,6 +26,7 @@ export const AppRoutes = () => (
             { path: 'HOME', element: <Home /> },
             { path: 'POSTS', element: <Posts /> },
             { path: 'QUESTIONS', element: <Questions /> },
+            { path: 'EVENTS', element: <Events /> },
         ])}
 
         <Route element={<ProtectedRoute routesToBlock="public" />}>

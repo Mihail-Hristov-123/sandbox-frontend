@@ -30,7 +30,7 @@ export const Questions = () => {
                     Latest questions
                 </h1>
 
-                <section className="flex flex-col gap-6 ">
+                <section className="flex flex-col gap-6 h-[200vh] ">
                     {questions.map((question) => (
                         <QuestionCard key={question.title} {...question} />
                     ))}

@@ -6,6 +6,7 @@ export const clientRoutes = {
     PROTECTED: '/protected',
     MY_ACCOUNT: '/me',
     QUESTIONS: '/questions',
+    EVENTS: '/events',
 };
 
 // to be mostly replaced by types from open-api

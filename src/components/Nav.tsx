@@ -2,23 +2,41 @@ import { Link, NavLink } from 'react-router';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 import { clientRoutes } from '../routes';
 import logo from '../assets/logo.png';
+import { MyProfileDropdown } from './MyProfileDropdown';
 
-const { HOME, POSTS, MY_ACCOUNT, QUESTIONS, LOG_IN, REGISTER } = clientRoutes;
+const { HOME, LOG_IN, REGISTER } = clientRoutes;
+
+const pathsMap: { name: string; location: keyof typeof clientRoutes }[] = [
+    {
+        name: 'Home',
+        location: 'HOME',
+    },
+    {
+        name: 'Posts',
+        location: 'POSTS',
+    },
+    {
+        name: 'Questions',
+        location: 'QUESTIONS',
+    },
+    {
+        name: 'Events',
+        location: 'EVENTS',
+    },
+];
 
 export const Nav = () => {
     const { isLoggedIn } = useAuthContext();
     return (
-        <nav className=" text-xl font-medium  ">
-            <div className="bg-primary flex justify-between items-center text-white py-2 px-10 ">
+        <header className=" text-xl font-medium  border-b-primary sticky top-0">
+            <nav className="bg-primary flex justify-between items-center text-white py-2 px-10 ">
                 <Link to={HOME}>
-                    <img src={logo} className=" w-36" alt="Tackle box logo" />
+                    <img src={logo} className="w-36" alt="Tackle box logo" />
                 </Link>
 
-                <div className=" space-x-10">
+                <div className="space-x-10">
                     {isLoggedIn ? (
-                        <>
-                            <Link to={MY_ACCOUNT}>My profile</Link>
-                        </>
+                        <MyProfileDropdown />
                     ) : (
                         <>
                             <Link to={LOG_IN}>Log in</Link>
@@ -26,11 +44,14 @@ export const Nav = () => {
                         </>
                     )}
                 </div>
-            </div>
-            <menu className="no-underline py-2 flex justify-center gap-8  ">
-                <NavLink to={POSTS}>Posts</NavLink>
-                <NavLink to={QUESTIONS}>Questions</NavLink>
-            </menu>
-        </nav>
+            </nav>
+            <nav className="no-underline bg-white shadow-lg flex py-2 justify-center gap-8  ">
+                {pathsMap.map(({ name, location }) => (
+                    <NavLink to={clientRoutes[location]} key={location}>
+                        {name}
+                    </NavLink>
+                ))}
+            </nav>
+        </header>
     );
 };

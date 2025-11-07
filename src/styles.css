@@ -9,7 +9,7 @@ main {
     @apply bg-bg;
     min-height: 100vh;
 }
-a.active {
+a:hover {
     @apply text-accent;
 }
 
@@ -42,7 +42,7 @@ input[type='submit'] {
 @theme {
     --color-primary: var(--color-blue-950);
     --color-secondary: var(--color-gray-400);
-    --color-accent: #d68a1d;
+    --color-accent: var(--color-blue-300);
     --color-bg: var(--color-white);
     --color-error: var(--color-red-700);
     --radius-small: var(--radius-md);
