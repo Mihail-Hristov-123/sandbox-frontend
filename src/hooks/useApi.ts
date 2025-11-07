@@ -1,5 +1,6 @@
 import { apiRoutes } from '../routes';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
+import { useLoadingContext } from '../contexts/loading/useLoadingContext';
 
 type Path = keyof typeof apiRoutes;
 export interface FetchParams {
@@ -20,12 +21,13 @@ export interface Response<ExpectedResponseBody> {
 
 export const useApi = () => {
     const { setIsLoggedIn } = useAuthContext();
-
+    const { setIsLoading } = useLoadingContext();
     const fetchWithAuthCheck = async <Data>({
         path,
         method = 'GET',
         body,
     }: FetchParams): Promise<Response<Data>> => {
+        setIsLoading(true);
         try {
             const response = await fetch(`/@api${apiRoutes[path]}`, {
                 method,
@@ -56,6 +58,8 @@ export const useApi = () => {
                     message: 'Failed to connect to the server',
                 },
             };
+        } finally {
+            setIsLoading(false);
         }
     };
 

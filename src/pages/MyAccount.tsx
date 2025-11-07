@@ -1,4 +1,4 @@
-import { LoadingScreen } from '../components/loading/LoadingScreen';
+import { LoadingScreen } from '../components/LoadingScreen';
 
 import { useCurrentUserInfo } from '../hooks/useCurrentUserInfo';
 

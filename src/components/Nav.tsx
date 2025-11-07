@@ -1,8 +1,9 @@
 import { Link, NavLink } from 'react-router';
-import { useAuthContext } from '../contexts/auth/useAuthContext';
+
 import { clientRoutes } from '../routes';
 import logo from '../assets/logo.png';
 import { MyProfileDropdown } from './MyProfileDropdown';
+import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 const { HOME, LOG_IN, REGISTER } = clientRoutes;
 
