@@ -13,9 +13,7 @@ export const Questions = () => {
     return (
         <main>
             <div className="max-w-[60vw] mx-auto">
-                <h1 className="text-3xl font-bold text-gray-800 my-10">
-                    Latest questions
-                </h1>
+                <h1>Latest questions</h1>
 
                 <section className="flex flex-col gap-12">
                     {allQuestions ? (

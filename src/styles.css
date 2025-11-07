@@ -29,6 +29,9 @@ h1 {
     font-weight: 600;
     padding: 1rem;
 }
+h1:not(form h1) {
+    @apply my-10 text-4xl font-bold;
+}
 
 a:not(nav a) {
     text-decoration: underline;
