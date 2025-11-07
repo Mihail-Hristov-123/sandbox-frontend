@@ -6,7 +6,7 @@ html {
 }
 
 main {
-    @apply bg-bg;
+    @apply bg-bg pb-40;
     min-height: 90vh;
     position: relative;
 }

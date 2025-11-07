@@ -4,25 +4,14 @@ import { QuestionForm } from '../components/formRelated/QuestionForm';
 import type { QuestionValues } from '../schemas/questions/QuestionSchema';
 import { AddButton } from '../components/AddButton';
 import { Modal } from '../components/Modal';
+import { useQuestionService } from '../hooks/useQuestionService';
 
 export type Question = QuestionValues & {
     author: string;
 };
 
 export const Questions = () => {
-    const [questions, _setQuestions] = useState<Question[]>([
-        {
-            author: 'Fred',
-            title: 'How do I tie a hook?',
-            description:
-                'I am new to fishing, how do I tie my hook to the line? Is there any specific knot that you would recommend?',
-        },
-        {
-            author: 'JuanPike',
-            title: 'How do I unhook a fish?',
-            description: 'What is the preferred way to unhook a predator fish?',
-        },
-    ]);
+    const { allQuestions } = useQuestionService();
 
     const [formOpen, setFormOpen] = useState(false);
 
@@ -33,10 +22,20 @@ export const Questions = () => {
                     Latest questions
                 </h1>
 
-                <section className="flex flex-col gap-6">
-                    {questions.map((question) => (
-                        <QuestionCard key={question.title} {...question} />
-                    ))}
+                <section className="flex flex-col gap-12">
+                    {allQuestions ? (
+                        allQuestions.map((question) => (
+                            <QuestionCard
+                                key={question.title}
+                                {...question}
+                                author={question.authorName}
+                            />
+                        ))
+                    ) : (
+                        <p className="text-center text-xl">
+                            No questions are available right now
+                        </p>
+                    )}
                 </section>
             </div>
             {formOpen ? (

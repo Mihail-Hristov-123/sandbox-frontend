@@ -56,7 +56,7 @@ export const QuestionForm = ({ closeModal }: { closeModal: () => void }) => {
             ) : (
                 <p className="text-center py-4 px-12 text-xl">
                     <NavLink to={clientRoutes.LOG_IN}>Log in</NavLink> to access
-                    this feature
+                    this feature.
                 </p>
             )}
         </div>

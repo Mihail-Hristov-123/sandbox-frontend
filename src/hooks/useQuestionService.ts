@@ -1,9 +1,17 @@
 import toast from 'react-hot-toast';
-import type { QuestionValues } from '../schemas/questions/QuestionSchema';
+import type {
+    QuestionReturnValue,
+    QuestionValues,
+} from '../schemas/questions/QuestionSchema';
 import { useApi } from './useApi';
+import { useEffect, useState } from 'react';
 
 export const useQuestionService = () => {
     const { fetchWithAuthCheck } = useApi();
+
+    const [allQuestions, setAllQuestions] = useState<
+        QuestionReturnValue[] | null
+    >();
 
     const createQuestion = async (
         data: QuestionValues,
@@ -22,5 +30,20 @@ export const useQuestionService = () => {
         toast.error(result.body.message);
     };
 
-    return { createQuestion };
+    const getAllQuestions = async () => {
+        const result = await fetchWithAuthCheck<QuestionReturnValue[]>({
+            path: 'QUESTIONS',
+        });
+        if (result.ok) {
+            setAllQuestions(result.body.data);
+            return;
+        }
+        toast.error(result.body.message);
+    };
+
+    useEffect(() => {
+        getAllQuestions();
+    }, []);
+
+    return { createQuestion, allQuestions };
 };

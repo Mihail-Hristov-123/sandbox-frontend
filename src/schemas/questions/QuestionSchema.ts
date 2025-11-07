@@ -12,3 +12,7 @@ export const QuestionSchema = z.object({
 });
 
 export type QuestionValues = z.infer<typeof QuestionSchema>;
+export type QuestionReturnValue = QuestionValues & {
+    authorID: number;
+    authorName: string;
+};
