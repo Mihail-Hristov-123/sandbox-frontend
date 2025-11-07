@@ -9,7 +9,7 @@ export const AuthorField = ({ profilePictureLink, name }: Props) => (
         <img
             src={profilePictureLink || profilePicPlaceholder}
             alt="Profile picture"
-            className=" w-0 opacity-0 group-hover:opacity-100 group-hover:w-10 group-hover:mr-2 duration-200 transition-all"
+            className="w-0 item-smooth-appear group-hover:w-10 group-hover:mr-2"
         />
         <p className=" text-xl">{name}</p>
     </section>

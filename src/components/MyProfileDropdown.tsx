@@ -51,7 +51,7 @@ export const MyProfileDropdown = () => {
 
                 <img
                     src={expanded ? crossSVG : picklistSVG}
-                    className="w-0 border-l-2 opacity-0 border-l-accent  transition-all duration-200  group-hover:w-7 group-hover:opacity-100"
+                    className="w-0 border-l-2 border-l-accent group-hover:w-7 item-smooth-appear"
                     alt="Dropdown menu icon"
                 />
             </button>
