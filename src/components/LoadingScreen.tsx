@@ -1,34 +1,30 @@
-import { useEffect, useState } from 'react';
 import { useLoadingContext } from '../contexts/loading/useLoadingContext';
 import poleSVG from '../assets/pole.svg';
+import { useEffect, useState } from 'react';
 
 export const LoadingScreen = () => {
     const { isLoading } = useLoadingContext();
-    const [loadingScreenShown, setLoadingScreenShown] = useState(isLoading);
+    const [showLoadingScreen, setShowLoadingScreen] = useState(false);
 
     useEffect(() => {
         let timeoutId: number;
-
         if (isLoading) {
-            setLoadingScreenShown(true);
-            document.body.style.overflow = 'hidden';
+            setShowLoadingScreen(true);
         } else {
             timeoutId = setTimeout(() => {
-                setLoadingScreenShown(false);
-                document.body.style.overflow = '';
+                setShowLoadingScreen(false);
             }, 500);
         }
 
-        return () => {
-            clearTimeout(timeoutId);
-            document.body.style.overflow = '';
-        };
+        return () => clearTimeout(timeoutId);
     }, [isLoading]);
 
-    if (!loadingScreenShown) return null;
+    document.body.style.overflow = showLoadingScreen ? 'hidden' : '';
+
+    if (!showLoadingScreen) return null;
 
     return (
-        <section className="w-screen h-screen fixed top-0 z-50 flex flex-col items-center justify-center backdrop-blur-md ">
+        <section className="w-screen h-screen fixed top-0 z-40 flex flex-col items-center justify-center backdrop-blur-2xl ">
             <img
                 src={poleSVG}
                 alt="Fishing pole"

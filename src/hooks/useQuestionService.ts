@@ -14,7 +14,7 @@ export const useQuestionService = () => {
 
     const [allQuestions, setAllQuestions] = useState<
         QuestionReturnValue[] | null
-    >();
+    >(null);
 
     const createQuestion = async (
         data: QuestionValues,
@@ -45,7 +45,7 @@ export const useQuestionService = () => {
     const updateQuestions = async () => {
         setIsLoading(true);
         const allQuestions = await getAllQuestions();
-        setAllQuestions(allQuestions);
+        setAllQuestions(allQuestions ?? []);
         setIsLoading(false);
     };
 

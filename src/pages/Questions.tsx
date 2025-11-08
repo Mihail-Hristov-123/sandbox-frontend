@@ -17,18 +17,20 @@ export const Questions = () => {
 
                 <section className="flex flex-col gap-12">
                     {allQuestions ? (
-                        allQuestions.map((question) => (
-                            <QuestionCard
-                                key={question.title}
-                                {...question}
-                                authorName={question.authorName}
-                            />
-                        ))
-                    ) : (
-                        <p className="text-center text-xl">
-                            No questions are available right now
-                        </p>
-                    )}
+                        allQuestions.length ? (
+                            allQuestions.map((question) => (
+                                <QuestionCard
+                                    key={question.title}
+                                    {...question}
+                                    authorName={question.authorName}
+                                />
+                            ))
+                        ) : (
+                            <p className="text-center text-xl">
+                                No questions are available right now
+                            </p>
+                        )
+                    ) : null}
                 </section>
             </div>
             {formOpen ? (
