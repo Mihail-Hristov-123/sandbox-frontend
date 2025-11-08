@@ -13,16 +13,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
         const updateAuth = async () => {
             const result = await getCurrentUserInfo();
-            if (!result || !result.ok) {
+            if (!result?.ok) {
                 setUserInfo(undefined);
                 setIsLoggedIn(false);
                 return;
             }
-            setUserInfo(result.body.data);
+            setUserInfo(result.data);
             setIsLoggedIn(true);
         };
         updateAuth();
-    }, []);
+    }, [isLoggedIn]);
 
     return (
         <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, userInfo }}>

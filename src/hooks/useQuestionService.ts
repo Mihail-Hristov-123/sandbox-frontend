@@ -5,9 +5,12 @@ import type {
 } from '../schemas/questions/QuestionSchema';
 import { useApi } from './useApi';
 import { useEffect, useState } from 'react';
+import { useLoadingContext } from '../contexts/loading/useLoadingContext';
 
 export const useQuestionService = () => {
     const { fetchWithAuthCheck } = useApi();
+
+    const { setIsLoading } = useLoadingContext();
 
     const [allQuestions, setAllQuestions] = useState<
         QuestionReturnValue[] | null
@@ -22,7 +25,7 @@ export const useQuestionService = () => {
             body: data,
             path: 'QUESTIONS',
         });
-        if (result && result.ok) {
+        if (result?.ok) {
             toast.success('Question published!');
             resetForm();
             await updateQuestions();
@@ -34,14 +37,16 @@ export const useQuestionService = () => {
         const result = await fetchWithAuthCheck<QuestionReturnValue[]>({
             path: 'QUESTIONS',
         });
-        if (result && result.ok) {
-            return result.body.data;
+        if (result?.ok) {
+            return result.data;
         }
     };
 
     const updateQuestions = async () => {
+        setIsLoading(true);
         const allQuestions = await getAllQuestions();
         setAllQuestions(allQuestions);
+        setIsLoading(false);
     };
 
     useEffect(() => {

@@ -1,6 +1,6 @@
 import { apiRoutes } from '../routes';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
-import { useLoadingContext } from '../contexts/loading/useLoadingContext';
+
 import toast from 'react-hot-toast';
 
 type Path = keyof typeof apiRoutes;
@@ -8,27 +8,24 @@ export interface FetchParams {
     path: Path;
     method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     body?: unknown;
+    silent?: boolean;
 }
 
 export interface Response<ExpectedResponseBody> {
-    status: number;
+    message: string;
     ok: boolean;
-    body: {
-        success: boolean;
-        message: string;
-        data?: ExpectedResponseBody;
-    };
+    data?: ExpectedResponseBody;
 }
 
 export const useApi = () => {
     const { setIsLoggedIn } = useAuthContext();
-    const { setIsLoading } = useLoadingContext();
+
     const fetchWithAuthCheck = async <Data>({
         path,
         method = 'GET',
         body,
+        silent = false,
     }: FetchParams): Promise<Response<Data> | void> => {
-        setIsLoading(true);
         try {
             const response = await fetch(`/@api${apiRoutes[path]}`, {
                 method,
@@ -44,20 +41,18 @@ export const useApi = () => {
 
             const responseBody = await response.json();
 
-            if (!response.ok) {
+            if (!response.ok && !silent) {
                 toast.error(responseBody.message);
             }
 
             return {
-                status: response.status,
                 ok: response.ok,
-                body: responseBody,
+                message: responseBody.message,
+                data: responseBody.data,
             };
         } catch (error) {
             console.error(`Error occurred during API fetch: ${error}`);
             toast.error('Failed to connect to the server');
-        } finally {
-            setIsLoading(false);
         }
     };
 

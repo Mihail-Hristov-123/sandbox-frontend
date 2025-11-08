@@ -7,6 +7,7 @@ export const useUserService = () => {
     const getCurrentUserInfo = () =>
         fetchWithAuthCheck<UserReturnValues>({
             path: 'ME',
+            silent: true,
         });
 
     return { getCurrentUserInfo };

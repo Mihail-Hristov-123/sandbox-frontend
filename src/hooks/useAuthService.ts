@@ -16,7 +16,7 @@ export const useAuthService = () => {
             body: data,
         });
 
-        if (result && result.ok) setIsLoggedIn(true);
+        if (result?.ok) setIsLoggedIn(true);
     };
     const logOut = async (logoutScope: LogoutScope) => {
         const result = await fetchWithAuthCheck({
@@ -24,7 +24,7 @@ export const useAuthService = () => {
             method: 'POST',
         });
 
-        if (result && result.ok) setIsLoggedIn(false);
+        if (result?.ok) setIsLoggedIn(false);
     };
     const register = async (data: UserRegisterValues) => {
         const result = await fetchWithAuthCheck({
@@ -32,7 +32,7 @@ export const useAuthService = () => {
             path: 'REGISTER',
             body: data,
         });
-        if (result && result.ok) setIsLoggedIn(true);
+        if (result?.ok) setIsLoggedIn(true);
     };
 
     return { logIn, logOut, register };
