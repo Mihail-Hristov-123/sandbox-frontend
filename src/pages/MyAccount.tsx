@@ -1,9 +1,8 @@
 import { LoadingScreen } from '../components/LoadingScreen';
-
-import { useCurrentUserInfo } from '../hooks/useCurrentUserInfo';
+import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 export const MyAccount = () => {
-    const { userInfo } = useCurrentUserInfo();
+    const { userInfo } = useAuthContext();
 
     if (!userInfo) {
         return <LoadingScreen />;
