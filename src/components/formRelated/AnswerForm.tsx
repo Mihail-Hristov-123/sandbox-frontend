@@ -11,12 +11,19 @@ import {
     AnswerSchema,
     type AnswerValues,
 } from '../../schemas/questions/CommentSchema';
+import type { QuestionValues } from '../../schemas/questions/QuestionSchema';
 
 export const AnswerForm = ({
     closeModal,
+    createAnswer,
     questionId,
 }: {
     closeModal: () => void;
+    createAnswer: (
+        data: AnswerValues,
+        questionId: number,
+        onSuccess: () => void,
+    ) => Promise<void>;
     questionId: number;
 }) => {
     const {
@@ -27,7 +34,6 @@ export const AnswerForm = ({
     } = useForm({ resolver: zodResolver(AnswerSchema) });
 
     const { isLoggedIn } = useAuthContext();
-    const { createAnswer } = useQuestionService();
 
     const onSubmit = async (data: AnswerValues) => {
         await createAnswer(data, questionId, () => {

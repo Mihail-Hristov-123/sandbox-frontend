@@ -11,6 +11,20 @@ import {
     type AnswerValues,
 } from '../schemas/questions/CommentSchema';
 
+export interface DetailedQuestionInfo {
+    questionData: {
+        authorName: string;
+        description: string;
+        title: string;
+    };
+    answersData: [
+        {
+            question_id: number;
+            id: number;
+            content: string;
+        },
+    ];
+}
 export const useQuestionService = () => {
     const { fetchWithAuthCheck } = useApi();
 
@@ -19,6 +33,9 @@ export const useQuestionService = () => {
     const [allQuestions, setAllQuestions] = useState<
         QuestionReturnValue[] | null
     >(null);
+
+    const [currentQuestion, setCurrentQuestion] =
+        useState<DetailedQuestionInfo | null>(null);
 
     const createQuestion = async (
         data: QuestionValues,
@@ -53,16 +70,26 @@ export const useQuestionService = () => {
         setIsLoading(false);
     };
 
+    const updateCurrentQuestion = async (id: number) => {
+        setIsLoading(true);
+        const question = await getQuestionWithAnswers(id);
+        setCurrentQuestion(question);
+        setIsLoading(false);
+        return question;
+    };
+
     useEffect(() => {
         updateQuestions();
     }, []);
 
     const getQuestionWithAnswers = async (id: number) => {
         setIsLoading(true);
-        const data = await fetchWithAuthCheck({ path: `questions/${id}` });
-        console.log(data);
+        const result = await fetchWithAuthCheck<DetailedQuestionInfo>({
+            path: `questions/${id}`,
+        });
+
         setIsLoading(false);
-        return data;
+        return result?.data ?? null;
     };
 
     const createAnswer = async (
@@ -77,6 +104,7 @@ export const useQuestionService = () => {
         });
         if (result?.ok) {
             toast.success('Answer published');
+            await updateCurrentQuestion(id);
             onSuccess();
         }
     };
@@ -84,7 +112,8 @@ export const useQuestionService = () => {
     return {
         createQuestion,
         allQuestions,
-        getQuestionWithAnswers,
+        updateCurrentQuestion,
+        currentQuestion,
         createAnswer,
     };
 };

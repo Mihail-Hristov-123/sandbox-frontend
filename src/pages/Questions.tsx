@@ -6,7 +6,7 @@ import { Modal } from '../components/Modal';
 import { useQuestionService } from '../hooks/useQuestionService';
 
 export const Questions = () => {
-    const { allQuestions } = useQuestionService();
+    const { allQuestions, createQuestion } = useQuestionService();
 
     const [formOpen, setFormOpen] = useState(false);
 
@@ -35,7 +35,10 @@ export const Questions = () => {
             </div>
             {formOpen ? (
                 <Modal isOpened={true} close={() => setFormOpen(false)}>
-                    <QuestionForm closeModal={() => setFormOpen(false)} />
+                    <QuestionForm
+                        createQuestion={createQuestion}
+                        closeModal={() => setFormOpen(false)}
+                    />
                 </Modal>
             ) : (
                 <AddButton onClick={() => setFormOpen(true)} />

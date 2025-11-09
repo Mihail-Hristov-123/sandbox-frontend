@@ -10,24 +10,15 @@ import { AnswerForm } from '../../components/formRelated/AnswerForm';
 export const QuestionDetails = () => {
     const { questionId } = useParams();
 
-    const { getQuestionWithAnswers } = useQuestionService();
-
-    const [questionInfo, setQuestionInfo] = useState<unknown | null>(null);
+    const { updateCurrentQuestion, currentQuestion, createAnswer } =
+        useQuestionService();
 
     const [formOpen, setFormOpen] = useState(false);
     useEffect(() => {
-        const updateQuestionInfo = async () => {
-            const response = await getQuestionWithAnswers(Number(questionId));
-            if (response) {
-                setQuestionInfo(response.data);
-            }
-            console.log(response);
-        };
-
-        updateQuestionInfo();
+        updateCurrentQuestion(Number(questionId));
     }, [questionId]);
 
-    if (!questionInfo) {
+    if (!currentQuestion) {
         return (
             <main className="text-center">
                 <h1>This question doesn't exist</h1>{' '}
@@ -39,7 +30,7 @@ export const QuestionDetails = () => {
         );
     }
 
-    const { questionData, answersData } = questionInfo;
+    const { questionData, answersData } = currentQuestion;
     return (
         <main className=" sm:px-12 md:px-24 lg:px-40">
             <h1 className="text-4xl font-extrabold text-gray-800 mb-10 text-center">
@@ -51,7 +42,10 @@ export const QuestionDetails = () => {
                     <h2 className="text-3xl font-semibold text-gray-900">
                         {questionData.title}
                     </h2>
-                    <button onClick={() => setFormOpen(true)}>
+                    <button
+                        className="bg-accent text-white p-3 rounded-small font-medium"
+                        onClick={() => setFormOpen(true)}
+                    >
                         Write an answer
                     </button>
                 </div>
@@ -77,6 +71,7 @@ export const QuestionDetails = () => {
                 <AnswerForm
                     closeModal={() => setFormOpen(false)}
                     questionId={Number(questionId)}
+                    createAnswer={createAnswer}
                 />
             </Modal>
         </main>

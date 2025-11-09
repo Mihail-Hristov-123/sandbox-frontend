@@ -9,9 +9,17 @@ import { LabelledTextArea } from './LabelledTextArea';
 import { useAuthContext } from '../../contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
 import { clientRoutes } from '../../routes';
-import { useQuestionService } from '../../hooks/useQuestionService';
 
-export const QuestionForm = ({ closeModal }: { closeModal: () => void }) => {
+export const QuestionForm = ({
+    closeModal,
+    createQuestion,
+}: {
+    closeModal: () => void;
+    createQuestion: (
+        data: QuestionValues,
+        onSuccess: () => void,
+    ) => Promise<void>;
+}) => {
     const {
         register,
         handleSubmit,
@@ -20,7 +28,6 @@ export const QuestionForm = ({ closeModal }: { closeModal: () => void }) => {
     } = useForm({ resolver: zodResolver(QuestionSchema) });
 
     const { isLoggedIn } = useAuthContext();
-    const { createQuestion } = useQuestionService();
 
     const onSubmit = async (data: QuestionValues) => {
         await createQuestion(data, () => {
