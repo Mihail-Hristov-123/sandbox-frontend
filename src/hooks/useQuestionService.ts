@@ -6,6 +6,10 @@ import type {
 import { useApi } from './useApi';
 import { useEffect, useState } from 'react';
 import { useLoadingContext } from '../contexts/loading/useLoadingContext';
+import {
+    type AnswerReturnValues,
+    type AnswerValues,
+} from '../schemas/questions/CommentSchema';
 
 export const useQuestionService = () => {
     const { fetchWithAuthCheck } = useApi();
@@ -53,5 +57,34 @@ export const useQuestionService = () => {
         updateQuestions();
     }, []);
 
-    return { createQuestion, allQuestions };
+    const getQuestionWithAnswers = async (id: number) => {
+        setIsLoading(true);
+        const data = await fetchWithAuthCheck({ path: `questions/${id}` });
+        console.log(data);
+        setIsLoading(false);
+        return data;
+    };
+
+    const createAnswer = async (
+        data: AnswerValues,
+        id: number,
+        onSuccess: () => void,
+    ) => {
+        const result = await fetchWithAuthCheck<AnswerReturnValues>({
+            path: `questions/${id}`,
+            body: data,
+            method: 'POST',
+        });
+        if (result?.ok) {
+            toast.success('Answer published');
+            onSuccess();
+        }
+    };
+
+    return {
+        createQuestion,
+        allQuestions,
+        getQuestionWithAnswers,
+        createAnswer,
+    };
 };

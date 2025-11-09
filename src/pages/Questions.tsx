@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { QuestionCard } from '../components/QuestionCard';
+import { QuestionCard } from '../components/cards/QuestionCard';
 import { QuestionForm } from '../components/formRelated/QuestionForm';
 import { AddButton } from '../components/AddButton';
 import { Modal } from '../components/Modal';

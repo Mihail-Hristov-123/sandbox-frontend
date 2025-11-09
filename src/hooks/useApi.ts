@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 
 type Path = keyof typeof apiRoutes;
 export interface FetchParams {
-    path: Path;
+    path: Path | string;
     method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     body?: unknown;
     silent?: boolean;
@@ -27,13 +27,16 @@ export const useApi = () => {
         silent = false,
     }: FetchParams): Promise<Response<Data> | void> => {
         try {
-            const response = await fetch(`/@api${apiRoutes[path]}`, {
-                method,
-                headers: body
-                    ? { 'Content-Type': 'application/json' }
-                    : undefined,
-                body: body ? JSON.stringify(body) : undefined,
-            });
+            const response = await fetch(
+                `/@api${path in apiRoutes ? apiRoutes[path] : path}`,
+                {
+                    method,
+                    headers: body
+                        ? { 'Content-Type': 'application/json' }
+                        : undefined,
+                    body: body ? JSON.stringify(body) : undefined,
+                },
+            );
 
             if (response.status === 401) {
                 setIsLoggedIn(false);

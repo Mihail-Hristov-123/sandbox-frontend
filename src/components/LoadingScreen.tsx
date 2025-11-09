@@ -24,7 +24,7 @@ export const LoadingScreen = () => {
     if (!showLoadingScreen) return null;
 
     return (
-        <section className="w-screen h-screen fixed top-0 z-40 flex flex-col items-center justify-center backdrop-blur-2xl ">
+        <section className="w-screen h-screen fixed top-0 z-40 flex flex-col items-center justify-center backdrop-blur-lg ">
             <img
                 src={poleSVG}
                 alt="Fishing pole"

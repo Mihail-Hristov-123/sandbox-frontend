@@ -1,10 +1,17 @@
 import z from 'zod';
 
-export const CommentSchema = z.object({
+export const AnswerSchema = z.object({
     content: z
         .string()
-        .min(5, 'Comment must be at least 5 characters long')
-        .max(200, 'Comment must not be longer than 200 characters'),
+        .trim()
+        .min(10, 'Answer must be at least 10 characters long')
+        .max(300, 'Answer must not be longer than 300 characters'),
 });
 
-export type CommentValues = z.infer<typeof CommentSchema>;
+export type AnswerValues = z.infer<typeof AnswerSchema>;
+
+export type AnswerReturnValues = AnswerValues & {
+    id: number;
+    user_id: number;
+    question_id: number;
+};
