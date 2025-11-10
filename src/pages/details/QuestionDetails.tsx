@@ -1,24 +1,26 @@
 import { Link, useParams } from 'react-router';
-import { useQuestionService } from '../../hooks/useQuestionService';
+
 import { clientRoutes } from '../../routes';
 import { AuthorField } from '../../components/AuthorField';
 import { useEffect, useState } from 'react';
-import { AnswerCard } from '../../components/cards/AnswerCard';
+
 import { Modal } from '../../components/Modal';
 import { AnswerForm } from '../../components/formRelated/AnswerForm';
+import { useQuestionDetails } from '../../hooks/useQuestionDetails';
+import { AnswerCard } from '../../components/cards/AnswerCard';
 
 export const QuestionDetails = () => {
     const { questionId } = useParams();
 
-    const { updateCurrentQuestion, currentQuestion, createAnswer } =
-        useQuestionService();
+    const { updateCurrentQuestionData, currentQuestionData, createAnswer } =
+        useQuestionDetails();
 
     const [formOpen, setFormOpen] = useState(false);
     useEffect(() => {
-        updateCurrentQuestion(Number(questionId));
+        updateCurrentQuestionData(questionId);
     }, [questionId]);
 
-    if (!currentQuestion) {
+    if (!currentQuestionData) {
         return (
             <main className="text-center">
                 <h1>This question doesn't exist</h1>{' '}
@@ -30,8 +32,7 @@ export const QuestionDetails = () => {
         );
     }
 
-    const { questionData, answersData } = currentQuestion;
-    console.log(questionData);
+    const { questionData, answersData } = currentQuestionData;
     return (
         <main className=" sm:px-12 md:px-24 lg:px-40">
             <h1 className="text-4xl font-extrabold text-gray-800 mb-10 text-center">
@@ -63,16 +64,20 @@ export const QuestionDetails = () => {
                         {answersData.length > 0 ? 'Answers' : 'No answers yet'}
                     </h3>
 
-                    {answersData.map((answer) => (
-                        <AnswerCard key={answer.id} {...answer} />
+                    {answersData.map(({ id, content, user_username }) => (
+                        <AnswerCard
+                            key={id}
+                            content={content}
+                            username={user_username}
+                        />
                     ))}
                 </div>
             </section>
             <Modal isOpened={formOpen} close={() => setFormOpen(false)}>
                 <AnswerForm
                     closeModal={() => setFormOpen(false)}
-                    questionId={Number(questionId)}
                     createAnswer={createAnswer}
+                    questionId={Number(questionId)}
                 />
             </Modal>
         </main>

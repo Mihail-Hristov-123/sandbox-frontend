@@ -3,10 +3,10 @@ import { QuestionCard } from '../components/cards/QuestionCard';
 import { QuestionForm } from '../components/formRelated/QuestionForm';
 import { AddButton } from '../components/AddButton';
 import { Modal } from '../components/Modal';
-import { useQuestionService } from '../hooks/useQuestionService';
+import { useQuestions } from '../hooks/useQuestions';
 
 export const Questions = () => {
-    const { allQuestions, createQuestion } = useQuestionService();
+    const { allQuestions, createQuestion } = useQuestions();
 
     const [formOpen, setFormOpen] = useState(false);
 
@@ -21,7 +21,6 @@ export const Questions = () => {
                             allQuestions.map((question) => (
                                 <QuestionCard
                                     key={question.title}
-                                    authorName={question.user_username}
                                     {...question}
                                 />
                             ))

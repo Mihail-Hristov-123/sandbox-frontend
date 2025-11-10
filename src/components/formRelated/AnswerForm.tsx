@@ -6,25 +6,24 @@ import { LabelledTextArea } from './LabelledTextArea';
 import { useAuthContext } from '../../contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
 import { clientRoutes } from '../../routes';
-import { useQuestionService } from '../../hooks/useQuestionService';
+
 import {
     AnswerSchema,
     type AnswerValues,
 } from '../../schemas/questions/CommentSchema';
-import type { QuestionValues } from '../../schemas/questions/QuestionSchema';
 
 export const AnswerForm = ({
     closeModal,
-    createAnswer,
     questionId,
+    createAnswer,
 }: {
     closeModal: () => void;
+    questionId: number;
     createAnswer: (
         data: AnswerValues,
-        questionId: number,
+        questionId: unknown,
         onSuccess: () => void,
     ) => Promise<void>;
-    questionId: number;
 }) => {
     const {
         register,
@@ -37,10 +36,8 @@ export const AnswerForm = ({
 
     const onSubmit = async (data: AnswerValues) => {
         await createAnswer(data, questionId, () => {
-            reset();
-            closeModal();
+            (reset(), closeModal());
         });
-        console;
     };
 
     return (

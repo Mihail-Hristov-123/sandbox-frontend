@@ -47,7 +47,7 @@
     }
 
     main {
-        @apply bg-bg pb-40 min-h-[90vh] relative;
+        @apply bg-bg pb-40 min-h-[90vh] max-w-screen overflow-x-hidden relative;
     }
 }
 
