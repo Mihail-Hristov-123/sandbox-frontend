@@ -1,9 +1,14 @@
 import type { AnswerReturnValues } from '../../schemas/questions/CommentSchema';
+import { AuthorField } from '../AuthorField';
 
 export const AnswerCard = (authorData: Partial<AnswerReturnValues>) => {
     return (
-        <article className="border  bg-secondary rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow">
-            <p className="text-white leading-relaxed">{authorData.content}</p>
+        <article className="border shadow-lg rounded-lg p-6 text-primary">
+            <div className="flex justify-between flex-wrap">
+                {' '}
+                <p>{authorData.content}</p>
+                <AuthorField name={authorData.user_username} />
+            </div>
         </article>
     );
 };

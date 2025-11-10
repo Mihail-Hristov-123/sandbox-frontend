@@ -28,7 +28,7 @@ export const useApi = () => {
     }: FetchParams): Promise<Response<Data> | void> => {
         try {
             const response = await fetch(
-                `/@api${path in apiRoutes ? apiRoutes[path] : path}`,
+                `/@api${path in apiRoutes ? apiRoutes[path as keyof typeof apiRoutes] : path}`,
                 {
                     method,
                     headers: body

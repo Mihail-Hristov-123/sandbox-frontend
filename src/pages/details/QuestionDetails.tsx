@@ -31,6 +31,7 @@ export const QuestionDetails = () => {
     }
 
     const { questionData, answersData } = currentQuestion;
+    console.log(questionData);
     return (
         <main className=" sm:px-12 md:px-24 lg:px-40">
             <h1 className="text-4xl font-extrabold text-gray-800 mb-10 text-center">
@@ -38,6 +39,7 @@ export const QuestionDetails = () => {
             </h1>
 
             <section className="bg-white border border-gray-200 shadow-xl rounded-xl p-10 space-y-8">
+                <AuthorField name={questionData.user_username} />
                 <div className=" flex justify-between">
                     <h2 className="text-3xl font-semibold text-gray-900">
                         {questionData.title}
@@ -49,7 +51,6 @@ export const QuestionDetails = () => {
                         Write an answer
                     </button>
                 </div>
-                <AuthorField name={questionData.authorName} />
 
                 <p className="text-lg text-gray-700 leading-relaxed">
                     {questionData.description}

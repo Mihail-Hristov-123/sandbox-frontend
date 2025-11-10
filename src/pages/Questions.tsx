@@ -21,8 +21,8 @@ export const Questions = () => {
                             allQuestions.map((question) => (
                                 <QuestionCard
                                     key={question.title}
+                                    authorName={question.user_username}
                                     {...question}
-                                    authorName={question.authorName}
                                 />
                             ))
                         ) : (

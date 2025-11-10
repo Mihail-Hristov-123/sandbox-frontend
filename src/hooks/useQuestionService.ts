@@ -13,7 +13,7 @@ import {
 
 export interface DetailedQuestionInfo {
     questionData: {
-        authorName: string;
+        user_username: string;
         description: string;
         title: string;
     };
@@ -22,6 +22,7 @@ export interface DetailedQuestionInfo {
             question_id: number;
             id: number;
             content: string;
+            user_username: string;
         },
     ];
 }
@@ -87,7 +88,7 @@ export const useQuestionService = () => {
         const result = await fetchWithAuthCheck<DetailedQuestionInfo>({
             path: `questions/${id}`,
         });
-
+        console.log(result?.data);
         setIsLoading(false);
         return result?.data ?? null;
     };

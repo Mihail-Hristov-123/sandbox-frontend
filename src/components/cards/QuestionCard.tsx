@@ -5,7 +5,7 @@ import { clientRoutes } from '../../routes';
 import type { QuestionReturnValue } from '../../schemas/questions/QuestionSchema';
 
 export const QuestionCard = ({
-    authorName,
+    user_username,
     description,
     title,
     id,
@@ -17,7 +17,7 @@ export const QuestionCard = ({
             onClick={() => navigate(clientRoutes.QUESTIONS + `/${id}`)}
             className="shadow-sm shadow-primary rounded-big p-6 hover:shadow-md  transition-shadow duration-300 cursor-pointer space-y-2"
         >
-            <AuthorField name={authorName} />
+            <AuthorField name={user_username} />
 
             <h2 className="text-2xl font-semibold">{title}</h2>
 
