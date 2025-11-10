@@ -5,12 +5,9 @@ import type {
 } from '../schemas/questions/QuestionSchema';
 import { useApi } from './useApi';
 import { useEffect, useState } from 'react';
-import { useLoadingContext } from '../contexts/loading/useLoadingContext';
 
 export const useQuestions = () => {
     const { fetchWithAuthCheck } = useApi();
-
-    const { setIsLoading } = useLoadingContext();
 
     const [allQuestions, setAllQuestions] = useState<
         QuestionReturnValue[] | null
@@ -43,10 +40,8 @@ export const useQuestions = () => {
     };
 
     const updateQuestions = async () => {
-        setIsLoading(true);
         const allQuestions = await getAllQuestions();
         setAllQuestions(allQuestions ?? []);
-        setIsLoading(false);
     };
 
     useEffect(() => {

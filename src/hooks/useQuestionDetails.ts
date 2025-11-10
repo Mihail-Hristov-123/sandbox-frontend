@@ -35,6 +35,7 @@ export const useQuestionDetails = () => {
             Number(questionId) <= 0
         ) {
             setCurrentQuestionData(null);
+
             return;
         }
 
@@ -42,7 +43,6 @@ export const useQuestionDetails = () => {
             path: `${apiRoutes.QUESTIONS}/${questionId}`,
         });
 
-        console.log(response?.data?.answersData.length + ' here');
         setCurrentQuestionData(response?.data ?? null);
     };
 
