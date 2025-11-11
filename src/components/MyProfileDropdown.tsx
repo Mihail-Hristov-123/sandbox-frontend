@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import picklistSVG from '../assets/picklist.svg';
-import crossSVG from '../assets/cross.svg';
+
+import arrowDownSVG from '../assets/arrow-down.svg';
 import { Link } from 'react-router';
 import { clientRoutes } from '../routes';
 import { useAuthService, type LogoutScope } from '../hooks/useAuthService';
@@ -38,17 +38,19 @@ export const MyProfileDropdown = () => {
     return (
         <section className="relative" ref={sectionRef}>
             <button
-                className="flex border-2 border-accent justify-between px-1 py-1 rounded-small items-center group"
+                className="flex border-2 border-accent justify-between px-2 py-1 w-fit rounded-small items-center group overflow-hidden"
                 onClick={() => setExpanded(!expanded)}
             >
-                <span className="px-2">My profile</span>
+                <span>My profile</span>
 
-                <img
-                    src={expanded ? crossSVG : picklistSVG}
-                    className="w-0 border-l-2 border-l-accent group-hover:w-7 item-smooth-appear"
-                    alt="Dropdown menu icon"
-                />
+                <div className="overflow-hidden transition-all duration-300 w-0 group-hover:w-6 flex items-center ">
+                    <img
+                        src={arrowDownSVG}
+                        className={`transition-transform duration-300 ml-1 ${expanded ? 'rotate-180' : 'rotate-0'}`}
+                    />
+                </div>
             </button>
+
             {expanded && (
                 <menu className="flex flex-col items-center absolute px-6 py-3  right-0 shadow-xl  whitespace-nowrap rounded-small  bg-primary gap-1 text-base">
                     <Link to={clientRoutes.MY_ACCOUNT}>Profile page</Link>

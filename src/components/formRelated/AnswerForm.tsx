@@ -52,7 +52,7 @@ export const AnswerForm = ({
                         <textarea
                             {...register('content')}
                             placeholder="Your answer"
-                            className=" grow p-2 border border-primary rounded-small max-h-[30vh] h-[5.2vh] min-h-[5.2vh]"
+                            className=" grow p-2 border border-primary rounded-small max-h-[30vh] h-13 min-h-13"
                         />
                         <input type="submit" className="h-fit text-lg" />
                     </div>

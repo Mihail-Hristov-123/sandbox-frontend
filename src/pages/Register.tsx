@@ -52,7 +52,7 @@ export const Register = () => {
         await createAccount(data);
 
     return (
-        <main className=" flex items-center justify-center flex-col gap-8 ">
+        <main className=" flex items-center justify-center pt-10 flex-col gap-8 ">
             <form onSubmit={handleSubmit(onSubmit)} className="form">
                 <h1>Create account</h1>
                 <div className=" input-container">
