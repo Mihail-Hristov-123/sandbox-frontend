@@ -5,6 +5,7 @@ import type {
     AnswerReturnValues,
     AnswerValues,
 } from '../schemas/questions/CommentSchema';
+import toast from 'react-hot-toast';
 
 export interface DetailedQuestionInfo {
     questionData: {
@@ -57,8 +58,8 @@ export const useQuestionDetails = () => {
             method: 'POST',
         });
         if (result?.ok) {
-            console.log('point reached');
             await updateCurrentQuestionData(questionId);
+            toast.success('Answer posted!');
             onSuccess();
         }
     };

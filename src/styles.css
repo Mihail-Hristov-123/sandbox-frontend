@@ -38,7 +38,7 @@
     }
 
     input[type='submit'] {
-        @apply text-white bg-primary rounded-b-small py-2 w-full text-2xl font-bold;
+        @apply text-white bg-primary rounded-small py-3 px-4 text-2xl mb-6 font-bold;
     }
 
     a:not(nav a) {
@@ -46,7 +46,7 @@
     }
 
     main {
-        @apply bg-bg py-20 min-h-[82vh] max-w-screen overflow-x-hidden relative;
+        @apply bg-bg pb-20 min-h-[82vh] max-w-screen overflow-x-hidden relative;
     }
 }
 

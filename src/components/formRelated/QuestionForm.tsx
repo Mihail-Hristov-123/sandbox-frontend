@@ -11,10 +11,8 @@ import { NavLink } from 'react-router';
 import { clientRoutes } from '../../routes';
 
 export const QuestionForm = ({
-    closeModal,
     createQuestion,
 }: {
-    closeModal: () => void;
     createQuestion: (
         data: QuestionValues,
         onSuccess: () => void,
@@ -32,7 +30,6 @@ export const QuestionForm = ({
     const onSubmit = async (data: QuestionValues) => {
         await createQuestion(data, () => {
             reset();
-            closeModal();
         });
     };
 
@@ -41,21 +38,23 @@ export const QuestionForm = ({
             {isLoggedIn ? (
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="form border-0"
+                    className="form rounded-t-none border-0 shadow-xl pt-6 "
                 >
                     <h1>Ask a question</h1>
-                    <div className=" input-container">
+                    <div className="input-container">
                         <LabelledInput
                             labelText="Question title:"
                             errors={errors}
                             register={register}
                             name="title"
+                            placeholder="What is your question?"
                         />
 
                         <LabelledTextArea
                             labelText="Description:"
                             errors={errors}
                             register={register}
+                            placeholder="Describe the question and the solutions you have tried"
                             name="description"
                         />
                     </div>
@@ -63,8 +62,8 @@ export const QuestionForm = ({
                 </form>
             ) : (
                 <p className="text-center py-4 px-12 text-xl">
-                    <NavLink to={clientRoutes.LOG_IN}>Log in</NavLink> to access
-                    this feature.
+                    <NavLink to={clientRoutes.LOG_IN}>Log in</NavLink> to ask
+                    questions
                 </p>
             )}
         </div>

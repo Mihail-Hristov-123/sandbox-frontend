@@ -1,16 +1,39 @@
 import profilePicPlaceholder from '../assets/user.png';
+
 interface Props {
     profilePictureLink?: string;
     name: string;
+    autoDisplay?: boolean;
 }
 
-export const AuthorField = ({ profilePictureLink, name }: Props) => (
-    <section className="flex bg-secondary w-fit px-2 py-1 group rounded-small items-center text-white">
-        <img
-            src={profilePictureLink || profilePicPlaceholder}
-            alt="Profile picture"
-            className="w-0 item-smooth-appear group-hover:w-10 group-hover:mr-2"
-        />
-        <p className=" text-xl">{name}</p>
-    </section>
-);
+export const AuthorField = ({
+    profilePictureLink,
+    name,
+    autoDisplay = false,
+}: Props) => {
+    return (
+        <section
+            className={`flex w-fit px-2 py-1 items-center shrink-0 rounded-small text-white cursor-pointer
+                ${
+                    autoDisplay
+                        ? 'bg-secondary gap-2'
+                        : 'hover:bg-secondary transition-colors duration-500 group'
+                }`}
+        >
+            <img
+                src={profilePictureLink || profilePicPlaceholder}
+                alt="Profile picture"
+                className="w-10"
+            />
+            <p
+                className={`${
+                    autoDisplay
+                        ? ''
+                        : 'max-w-0 overflow-hidden item-smooth-appear duration-500 whitespace-nowrap group-hover:pl-2 group-hover:max-w-20'
+                }`}
+            >
+                {name}
+            </p>
+        </section>
+    );
+};

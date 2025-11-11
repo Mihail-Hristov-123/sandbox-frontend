@@ -2,9 +2,8 @@ import { Link, useParams } from 'react-router';
 
 import { clientRoutes } from '../../routes';
 import { AuthorField } from '../../components/AuthorField';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import { Modal } from '../../components/Modal';
 import { AnswerForm } from '../../components/formRelated/AnswerForm';
 import { useQuestionDetails } from '../../hooks/useQuestionDetails';
 import { AnswerCard } from '../../components/cards/AnswerCard';
@@ -15,7 +14,6 @@ export const QuestionDetails = () => {
     const { updateCurrentQuestionData, currentQuestionData, createAnswer } =
         useQuestionDetails();
 
-    const [formOpen, setFormOpen] = useState(false);
     useEffect(() => {
         updateCurrentQuestionData(questionId);
     }, [questionId]);
@@ -34,26 +32,19 @@ export const QuestionDetails = () => {
 
     const { questionData, answersData } = currentQuestionData;
     return (
-        <main className=" sm:px-12 md:px-24 lg:px-40">
-            <h1>Question Details</h1>
-
+        <main className=" sm:px-12 md:px-24 lg:px-40 pt-10">
             <section className="bg-white  shadow-2xl rounded-xl p-10 space-y-8">
-                <div className="flex justify-between">
-                    <AuthorField name={questionData.user_username} />
-                    <button
-                        className="bg-accent text-white p-3 rounded-small font-medium"
-                        onClick={() => setFormOpen(true)}
-                    >
-                        Add your answer
-                    </button>
-                </div>
+                <AuthorField name={questionData.user_username} autoDisplay />
 
                 <h2 className="text-3xl font-bold ">{questionData.title}</h2>
 
                 <p className=" text-lg">{questionData.description}</p>
 
+                <AnswerForm
+                    questionId={Number(questionId)}
+                    createAnswer={createAnswer}
+                />
                 <hr className="border-secondary my-6" />
-
                 <div className="space-y-6">
                     <h3 className="text-2xl font-bold">
                         {answersData.length > 0 ? 'Answers' : 'No answers yet'}
@@ -68,13 +59,6 @@ export const QuestionDetails = () => {
                     ))}
                 </div>
             </section>
-            <Modal isOpened={formOpen} close={() => setFormOpen(false)}>
-                <AnswerForm
-                    closeModal={() => setFormOpen(false)}
-                    createAnswer={createAnswer}
-                    questionId={Number(questionId)}
-                />
-            </Modal>
         </main>
     );
 };
