@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { AuthorField } from '../AuthorField';
 import { LocationPreview } from '../maps/LocationPreview';
-import { Link } from 'react-router';
 
 export interface CatchValues {
     authorName: string;
@@ -22,15 +21,7 @@ export const CatchCard = ({
         <article className="w-full shadow-2xl rounded-big p-4 space-y-4">
             <AuthorField name={authorName} />
 
-            <header className="flex justify-between">
-                <h2 className="text-xl font-semibold">{title}</h2>
-                <Link
-                    target="_blank"
-                    to={`https://www.google.com/maps/dir/?api=1&origin=My+Location&destination=${coordinates[0]},${coordinates[1]}`}
-                >
-                    Take me there
-                </Link>
-            </header>
+            <h2 className="text-xl font-semibold">{title}</h2>
 
             <img
                 src={imgLink}

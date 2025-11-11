@@ -1,4 +1,5 @@
 import { Map, Marker, ZoomControl } from 'pigeon-maps';
+import { Link } from 'react-router';
 
 export const LocationPreview = ({
     markerCoordinates,
@@ -13,7 +14,17 @@ export const LocationPreview = ({
             defaultCenter={markerCoordinates}
         >
             <Marker width={50} anchor={markerCoordinates} />
+
             <ZoomControl />
+            <button className="bg-primary absolute bottom-0 right-0 text-white px-3 py-1 rounded-tl-big">
+                {' '}
+                <Link
+                    target="_blank"
+                    to={`https://www.google.com/maps/dir/?api=1&origin=My+Location&destination=${markerCoordinates[0]},${markerCoordinates[1]}`}
+                >
+                    Take me there
+                </Link>
+            </button>
         </Map>
     );
 };
