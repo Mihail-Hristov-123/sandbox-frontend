@@ -5,7 +5,7 @@ import { LocationPreview } from '../maps/LocationPreview';
 export interface CatchValues {
     authorName: string;
     title: string;
-    coordinates: [latitude: number, longitude: number];
+    coordinates: [number, number];
     imgLink: string;
 }
 

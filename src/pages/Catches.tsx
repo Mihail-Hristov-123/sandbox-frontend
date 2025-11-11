@@ -30,11 +30,13 @@ export const Catches = () => {
     return (
         <main className=" flex flex-col items-center">
             <div className="xl:w-2/3">
-                <CatchForm />
-                <h1>Recent catches</h1>
+                <CatchForm
+                    onSuccess={(data) => setCatches([data, ...catches])}
+                />
+                <h1 className="pt-20 pb-12">Recent catches</h1>
                 <section className="flex flex-col  gap-10 ">
                     {catches.map((catchInfo) => (
-                        <CatchCard {...catchInfo} />
+                        <CatchCard key={catchInfo.title} {...catchInfo} />
                     ))}
                 </section>
             </div>

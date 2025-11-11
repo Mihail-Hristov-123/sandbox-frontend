@@ -8,27 +8,37 @@ import { CurrentLocationButton } from '../maps/CurrentLocationButton';
 import { useAuthContext } from '../../contexts/auth/useAuthContext';
 import { clientRoutes } from '../../routes';
 import { Link } from 'react-router';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { CatchSchema } from '../../schemas/CatchSchema';
+import toast from 'react-hot-toast';
 
 type FormData = Omit<CatchValues, 'authorName'>;
 
-export const CatchForm = () => {
+export const CatchForm = ({
+    onSuccess,
+}: {
+    onSuccess: (data: CatchValues) => void;
+}) => {
     const {
         register,
         handleSubmit,
         setValue,
+        reset,
         formState: { errors },
         getValues,
-    } = useForm<FormData>();
+    } = useForm<FormData>({ resolver: zodResolver(CatchSchema) });
 
     const onSubmit = (data: FormData) => {
-        console.log(data);
+        onSuccess({ ...data, authorName: userInfo?.username! });
+        reset();
+        toast.success('Catch published');
     };
 
     const [anchor, setAnchor] = useState<[number, number]>(
         getValues('coordinates') ?? [50.879, 4.6997],
     );
 
-    const { isLoggedIn } = useAuthContext();
+    const { isLoggedIn, userInfo } = useAuthContext();
 
     return (
         <form
@@ -47,7 +57,7 @@ export const CatchForm = () => {
                         labelText="Image link:"
                         register={register}
                         errors={errors}
-                        name="title"
+                        name="imgLink"
                     />
                     <Map
                         height={300}

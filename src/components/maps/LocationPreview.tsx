@@ -11,7 +11,7 @@ export const LocationPreview = ({
             height={300}
             defaultZoom={10}
             minZoom={3}
-            defaultCenter={markerCoordinates}
+            center={markerCoordinates}
         >
             <Marker width={50} anchor={markerCoordinates} />
 

@@ -8,7 +8,7 @@ export const AnswerCard = ({
     username: string;
 }) => {
     return (
-        <article className="flex shadow-xl rounded-big p-6 gap-6 items-center text-primary">
+        <article className="flex shadow-xl rounded-big p-6 gap-6 flex-col  text-primary">
             <AuthorField name={username} />
             <p className="break-all">{content}</p>
         </article>
