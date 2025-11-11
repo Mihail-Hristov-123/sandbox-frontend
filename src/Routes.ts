@@ -1,6 +1,6 @@
 export const clientRoutes = {
     HOME: '/',
-    POSTS: '/posts',
+    CATCHES: '/catches',
     REGISTER: '/register',
     LOG_IN: '/login',
     MY_ACCOUNT: '/me',

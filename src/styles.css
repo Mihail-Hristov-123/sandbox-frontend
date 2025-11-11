@@ -48,6 +48,10 @@
     main {
         @apply bg-bg pb-20 min-h-[82vh] max-w-screen overflow-x-hidden relative;
     }
+
+    div.pigeon-attribution {
+        display: none;
+    }
 }
 
 @layer components {

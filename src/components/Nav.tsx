@@ -13,8 +13,8 @@ const pathsMap: { name: string; location: keyof typeof clientRoutes }[] = [
         location: 'HOME',
     },
     {
-        name: 'Posts',
-        location: 'POSTS',
+        name: 'Catches',
+        location: 'CATCHES',
     },
     {
         name: 'Questions',
