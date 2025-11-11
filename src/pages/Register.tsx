@@ -52,11 +52,8 @@ export const Register = () => {
         await createAccount(data);
 
     return (
-        <main className=" h-screen flex items-center justify-center flex-col gap-8 px-8">
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className=" flex flex-col justify-around rounded-big items-center gap-8 form "
-            >
+        <main className=" flex items-center flex-col gap-8 ">
+            <form onSubmit={handleSubmit(onSubmit)} className="form">
                 <h1>Create account</h1>
                 <div className=" input-container">
                     {inputFields.map((field) => (

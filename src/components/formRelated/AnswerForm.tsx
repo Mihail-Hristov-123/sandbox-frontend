@@ -43,12 +43,9 @@ export const AnswerForm = ({
     return (
         <div>
             {isLoggedIn ? (
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="flex flex-col gap-12 min-w-[40vw]"
-                >
-                    <h2 className="text-center text-3xl">Ask a question</h2>
-                    <div className=" px-14 space-y-12">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <h1>Ask a question</h1>
+                    <div className=" input-container">
                         <LabelledTextArea
                             labelText="Your answer:"
                             errors={errors}

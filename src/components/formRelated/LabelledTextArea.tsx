@@ -26,7 +26,7 @@ export const LabelledTextArea = <T extends FieldValues>({
     const errorMessage = errors[name]?.message;
 
     return (
-        <div>
+        <div className="w-full">
             <label htmlFor={name}>{labelText}</label>
             <textarea
                 className={`border w-full max-h-[30vh] min-h-[2em] p-1 indent-2 rounded-small ${errorMessage ? 'border-error' : 'border-primary'} ${className}`}

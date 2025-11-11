@@ -35,7 +35,7 @@ export const Nav = () => {
                     <img src={logo} className="w-36" alt="Tackle box logo" />
                 </Link>
 
-                <div className="space-x-10">
+                <div className="space-x-10 max-sm:space-x-6">
                     {isLoggedIn ? (
                         <MyProfileDropdown />
                     ) : (

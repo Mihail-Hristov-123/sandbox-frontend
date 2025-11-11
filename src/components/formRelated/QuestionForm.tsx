@@ -41,10 +41,10 @@ export const QuestionForm = ({
             {isLoggedIn ? (
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="flex flex-col gap-12 min-w-[40vw]"
+                    className="form border-0"
                 >
-                    <h2 className="text-center text-3xl">Ask a question</h2>
-                    <div className=" px-14 space-y-12">
+                    <h1>Ask a question</h1>
+                    <div className=" input-container">
                         <LabelledInput
                             labelText="Question title:"
                             errors={errors}

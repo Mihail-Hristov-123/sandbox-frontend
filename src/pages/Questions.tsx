@@ -12,7 +12,7 @@ export const Questions = () => {
 
     return (
         <main>
-            <div className="max-w-[60vw] mx-auto">
+            <div className="max-w-[60vw] mx-auto max-lg:max-w-[80vw]">
                 <h1>Latest questions</h1>
 
                 <section className="flex flex-col gap-12">

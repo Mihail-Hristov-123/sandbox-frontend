@@ -20,11 +20,11 @@ export const Login = () => {
 
     const onSubmit = async (data: UserLoginValues) => await logIn(data);
     return (
-        <main className="flex flex-col items-center justify-center gap-8 px-8">
+        <main className="flex flex-col items-center gap-8">
             <form onSubmit={handleSubmit(onSubmit)} className="form">
                 <h1>Log in</h1>
 
-                <div className=" input-container">
+                <div className="input-container">
                     <LabelledInput
                         labelText="Email:"
                         errors={errors}

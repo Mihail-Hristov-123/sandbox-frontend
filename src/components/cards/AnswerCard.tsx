@@ -8,11 +8,9 @@ export const AnswerCard = ({
     username: string;
 }) => {
     return (
-        <article className="border w-full shadow-lg rounded-lg p-6 text-primary">
-            <div className="flex justify-between">
-                <p>{content}</p>
-                <AuthorField name={username} />
-            </div>
+        <article className="border w-full shadow-lg rounded-lg p-6 space-y-3 text-primary">
+            <AuthorField name={username} />
+            <p>{content}</p>
         </article>
     );
 };

@@ -35,32 +35,27 @@ export const QuestionDetails = () => {
     const { questionData, answersData } = currentQuestionData;
     return (
         <main className=" sm:px-12 md:px-24 lg:px-40">
-            <h1 className="text-4xl font-extrabold text-gray-800 mb-10 text-center">
-                Question Details
-            </h1>
+            <h1>Question Details</h1>
 
-            <section className="bg-white border border-gray-200 shadow-xl rounded-xl p-10 space-y-8">
-                <AuthorField name={questionData.user_username} />
-                <div className=" flex justify-between">
-                    <h2 className="text-3xl font-semibold text-gray-900">
-                        {questionData.title}
-                    </h2>
+            <section className="bg-white  shadow-2xl rounded-xl p-10 space-y-8">
+                <div className="flex justify-between">
+                    <AuthorField name={questionData.user_username} />
                     <button
                         className="bg-accent text-white p-3 rounded-small font-medium"
                         onClick={() => setFormOpen(true)}
                     >
-                        Write an answer
+                        Add your answer
                     </button>
                 </div>
 
-                <p className="text-lg text-gray-700 leading-relaxed">
-                    {questionData.description}
-                </p>
+                <h2 className="text-3xl font-bold ">{questionData.title}</h2>
 
-                <hr className="border-gray-200 my-6" />
+                <p className=" text-lg">{questionData.description}</p>
+
+                <hr className="border-secondary my-6" />
 
                 <div className="space-y-6">
-                    <h3 className="text-2xl font-bold text-gray-800">
+                    <h3 className="text-2xl font-bold">
                         {answersData.length > 0 ? 'Answers' : 'No answers yet'}
                     </h3>
 
