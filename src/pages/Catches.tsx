@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { CatchCard, type CatchValues } from '../components/cards/CatchCard';
+import { CatchForm } from '../components/formRelated/CatchForm';
 
 export const Catches = () => {
-    const [posts, setPosts] = useState<CatchValues[]>([
+    const [catches, setCatches] = useState<CatchValues[]>([
         {
             authorName: 'mihail',
             coordinates: [42.335, 23.083],
@@ -28,12 +29,15 @@ export const Catches = () => {
 
     return (
         <main className=" flex flex-col items-center">
-            <h1>Recent catches</h1>
-            <section className="flex flex-col w-2/3 gap-10 ">
-                {posts.map((post) => (
-                    <CatchCard {...post} />
-                ))}
-            </section>
+            <div className="xl:w-2/3">
+                <CatchForm />
+                <h1>Recent catches</h1>
+                <section className="flex flex-col  gap-10 ">
+                    {catches.map((catchInfo) => (
+                        <CatchCard {...catchInfo} />
+                    ))}
+                </section>
+            </div>
         </main>
     );
 };
