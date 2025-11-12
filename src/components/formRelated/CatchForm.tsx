@@ -11,6 +11,7 @@ import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CatchSchema } from '../../schemas/CatchSchema';
 import toast from 'react-hot-toast';
+import { ErrorMessage } from './ErrorMessage';
 
 type FormData = Omit<CatchValues, 'authorName'>;
 
@@ -25,6 +26,7 @@ export const CatchForm = ({
         setValue,
         reset,
         formState: { errors },
+        setError,
         getValues,
     } = useForm<FormData>({ resolver: zodResolver(CatchSchema) });
 
@@ -43,7 +45,7 @@ export const CatchForm = ({
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="form border-0 shadow-xl py-8 px-8 gap-8"
+            className="form border-0 shadow-xl py-8 px-6 gap-8"
         >
             {isLoggedIn ? (
                 <>
@@ -70,7 +72,9 @@ export const CatchForm = ({
                         <Draggable
                             anchor={anchor}
                             onDragEnd={(newPos) => {
-                                setValue('coordinates', newPos);
+                                setValue('coordinates', newPos, {
+                                    shouldValidate: true,
+                                });
                                 setAnchor(newPos);
                             }}
                         >
@@ -79,10 +83,12 @@ export const CatchForm = ({
                         <CurrentLocationButton
                             setCurrentPosition={(coordinates) => {
                                 setValue('coordinates', coordinates);
+                                setError('coordinates', { message: '' });
                                 setAnchor(coordinates);
                             }}
                         />
                     </Map>
+                    <ErrorMessage errorMessage={errors.coordinates?.message} />
                     <input type="submit" />
                 </>
             ) : (
