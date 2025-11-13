@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useApi } from './useApi';
-import { apiRoutes } from '../routes';
+import { SERVER_ROUTES } from '../routes';
 import type {
     AnswerReturnValues,
     AnswerValues,
@@ -23,6 +23,9 @@ export interface DetailedQuestionInfo {
     }[];
 }
 
+const getDynamicQuestionPath = (questionId: number | string) =>
+    `${SERVER_ROUTES.QUESTIONS}/${questionId}`;
+
 export const useQuestionDetails = () => {
     const { fetchWithAuthCheck } = useApi();
 
@@ -30,18 +33,14 @@ export const useQuestionDetails = () => {
         useState<DetailedQuestionInfo | null>(null);
 
     const updateCurrentQuestionData = async (questionId: unknown) => {
-        if (
-            !questionId ||
-            isNaN(Number(questionId)) ||
-            Number(questionId) <= 0
-        ) {
+        if (isNaN(Number(questionId)) || Number(questionId) <= 0) {
             setCurrentQuestionData(null);
 
             return;
         }
 
         const response = await fetchWithAuthCheck<DetailedQuestionInfo>({
-            path: `${apiRoutes.QUESTIONS}/${questionId}`,
+            path: getDynamicQuestionPath(questionId as number),
         });
 
         setCurrentQuestionData(response?.data ?? null);
@@ -49,11 +48,11 @@ export const useQuestionDetails = () => {
 
     const createAnswer = async (
         data: AnswerValues,
-        questionId: unknown,
+        questionId: number,
         onSuccess: () => void,
     ) => {
         const result = await fetchWithAuthCheck<AnswerReturnValues>({
-            path: `questions/${questionId}`,
+            path: getDynamicQuestionPath(questionId),
             body: data,
             method: 'POST',
         });

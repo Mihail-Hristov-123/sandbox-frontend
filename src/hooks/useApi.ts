@@ -2,11 +2,11 @@ import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 import toast from 'react-hot-toast';
 import { useLoadingContext } from '../contexts/loading/useLoadingContext';
-import { apiRoutes } from '../routes';
+import { SERVER_ROUTES, type ServerRoute } from '../routes';
+import { isServerPath } from '../utils/typeGuards/isServerPath';
 
-type Path = keyof typeof apiRoutes;
 export interface FetchParams {
-    path: Path | string;
+    path: ServerRoute | string;
     method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     body?: unknown;
     silent?: boolean;
@@ -30,7 +30,7 @@ export const useApi = () => {
         setIsLoading(true);
         try {
             const response = await fetch(
-                `/@api${path in apiRoutes ? apiRoutes[path as keyof typeof apiRoutes] : path}`,
+                `/@api${isServerPath(path) ? SERVER_ROUTES[path] : path}`,
                 {
                     method,
                     headers: body

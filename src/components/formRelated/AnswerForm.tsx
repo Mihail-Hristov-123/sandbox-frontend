@@ -20,7 +20,7 @@ export const AnswerForm = ({
     questionId: number;
     createAnswer: (
         data: AnswerValues,
-        questionId: unknown,
+        questionId: number,
         onSuccess: () => void,
     ) => Promise<void>;
 }) => {

@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router';
 
 import { AuthorField } from '../AuthorField';
-import { CLIENT_ROUTES } from '../../routes';
+
 import type { QuestionReturnValue } from '../../schemas/questions/QuestionSchema';
+import { CLIENT_ROUTES } from '../../routes';
 
 export const QuestionCard = ({
     user_username,
@@ -14,7 +15,7 @@ export const QuestionCard = ({
     return (
         <article
             title="View details"
-            onClick={() => navigate(CLIENT_ROUTES.QUESTIONS + `/${id}`)}
+            onClick={() => navigate(`${CLIENT_ROUTES.QUESTIONS}/${id}`)}
             className="shadow-sm shadow-primary rounded-big p-6 hover:shadow-md  transition-shadow duration-300 cursor-pointer space-y-2"
         >
             <AuthorField name={user_username} />
