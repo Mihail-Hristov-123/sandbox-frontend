@@ -11,7 +11,7 @@ import { AnswerCard } from '../../components/cards/AnswerCard';
 export const QuestionDetails = () => {
     const { questionId } = useParams();
 
-    const { updateCurrentQuestionData, currentQuestionData, createAnswer } =
+    const { updateCurrentQuestionData, currentQuestionData } =
         useQuestionDetails();
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export const QuestionDetails = () => {
 
                 <AnswerForm
                     questionId={Number(questionId)}
-                    createAnswer={createAnswer}
+                    onSuccess={() => updateCurrentQuestionData(questionId)}
                 />
                 <hr className="border-secondary my-6" />
                 <div className="space-y-10">

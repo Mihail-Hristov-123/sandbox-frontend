@@ -39,7 +39,7 @@ export const MyProfileDropdown = () => {
     return (
         <section className="relative" ref={sectionRef}>
             <button
-                className="flex border-2 border-accent justify-between px-2 py-1 w-fit rounded-small items-center group overflow-hidden"
+                className="flex border-2 border-accent justify-between px-2 py-1 w-fit rounded-small items-center group"
                 onClick={() => setExpanded(!expanded)}
             >
                 <span>My profile</span>
@@ -53,7 +53,7 @@ export const MyProfileDropdown = () => {
             </button>
 
             {expanded && (
-                <menu className="flex flex-col items-center absolute px-6 py-3  right-0 shadow-xl  whitespace-nowrap rounded-small  bg-primary gap-1 text-base">
+                <menu className="flex flex-col items-center absolute px-6 py-3 right-0 shadow-2xl  whitespace-nowrap rounded-small  bg-primary gap-1 text-base">
                     <Link to={CLIENT_ROUTES.MY_ACCOUNT}>Profile page</Link>
                     <LogoutButton type="thisDevice" />
                     <LogoutButton type="allDevices" />

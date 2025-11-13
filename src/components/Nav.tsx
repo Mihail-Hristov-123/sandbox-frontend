@@ -8,22 +8,10 @@ import { CLIENT_ROUTES, type ClientRoute } from '../routes';
 const { HOME, LOG_IN, REGISTER } = CLIENT_ROUTES;
 
 const pathsMap: { name: string; location: ClientRoute }[] = [
-    {
-        name: 'Home',
-        location: 'HOME',
-    },
-    {
-        name: 'Posts',
-        location: 'POSTS',
-    },
-    {
-        name: 'Questions',
-        location: 'QUESTIONS',
-    },
-    {
-        name: 'Events',
-        location: 'EVENTS',
-    },
+    { name: 'Home', location: 'HOME' },
+    { name: 'Posts', location: 'POSTS' },
+    { name: 'Questions', location: 'QUESTIONS' },
+    { name: 'Events', location: 'EVENTS' },
 ];
 
 export const Nav = () => {
