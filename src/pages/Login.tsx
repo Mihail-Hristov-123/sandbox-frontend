@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useAuthService } from '../hooks/useAuthService';
 import { Link } from 'react-router';
-import { clientRoutes } from '../routes';
+import { CLIENT_ROUTES } from '../routes';
 
 export const Login = () => {
     const {
@@ -45,7 +45,7 @@ export const Login = () => {
             </form>
             <p>
                 Don't have an account?{' '}
-                <Link to={clientRoutes.REGISTER}>Register</Link>
+                <Link to={CLIENT_ROUTES.REGISTER}>Register</Link>
             </p>
         </main>
     );

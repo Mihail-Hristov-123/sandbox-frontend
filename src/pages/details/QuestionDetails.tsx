@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router';
 
-import { clientRoutes } from '../../routes';
+import { CLIENT_ROUTES } from '../../routes';
 import { AuthorField } from '../../components/AuthorField';
 import { useEffect } from 'react';
 
@@ -24,7 +24,7 @@ export const QuestionDetails = () => {
                 <h1>This question doesn't exist</h1>{' '}
                 <p>
                     Go back to{' '}
-                    <Link to={clientRoutes.QUESTIONS}>questions page</Link>
+                    <Link to={CLIENT_ROUTES.QUESTIONS}>questions page</Link>
                 </p>
             </main>
         );

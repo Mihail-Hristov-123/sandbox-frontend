@@ -1,8 +1,8 @@
-import { apiRoutes } from '../routes';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 import toast from 'react-hot-toast';
 import { useLoadingContext } from '../contexts/loading/useLoadingContext';
+import { apiRoutes } from '../routes';
 
 type Path = keyof typeof apiRoutes;
 export interface FetchParams {

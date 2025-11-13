@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 
 import arrowDownSVG from '../assets/arrow-down.svg';
 import { Link } from 'react-router';
-import { clientRoutes } from '../routes';
+
 import { useAuthService, type LogoutScope } from '../hooks/useAuthService';
+import { CLIENT_ROUTES } from '../routes';
 
 const LogoutButton = ({ type }: { type: LogoutScope }) => {
     const { logOut } = useAuthService();
@@ -53,7 +54,7 @@ export const MyProfileDropdown = () => {
 
             {expanded && (
                 <menu className="flex flex-col items-center absolute px-6 py-3  right-0 shadow-xl  whitespace-nowrap rounded-small  bg-primary gap-1 text-base">
-                    <Link to={clientRoutes.MY_ACCOUNT}>Profile page</Link>
+                    <Link to={CLIENT_ROUTES.MY_ACCOUNT}>Profile page</Link>
                     <LogoutButton type="thisDevice" />
                     <LogoutButton type="allDevices" />
                 </menu>

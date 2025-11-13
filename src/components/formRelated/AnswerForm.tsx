@@ -5,7 +5,7 @@ import profilePicPlaceholder from '../../assets/user.png';
 
 import { useAuthContext } from '../../contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
-import { clientRoutes } from '../../routes';
+import { CLIENT_ROUTES } from '../../routes';
 
 import {
     AnswerSchema,
@@ -64,8 +64,8 @@ export const AnswerForm = ({
                 </form>
             ) : (
                 <p className="text-center py-4 px-12 text-xl">
-                    <NavLink to={clientRoutes.LOG_IN}>Log in</NavLink> to answer
-                    the question
+                    <NavLink to={CLIENT_ROUTES.LOG_IN}>Log in</NavLink> to
+                    answer the question
                 </p>
             )}
         </div>

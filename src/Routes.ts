@@ -1,4 +1,4 @@
-export const clientRoutes = {
+export const CLIENT_ROUTES = {
     HOME: '/',
     POSTS: '/posts',
     REGISTER: '/register',
@@ -7,7 +7,9 @@ export const clientRoutes = {
     QUESTIONS: '/questions',
     EVENTS: '/events',
     QUESTION_DETAILS: '/questions/:questionId',
-};
+} as const;
+
+export type ClientRoute = keyof typeof CLIENT_ROUTES;
 
 // to be mostly replaced by types from open-api
 

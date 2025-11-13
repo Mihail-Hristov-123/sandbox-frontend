@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from 'react-router';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
-import { clientRoutes } from '../routes';
+import { CLIENT_ROUTES } from '../routes';
 
-const { LOG_IN, HOME } = clientRoutes;
+const { LOG_IN, HOME } = CLIENT_ROUTES;
 
 export const ProtectedRoute = ({
     routesToBlock,

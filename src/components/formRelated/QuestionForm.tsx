@@ -8,7 +8,7 @@ import {
 import { LabelledTextArea } from './LabelledTextArea';
 import { useAuthContext } from '../../contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
-import { clientRoutes } from '../../routes';
+import { CLIENT_ROUTES } from '../../routes';
 
 export const QuestionForm = ({
     createQuestion,
@@ -62,7 +62,7 @@ export const QuestionForm = ({
                 </form>
             ) : (
                 <p className="text-center pt-8 px-12 text-xl">
-                    <NavLink to={clientRoutes.LOG_IN}>Log in</NavLink> to ask
+                    <NavLink to={CLIENT_ROUTES.LOG_IN}>Log in</NavLink> to ask
                     questions
                 </p>
             )}
