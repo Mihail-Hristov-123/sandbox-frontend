@@ -12,6 +12,7 @@ export const useQuestions = () => {
     const [allQuestions, setAllQuestions] = useState<
         QuestionReturnValue[] | null
     >(null);
+    const [isLoadingQuestions, setIsLoadingQuestions] = useState(false);
 
     const createQuestion = async (
         data: QuestionValues,
@@ -25,31 +26,28 @@ export const useQuestions = () => {
         if (result?.ok) {
             toast.success('Question published!');
             resetForm();
-            await updateQuestions();
-            return;
         }
     };
 
-    const getAllQuestions = async () => {
-        const result = await fetchWithAuthCheck<QuestionReturnValue[]>({
+    const updateQuestions = () => {
+        setIsLoadingQuestions(true);
+
+        fetchWithAuthCheck<QuestionReturnValue[]>({
             path: 'QUESTIONS',
+        }).then((result) => {
+            setTimeout(() => {
+                setAllQuestions(result?.data || null);
+                setIsLoadingQuestions(false);
+            }, 1000);
         });
-        if (result?.ok) {
-            return result.data;
-        }
     };
 
-    const updateQuestions = async () => {
-        const allQuestions = await getAllQuestions();
-        setAllQuestions(allQuestions ?? []);
-    };
-
-    useEffect(() => {
-        updateQuestions();
-    }, []);
-
+    useEffect(() => updateQuestions(), []);
     return {
         createQuestion,
+
         allQuestions,
+        isLoadingQuestions,
+        updateQuestions,
     };
 };

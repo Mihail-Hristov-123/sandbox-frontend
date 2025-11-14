@@ -11,11 +11,15 @@ export const useCurrentUserInfo = () => {
     useEffect(() => {
         const updateUserInfo = async () => {
             const response = await getCurrentUserInfo();
-            if (response.body.data) {
-                setUserInfo(response.body.data);
+            if (!response) {
                 return;
             }
-            toast.error(response.body.message);
+
+            if (response.data) {
+                setUserInfo(response.data);
+                return;
+            }
+            toast.error(response.message);
         };
         updateUserInfo();
     }, []);

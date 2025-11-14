@@ -12,11 +12,13 @@ import { CLIENT_ROUTES } from '../../routes';
 
 export const QuestionForm = ({
     createQuestion,
+    updateQuestions,
 }: {
     createQuestion: (
         data: QuestionValues,
         onSuccess: () => void,
     ) => Promise<void>;
+    updateQuestions: () => void;
 }) => {
     const {
         register,
@@ -30,6 +32,7 @@ export const QuestionForm = ({
     const onSubmit = async (data: QuestionValues) => {
         await createQuestion(data, () => {
             reset();
+            updateQuestions();
         });
     };
 
