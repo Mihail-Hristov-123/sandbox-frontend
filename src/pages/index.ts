@@ -4,6 +4,6 @@ export { Posts } from './Posts';
 export { Register } from './Register';
 export { NotFound } from './NotFound';
 export { MyAccount } from './MyAccount';
-export { Questions } from './Questions';
+export { Questions } from './questions/Questions';
 export { Events } from './Events';
-export { QuestionDetails } from './details/QuestionDetails';
+export { QuestionDetails } from './questionDetails/QuestionDetails';

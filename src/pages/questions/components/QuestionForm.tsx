@@ -1,15 +1,15 @@
 import { useForm } from 'react-hook-form';
-import { LabelledInput } from './LabelledInput';
+import { LabelledInput } from '../../../components/formRelated/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
     QuestionSchema,
     type QuestionValues,
-} from '../../schemas/questions/QuestionSchema';
-import { LabelledTextArea } from './LabelledTextArea';
-import { useAuthContext } from '../../contexts/auth/useAuthContext';
+} from '../../../schemas/questions/QuestionSchema';
+import { LabelledTextArea } from '../../../components/formRelated/LabelledTextArea';
+import { useAuthContext } from '../../../contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
-import { CLIENT_ROUTES } from '../../routes';
-import { useCreateQuestion } from '../../hooks/useCreateQuestion';
+import { CLIENT_ROUTES } from '../../../routes';
+import { useCreateQuestion } from '../hooks/useCreateQuestion';
 
 export const QuestionForm = ({
     refreshQuestions,

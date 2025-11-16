@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-
-import { SERVER_ROUTES } from '../routes';
-import { useApi } from './useApi';
+import { SERVER_ROUTES } from '../../../routes';
+import { useApi } from '../../../hooks/useApi';
 
 export interface DetailedQuestionInfo {
     questionData: {

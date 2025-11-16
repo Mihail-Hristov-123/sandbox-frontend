@@ -1,4 +1,4 @@
-import { AuthorField } from '../AuthorField';
+import { AuthorField } from '../../../components/AuthorField';
 
 export const AnswerCard = ({
     content,

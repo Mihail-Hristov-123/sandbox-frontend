@@ -1,18 +1,18 @@
 import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import profilePicPlaceholder from '../../assets/user.png';
+import profilePicPlaceholder from '../../../assets/user.png';
 
-import { useAuthContext } from '../../contexts/auth/useAuthContext';
+import { useAuthContext } from '../../../contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
-import { CLIENT_ROUTES } from '../../routes';
+import { CLIENT_ROUTES } from '../../../routes';
 
 import {
     AnswerSchema,
     type AnswerValues,
-} from '../../schemas/questions/CommentSchema';
-import { ErrorMessage } from './ErrorMessage';
-import { useCreateAnswer } from '../../hooks/useCreateAnswer';
+} from '../../../schemas/questions/CommentSchema';
+import { ErrorMessage } from '../../../components/formRelated/ErrorMessage';
+import { useCreateAnswer } from '../hooks/useCreateAnswer';
 
 export const AnswerForm = ({
     questionId,

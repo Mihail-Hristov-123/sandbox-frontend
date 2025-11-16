@@ -1,27 +1,12 @@
-import type { QuestionReturnValue } from '../schemas/questions/QuestionSchema';
-import { useApi } from './useApi';
 import { useEffect, useState } from 'react';
+import { useApi } from '../../../hooks/useApi';
+import type { QuestionReturnValue } from '../../../schemas/questions/QuestionSchema';
 
 export const useLoadQuestions = () => {
     const { fetchWithAuthCheck } = useApi();
 
     const [allQuestions, setAllQuestions] = useState<QuestionReturnValue[]>([]);
     const [isLoadingQuestions, setIsLoadingQuestions] = useState(true);
-
-    // const createQuestion = async (
-    //     data: QuestionValues,
-    //     resetForm: () => void,
-    // ) => {
-    //     const result = await fetchWithAuthCheck({
-    //         method: 'POST',
-    //         body: data,
-    //         path: 'QUESTIONS',
-    //     });
-    //     if (result?.ok) {
-    //         toast.success('Question published!');
-    //         resetForm();
-    //     }
-    // };
 
     const loadQuestions = async () => {
         setIsLoadingQuestions(true);

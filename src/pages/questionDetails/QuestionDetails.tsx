@@ -3,9 +3,9 @@ import { Link, useParams } from 'react-router';
 import { CLIENT_ROUTES } from '../../routes';
 import { AuthorField } from '../../components/AuthorField';
 
-import { AnswerForm } from '../../components/formRelated/AnswerForm';
-import { useLoadQuestionDetails } from '../../hooks/useLoadQuestionDetails';
-import { AnswerCard } from '../../components/cards/AnswerCard';
+import { AnswerForm } from './components/AnswerForm';
+import { useLoadQuestionDetails } from './hooks/useLoadQuestionDetails';
+import { AnswerCard } from './components/AnswerCard';
 import { Loader } from '../../components/Loader';
 
 export const QuestionDetails = () => {

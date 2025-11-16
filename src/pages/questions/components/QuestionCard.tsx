@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router';
 
-import { AuthorField } from '../AuthorField';
+import { AuthorField } from '../../../components/AuthorField';
 
-import type { QuestionReturnValue } from '../../schemas/questions/QuestionSchema';
-import { CLIENT_ROUTES } from '../../routes';
+import type { QuestionReturnValue } from '../../../schemas/questions/QuestionSchema';
+import { CLIENT_ROUTES } from '../../../routes';
 
 export const QuestionCard = ({
     user_username,
