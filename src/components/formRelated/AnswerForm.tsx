@@ -12,14 +12,14 @@ import {
     type AnswerValues,
 } from '../../schemas/questions/CommentSchema';
 import { ErrorMessage } from './ErrorMessage';
-import { useQuestionDetails } from '../../hooks/useQuestionDetails';
+import { useCreateAnswer } from '../../hooks/useCreateAnswer';
 
 export const AnswerForm = ({
     questionId,
-    onSuccess,
+    updateAnswers,
 }: {
     questionId: number;
-    onSuccess: () => Promise<void>;
+    updateAnswers: () => Promise<void>;
 }) => {
     const {
         register,
@@ -29,13 +29,14 @@ export const AnswerForm = ({
     } = useForm({ resolver: zodResolver(AnswerSchema) });
 
     const { isLoggedIn } = useAuthContext();
-    const { createAnswer } = useQuestionDetails();
+    const { createAnswer } = useCreateAnswer(questionId);
     const errorMessage = errors.content?.message;
     const onSubmit = async (data: AnswerValues) => {
-        await createAnswer(data, questionId, async () => {
+        const result = await createAnswer(data);
+        if (result.success) {
             reset();
-            await onSuccess();
-        });
+            await updateAnswers();
+        }
     };
 
     return (

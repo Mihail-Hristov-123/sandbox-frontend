@@ -1,12 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import toast from 'react-hot-toast';
 import { SERVER_ROUTES } from '../routes';
 import { useApi } from './useApi';
-import type {
-    AnswerReturnValues,
-    AnswerValues,
-} from '../schemas/questions/CommentSchema';
 
 export interface DetailedQuestionInfo {
     questionData: {
@@ -27,42 +22,34 @@ export interface DetailedQuestionInfo {
 const getDynamicQuestionPath = (questionId: number | string) =>
     `${SERVER_ROUTES.QUESTIONS}/${questionId}`;
 
-export const useQuestionDetails = () => {
+export const useLoadQuestionDetails = (questionId: unknown) => {
     const { fetchWithAuthCheck } = useApi();
 
     const [currentQuestionData, setCurrentQuestionData] =
         useState<DetailedQuestionInfo | null>(null);
 
-    const updateCurrentQuestionData = async (questionId: unknown) => {
+    const [isLoading, setIsLoading] = useState(true);
+
+    const updateCurrentQuestionData = async () => {
+        setIsLoading(true);
         if (isNaN(Number(questionId)) || Number(questionId) <= 0) {
             setCurrentQuestionData(null);
-
+            setIsLoading(false);
             return;
         }
 
         const response = await fetchWithAuthCheck<DetailedQuestionInfo>({
             path: getDynamicQuestionPath(questionId as number),
+            silent: true,
         });
 
         setCurrentQuestionData(response?.data ?? null);
+        setIsLoading(false);
     };
 
-    const createAnswer = async (
-        data: AnswerValues,
-        questionId: number,
-        onSuccess: () => void,
-    ) => {
-        const result = await fetchWithAuthCheck<AnswerReturnValues>({
-            path: getDynamicQuestionPath(questionId),
-            body: data,
-            method: 'POST',
-        });
-        if (result?.ok) {
-            await updateCurrentQuestionData(questionId);
-            toast.success('Answer posted!');
-            onSuccess();
-        }
-    };
+    useEffect(() => {
+        updateCurrentQuestionData();
+    }, []);
 
-    return { currentQuestionData, updateCurrentQuestionData, createAnswer };
+    return { currentQuestionData, updateCurrentQuestionData, isLoading };
 };

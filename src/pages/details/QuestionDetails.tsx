@@ -2,22 +2,25 @@ import { Link, useParams } from 'react-router';
 
 import { CLIENT_ROUTES } from '../../routes';
 import { AuthorField } from '../../components/AuthorField';
-import { useEffect } from 'react';
 
 import { AnswerForm } from '../../components/formRelated/AnswerForm';
-import { useQuestionDetails } from '../../hooks/useQuestionDetails';
+import { useLoadQuestionDetails } from '../../hooks/useLoadQuestionDetails';
 import { AnswerCard } from '../../components/cards/AnswerCard';
+import { Loader } from '../../components/Loader';
 
 export const QuestionDetails = () => {
     const { questionId } = useParams();
 
-    const { updateCurrentQuestionData, currentQuestionData } =
-        useQuestionDetails();
+    const { updateCurrentQuestionData, currentQuestionData, isLoading } =
+        useLoadQuestionDetails(questionId);
 
-    useEffect(() => {
-        updateCurrentQuestionData(questionId);
-    }, [questionId]);
-
+    if (isLoading) {
+        return (
+            <main className=" size-full grid place-items-center">
+                <Loader />
+            </main>
+        );
+    }
     if (!currentQuestionData) {
         return (
             <main className="text-center">
@@ -42,7 +45,7 @@ export const QuestionDetails = () => {
 
                 <AnswerForm
                     questionId={Number(questionId)}
-                    onSuccess={() => updateCurrentQuestionData(questionId)}
+                    updateAnswers={updateCurrentQuestionData}
                 />
                 <hr className="border-secondary my-6" />
                 <div className="space-y-10">
