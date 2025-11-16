@@ -9,16 +9,12 @@ import { LabelledTextArea } from './LabelledTextArea';
 import { useAuthContext } from '../../contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
 import { CLIENT_ROUTES } from '../../routes';
+import { useCreateQuestion } from '../../hooks/useCreateQuestion';
 
 export const QuestionForm = ({
-    createQuestion,
-    updateQuestions,
+    refreshQuestions,
 }: {
-    createQuestion: (
-        data: QuestionValues,
-        onSuccess: () => void,
-    ) => Promise<void>;
-    updateQuestions: () => void;
+    refreshQuestions: () => Promise<void>;
 }) => {
     const {
         register,
@@ -28,12 +24,11 @@ export const QuestionForm = ({
     } = useForm({ resolver: zodResolver(QuestionSchema) });
 
     const { isLoggedIn } = useAuthContext();
+    const { createQuestion } = useCreateQuestion(refreshQuestions);
 
     const onSubmit = async (data: QuestionValues) => {
-        await createQuestion(data, () => {
-            reset();
-            updateQuestions();
-        });
+        const result = await createQuestion(data);
+        if (result.success) reset();
     };
 
     return (
