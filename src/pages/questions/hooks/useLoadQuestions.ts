@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useApi } from '../../../hooks/useApi';
-import type { QuestionReturnValue } from '../../../schemas/questions/QuestionSchema';
+import { useApi } from '@/hooks/useApi';
+import type { QuestionReturnValue } from '@/schemas/questions/QuestionSchema';
 
 export const useLoadQuestions = () => {
     const { fetchWithAuthCheck } = useApi();

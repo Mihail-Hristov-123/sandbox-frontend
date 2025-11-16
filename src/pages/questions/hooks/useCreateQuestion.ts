@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
-import { useApi } from '../../../hooks/useApi';
-import type { QuestionValues } from '../../../schemas/questions/QuestionSchema';
+import { useApi } from '@/hooks/useApi';
+import type { QuestionValues } from '@/schemas/questions/QuestionSchema';
 
 export const useCreateQuestion = (refreshQuestions: () => Promise<void>) => {
     const { fetchWithAuthCheck } = useApi();

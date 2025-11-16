@@ -1,10 +1,10 @@
 import toast from 'react-hot-toast';
-import { useApi } from '../../../hooks/useApi';
-import { SERVER_ROUTES } from '../../../routes';
+import { useApi } from '@/hooks/useApi';
+import { SERVER_ROUTES } from '@/routes';
 import type {
     AnswerReturnValues,
     AnswerValues,
-} from '../../../schemas/questions/CommentSchema';
+} from '@/schemas/questions/CommentSchema';
 
 const getDynamicQuestionPath = (questionId: number | string) =>
     `${SERVER_ROUTES.QUESTIONS}/${questionId}`;

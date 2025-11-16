@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from 'react-router';
-import { useAuthContext } from '../../contexts/auth/useAuthContext';
-import { CLIENT_ROUTES } from '../../routes';
+import { useAuthContext } from '@/contexts/auth/useAuthContext';
+import { CLIENT_ROUTES } from '@/routes';
 
 const { LOG_IN, HOME } = CLIENT_ROUTES;
 

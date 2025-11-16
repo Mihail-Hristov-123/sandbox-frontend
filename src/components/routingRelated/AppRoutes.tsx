@@ -9,9 +9,9 @@ import {
     QuestionDetails,
     Questions,
     Register,
-} from '../../pages/index';
+} from '@/pages/index';
 
-import { CLIENT_ROUTES, type ClientRoute } from '../../routes';
+import { CLIENT_ROUTES, type ClientRoute } from '@/routes';
 import { ProtectedRoute } from './ProtectedRoute';
 
 const mapRoutes = (routes: { path: ClientRoute; element: React.ReactNode }[]) =>
