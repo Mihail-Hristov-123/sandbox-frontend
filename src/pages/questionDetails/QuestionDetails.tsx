@@ -23,7 +23,7 @@ export const QuestionDetails = () => {
     }
     if (!currentQuestionData) {
         return (
-            <main className="text-center">
+            <main className="text-center py-12">
                 <h1>This question doesn't exist</h1>{' '}
                 <p>
                     Go back to{' '}
