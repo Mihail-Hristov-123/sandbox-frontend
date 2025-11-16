@@ -59,7 +59,7 @@ export const QuestionForm = ({
                     <input type="submit" />
                 </form>
             ) : (
-                <p className="text-center pt-8 px-12 text-xl">
+                <p className="text-center py-8 px-12 text-xl shadow-xl rounded-small">
                     <NavLink to={CLIENT_ROUTES.LOG_IN}>Log in</NavLink> to ask
                     questions
                 </p>

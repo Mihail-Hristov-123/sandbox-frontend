@@ -23,7 +23,7 @@ export const Questions = () => {
         <main>
             <div className="max-w-[60vw] mx-auto max-lg:max-w-[80vw]">
                 <QuestionForm refreshQuestions={loadQuestions} />
-                <h1 className=" pt-28 pb-12">Latest questions</h1>
+                <h1 className=" py-16">Latest questions</h1>
 
                 <section className="flex flex-col gap-12">
                     {questionsContent}

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { SERVER_ROUTES } from '@/routes';
 import { useApi } from '@/hooks/useApi';
+import { getDynamicQuestionPath } from '../utils/getDynamicQuestionPath';
 
 export interface DetailedQuestionInfo {
     questionData: {
@@ -17,9 +17,6 @@ export interface DetailedQuestionInfo {
         user_username: string;
     }[];
 }
-
-const getDynamicQuestionPath = (questionId: number | string) =>
-    `${SERVER_ROUTES.QUESTIONS}/${questionId}`;
 
 export const useLoadQuestionDetails = (questionId: unknown) => {
     const { fetchWithAuthCheck } = useApi();

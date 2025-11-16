@@ -10,7 +10,7 @@ import { CLIENT_ROUTES } from '@/routes';
 import {
     AnswerSchema,
     type AnswerValues,
-} from '@/schemas/questions/CommentSchema';
+} from '@/schemas/questions/AnswerSchema';
 import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
 import { useCreateAnswer } from '../hooks/useCreateAnswer';
 
