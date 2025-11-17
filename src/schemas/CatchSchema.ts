@@ -1,18 +1,22 @@
 import z from 'zod';
 
+const INVALID_LONGITUDE_MESSAGE = 'Invalid longitude';
+
+const INVALID_LATITUDE_MESSAGE = 'Invalid latitude';
+
 export const CatchSchema = z.object({
     title: z
         .string()
         .min(10, 'Title must be a least 10 characters long')
         .max(50, 'Title cannot be longer than 50 characters'),
     latitude: z.coerce
-        .number()
-        .min(-90, 'Invalid latitude')
-        .max(90, 'Invalid latitude'),
+        .number('Latitude is required')
+        .min(-90, INVALID_LATITUDE_MESSAGE)
+        .max(90, INVALID_LATITUDE_MESSAGE),
     longitude: z.coerce
-        .number()
-        .min(-180, 'Invalid longitude')
-        .max(180, 'Invalid longitude'),
+        .number('Longitude is required')
+        .min(-180, INVALID_LONGITUDE_MESSAGE)
+        .max(180, INVALID_LONGITUDE_MESSAGE),
 
     imgLink: z.url('Invalid image URL'),
 });

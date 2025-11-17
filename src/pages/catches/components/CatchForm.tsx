@@ -1,46 +1,43 @@
-import { useForm } from 'react-hook-form';
-
-import { LabelledInput } from '../../../components/formRelated/LabelledInput';
+import { useForm, type Resolver } from 'react-hook-form';
+import { LabelledInput } from '@/components/formRelated/LabelledInput';
 import { Draggable, Map, Marker, ZoomControl } from 'pigeon-maps';
-
 import { useState } from 'react';
-import { CurrentLocationButton } from '../../../components/maps/CurrentLocationButton';
-import { useAuthContext } from '../../../contexts/auth/useAuthContext';
-import { CLIENT_ROUTES } from '../../../routes';
+import { CurrentLocationButton } from '@/components/maps/CurrentLocationButton';
+import { useAuthContext } from '@/contexts/auth/useAuthContext';
+import { CLIENT_ROUTES } from '@/routes';
 import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CatchSchema, type CatchValues } from '../../../schemas/CatchSchema';
-import toast from 'react-hot-toast';
-import { ErrorMessage } from '../../../components/formRelated/ErrorMessage';
+import { CatchSchema, type CatchValues } from '@/schemas/CatchSchema';
 
-type FormData = Omit<CatchValues, 'authorName'>;
+import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
+import { useCreateCatch } from '../hooks/useCreateCatch';
 
-export const CatchForm = ({
-    onSuccess,
-}: {
-    onSuccess: (data: CatchValues) => void;
-}) => {
+export const CatchForm = () => {
     const {
         register,
         handleSubmit,
         setValue,
         reset,
         formState: { errors },
-        setError,
         getValues,
-    } = useForm<FormData>({ resolver: zodResolver(CatchSchema) });
+    } = useForm<CatchValues>({
+        resolver: zodResolver(CatchSchema) as Resolver<CatchValues>,
+    });
 
-    const onSubmit = (data: FormData) => {
-        onSuccess({ ...data, authorName: userInfo?.username! });
+    const { createCatch } = useCreateCatch();
+
+    const onSubmit = async (data: CatchValues) => {
+        const success = await createCatch(data);
+        if (!success) return;
         reset();
-        toast.success('Catch published');
     };
 
-    const [anchor, setAnchor] = useState<[number, number]>(
-        getValues('coordinates') ?? [50.879, 4.6997],
-    );
+    const [anchor, setAnchor] = useState<[number, number]>([
+        getValues('latitude') ?? 50.879,
+        getValues('longitude') ?? 4.6997,
+    ]);
 
-    const { isLoggedIn, userInfo } = useAuthContext();
+    const { isLoggedIn } = useAuthContext();
 
     return (
         <form
@@ -72,7 +69,11 @@ export const CatchForm = ({
                         <Draggable
                             anchor={anchor}
                             onDragEnd={(newPos) => {
-                                setValue('coordinates', newPos, {
+                                const [lat, lng] = newPos;
+                                setValue('latitude', lat, {
+                                    shouldValidate: true,
+                                });
+                                setValue('longitude', lng, {
                                     shouldValidate: true,
                                 });
                                 setAnchor(newPos);
@@ -82,13 +83,20 @@ export const CatchForm = ({
                         </Draggable>
                         <CurrentLocationButton
                             setCurrentPosition={(coordinates) => {
-                                setValue('coordinates', coordinates);
-                                setError('coordinates', { message: '' });
+                                const [lat, lng] = coordinates;
+                                setValue('latitude', lat, {
+                                    shouldValidate: true,
+                                });
+                                setValue('longitude', lng, {
+                                    shouldValidate: true,
+                                });
+
                                 setAnchor(coordinates);
                             }}
                         />
                     </Map>
-                    <ErrorMessage errorMessage={errors.coordinates?.message} />
+                    <ErrorMessage errorMessage={errors.latitude?.message} />
+                    <ErrorMessage errorMessage={errors.longitude?.message} />
                     <input type="submit" />
                 </>
             ) : (

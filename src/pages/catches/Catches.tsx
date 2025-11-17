@@ -1,4 +1,5 @@
 import { CatchCard } from './components/CatchCard';
+import { CatchForm } from './components/CatchForm';
 
 import { useLoadCatches } from './hooks/useLoadCatches';
 
@@ -16,9 +17,7 @@ export const Catches = () => {
     return (
         <main className=" flex flex-col items-center">
             <div className="xl:w-2/3">
-                {/* <CatchForm
-                    onSuccess={(data) => setCatches([data, ...catches])}
-                /> */}
+                <CatchForm />
                 <h1 className="pt-20 pb-12">Recent catches</h1>
                 <section className="flex flex-col  gap-10 ">
                     {catchContent}
