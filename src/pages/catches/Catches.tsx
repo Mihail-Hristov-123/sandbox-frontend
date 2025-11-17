@@ -2,6 +2,7 @@ import { useState } from 'react';
 
 import { CatchForm } from './components/CatchForm';
 import { CatchCard } from './components/CatchCard';
+import type { CatchValues } from '@/schemas/CatchSchema';
 
 export const Catches = () => {
     const [catches, setCatches] = useState<CatchValues[]>([

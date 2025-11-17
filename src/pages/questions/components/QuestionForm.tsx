@@ -33,12 +33,12 @@ export const QuestionForm = ({
     };
 
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="form rounded-t-none border-0 shadow-xl py-8 "
-        >
+        <div>
             {isLoggedIn ? (
-                <>
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="form rounded-t-none border-0 shadow-xl pt-6 "
+                >
                     <h1>Ask a question</h1>
                     <div className="input-container">
                         <LabelledInput
@@ -58,13 +58,13 @@ export const QuestionForm = ({
                         />
                     </div>
                     <SubmitButton text="Post question" />
-                </>
+                </form>
             ) : (
                 <p className="text-center py-8 px-12 text-xl shadow-xl rounded-small">
                     <NavLink to={CLIENT_ROUTES.LOG_IN}>Log in</NavLink> to ask
                     questions
                 </p>
             )}
-        </form>
+        </div>
     );
 };
