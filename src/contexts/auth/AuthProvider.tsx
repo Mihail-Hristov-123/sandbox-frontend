@@ -1,29 +1,31 @@
 import { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-
-import { LoadingScreen } from '../../components/loading/LoadingScreen';
-import { useUserService } from '../../hooks/useUserService';
+import { useUserService } from '@/hooks/useUserService';
+import type { UserReturnValues } from '@/schemas/auth/RegisterSchema';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const [userInfo, setUserInfo] = useState<UserReturnValues | undefined>(
+        undefined,
+    );
     const { getCurrentUserInfo } = useUserService();
 
-    const refresh = async () => {
-        const result = await getCurrentUserInfo();
-        setIsLoggedIn(result?.ok ?? false);
-        setIsLoading(false);
-    };
-
     useEffect(() => {
-        refresh();
-    }, []);
+        const updateAuth = async () => {
+            const result = await getCurrentUserInfo();
+            if (!result?.ok) {
+                setUserInfo(undefined);
+                setIsLoggedIn(false);
+                return;
+            }
+            setUserInfo(result.data);
+            setIsLoggedIn(true);
+        };
+        updateAuth();
+    }, [isLoggedIn]);
 
-    if (isLoading) {
-        return <LoadingScreen />;
-    }
     return (
-        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+        <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn, userInfo }}>
             {children}
         </AuthContext.Provider>
     );

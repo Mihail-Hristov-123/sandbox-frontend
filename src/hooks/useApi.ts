@@ -1,21 +1,20 @@
-import { apiRoutes } from '../Routes';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 
-type Path = keyof typeof apiRoutes;
+import toast from 'react-hot-toast';
+import { SERVER_ROUTES, type ServerRoute } from '../routes';
+import { isServerPath } from '../utils/typeGuards/isServerPath';
+
 export interface FetchParams {
-    path: Path;
+    path: ServerRoute | string;
     method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     body?: unknown;
+    silent?: boolean;
 }
 
 export interface Response<ExpectedResponseBody> {
-    status: number;
+    message: string;
     ok: boolean;
-    body: {
-        success: boolean;
-        message: string;
-        data?: ExpectedResponseBody;
-    };
+    data?: ExpectedResponseBody;
 }
 
 export const useApi = () => {
@@ -25,15 +24,19 @@ export const useApi = () => {
         path,
         method = 'GET',
         body,
-    }: FetchParams): Promise<Response<Data>> => {
+        silent = false,
+    }: FetchParams): Promise<Response<Data> | void> => {
         try {
-            const response = await fetch(`/@api${apiRoutes[path]}`, {
-                method,
-                headers: body
-                    ? { 'Content-Type': 'application/json' }
-                    : undefined,
-                body: body ? JSON.stringify(body) : undefined,
-            });
+            const response = await fetch(
+                `/@api${isServerPath(path) ? SERVER_ROUTES[path] : path}`,
+                {
+                    method,
+                    headers: body
+                        ? { 'Content-Type': 'application/json' }
+                        : undefined,
+                    body: body ? JSON.stringify(body) : undefined,
+                },
+            );
 
             if (response.status === 401) {
                 setIsLoggedIn(false);
@@ -41,21 +44,18 @@ export const useApi = () => {
 
             const responseBody = await response.json();
 
+            if (!response.ok && !silent) {
+                toast.error(responseBody.message);
+            }
+
             return {
-                status: response.status,
                 ok: response.ok,
-                body: responseBody,
+                message: responseBody.message,
+                data: responseBody.data,
             };
         } catch (error) {
             console.error(`Error occurred during API fetch: ${error}`);
-            return {
-                status: 0,
-                ok: false,
-                body: {
-                    success: false,
-                    message: 'Failed to fetch',
-                },
-            };
+            toast.error('Failed to connect to the server');
         }
     };
 

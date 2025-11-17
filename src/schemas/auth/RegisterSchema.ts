@@ -14,4 +14,9 @@ export const RegisterSchema = LoginSchema.extend({
 
 export type UserRegisterValues = z.infer<typeof RegisterSchema>;
 
-export type UserReturnValues = UserRegisterValues & { id: number };
+export type UserReturnValues = Pick<
+    UserRegisterValues,
+    'email' | 'username'
+> & {
+    id: number;
+};

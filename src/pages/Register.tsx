@@ -8,6 +8,9 @@ import {
 import { LabelledInput } from '../components/formRelated/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthService } from '../hooks/useAuthService';
+import { Link } from 'react-router';
+import { CLIENT_ROUTES } from '../routes';
+import { SubmitButton } from '@/components/SubmitButton';
 
 const inputFields: {
     type: HTMLInputTypeAttribute;
@@ -50,27 +53,27 @@ export const Register = () => {
         await createAccount(data);
 
     return (
-        <main className=" h-screen flex items-center justify-center">
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="  flex flex-col justify-around rounded-3xl items-center bg-gray-700 text-white px-6 py-4 min-w-1/3 min-h-1/2   "
-            >
-                <h1 className="text-center text-3xl">Create account</h1>
+        <main className=" flex items-center justify-center pt-10 flex-col gap-8 ">
+            <form onSubmit={handleSubmit(onSubmit)} className="form">
+                <h1>Create account</h1>
+                <div className=" input-container">
+                    {inputFields.map((field) => (
+                        <LabelledInput
+                            key={field.name}
+                            register={register}
+                            errors={errors}
+                            {...field}
+                            autoComplete="off"
+                        />
+                    ))}
+                </div>
 
-                {inputFields.map((field) => (
-                    <LabelledInput
-                        key={field.name}
-                        register={register}
-                        errors={errors}
-                        {...field}
-                        autoComplete="off"
-                    />
-                ))}
-                <input
-                    type="submit"
-                    className=" bg-white text-gray-700 w-fit self-center py-1 px-2 rounded-2xl"
-                />
+                <SubmitButton text="Register" />
             </form>
+            <p>
+                Already have an account?{' '}
+                <Link to={CLIENT_ROUTES.LOG_IN}>Log in</Link>
+            </p>
         </main>
     );
 };

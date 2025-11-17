@@ -1,21 +1,22 @@
 import { Route, Routes } from 'react-router';
 import {
+    Events,
     Home,
     Login,
     MyAccount,
     NotFound,
     Posts,
+    QuestionDetails,
+    Questions,
     Register,
-} from '../pages/index';
+} from '@/pages/index';
 
-import { clientRoutes } from '../routes';
+import { CLIENT_ROUTES, type ClientRoute } from '@/routes';
 import { ProtectedRoute } from './ProtectedRoute';
 
-const mapRoutes = (
-    routes: { path: keyof typeof clientRoutes; element: React.ReactNode }[],
-) =>
+const mapRoutes = (routes: { path: ClientRoute; element: React.ReactNode }[]) =>
     routes.map(({ path, element }) => (
-        <Route key={path} path={clientRoutes[path]} element={element} />
+        <Route key={path} path={CLIENT_ROUTES[path]} element={element} />
     ));
 
 export const AppRoutes = () => (
@@ -23,6 +24,9 @@ export const AppRoutes = () => (
         {mapRoutes([
             { path: 'HOME', element: <Home /> },
             { path: 'POSTS', element: <Posts /> },
+            { path: 'QUESTIONS', element: <Questions /> },
+            { path: 'QUESTION_DETAILS', element: <QuestionDetails /> },
+            { path: 'EVENTS', element: <Events /> },
         ])}
 
         <Route element={<ProtectedRoute routesToBlock="public" />}>
@@ -33,10 +37,7 @@ export const AppRoutes = () => (
         </Route>
 
         <Route element={<ProtectedRoute routesToBlock="protected" />}>
-            {mapRoutes([
-                { path: 'PROTECTED', element: <h1>Protected page</h1> },
-                { path: 'MY_ACCOUNT', element: <MyAccount /> },
-            ])}
+            {mapRoutes([{ path: 'MY_ACCOUNT', element: <MyAccount /> }])}
         </Route>
 
         <Route path="*" element={<NotFound />} />

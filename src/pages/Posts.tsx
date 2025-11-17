@@ -1,1 +1,7 @@
-export const Posts = () => <h1>Posts page</h1>;
+export const Posts = () => {
+    return (
+        <main>
+            <h1>Posts page</h1>
+        </main>
+    );
+};

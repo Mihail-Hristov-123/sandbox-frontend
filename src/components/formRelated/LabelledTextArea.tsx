@@ -7,7 +7,7 @@ import type {
 import { ErrorMessage } from './ErrorMessage';
 
 interface Props<T extends FieldValues>
-    extends React.InputHTMLAttributes<HTMLInputElement> {
+    extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     labelText: string;
     errors: FieldErrors<T>;
     name: Path<T>;
@@ -15,7 +15,7 @@ interface Props<T extends FieldValues>
     className?: string;
 }
 
-export const LabelledInput = <T extends FieldValues>({
+export const LabelledTextArea = <T extends FieldValues>({
     labelText,
     errors,
     name,
@@ -26,18 +26,17 @@ export const LabelledInput = <T extends FieldValues>({
     const errorMessage = errors[name]?.message;
 
     return (
-        <div className="flex flex-col gap-1 w-full">
+        <div className="w-full">
             <label htmlFor={name}>{labelText}</label>
-
-            <input
+            <textarea
+                className={`border w-full max-h-[30vh] min-h-[2em] p-1 indent-2 rounded-small ${errorMessage ? 'border-error' : 'border-primary'} ${className}`}
                 id={name}
                 {...register(name)}
                 {...props}
-                className={`border rounded-small px-3 py-2  transition-all duration-300 
-          ${errorMessage ? 'border-error' : 'border-primary'}
-          ${className}`}
+                placeholder="Share your thoughts..."
+                {...props}
+                name={name}
             />
-
             <ErrorMessage errorMessage={errorMessage} />
         </div>
     );
