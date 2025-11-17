@@ -10,6 +10,7 @@ import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
 import { CLIENT_ROUTES } from '@/routes';
 import { useCreateQuestion } from '../hooks/useCreateQuestion';
+import { SubmitButton } from '@/components/SubmitButton';
 
 export const QuestionForm = ({
     refreshQuestions,
@@ -56,7 +57,7 @@ export const QuestionForm = ({
                             name="description"
                         />
                     </div>
-                    <input type="submit" />
+                    <SubmitButton text="Post question" />
                 </form>
             ) : (
                 <p className="text-center py-8 px-12 text-xl shadow-xl rounded-small">

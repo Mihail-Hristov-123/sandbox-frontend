@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthService } from '../hooks/useAuthService';
 import { Link } from 'react-router';
 import { CLIENT_ROUTES } from '../routes';
+import { SubmitButton } from '@/components/SubmitButton';
 
 const inputFields: {
     type: HTMLInputTypeAttribute;
@@ -67,7 +68,7 @@ export const Register = () => {
                     ))}
                 </div>
 
-                <input type="submit" />
+                <SubmitButton text="Register" />
             </form>
             <p>
                 Already have an account?{' '}

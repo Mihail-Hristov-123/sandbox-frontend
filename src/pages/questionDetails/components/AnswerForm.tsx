@@ -13,6 +13,7 @@ import {
 } from '@/schemas/questions/AnswerSchema';
 import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
 import { useCreateAnswer } from '../hooks/useCreateAnswer';
+import { SubmitButton } from '@/components/SubmitButton';
 
 export const AnswerForm = ({
     questionId,
@@ -54,7 +55,10 @@ export const AnswerForm = ({
                             placeholder="Your answer"
                             className=" grow p-2 border border-primary rounded-small max-h-[30vh] h-13 min-h-13"
                         />
-                        <input type="submit" className="h-fit text-lg" />
+                        <SubmitButton
+                            className="h-fit text-lg"
+                            text="Post answer"
+                        />
                     </div>
 
                     <ErrorMessage

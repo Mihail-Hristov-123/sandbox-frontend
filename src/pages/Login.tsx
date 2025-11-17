@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthService } from '../hooks/useAuthService';
 import { Link } from 'react-router';
 import { CLIENT_ROUTES } from '../routes';
+import { SubmitButton } from '@/components/SubmitButton';
 
 export const Login = () => {
     const {
@@ -41,7 +42,7 @@ export const Login = () => {
                     />
                 </div>
 
-                <input type="submit" />
+                <SubmitButton text="Sign in" />
             </form>
             <p>
                 Don't have an account?{' '}
