@@ -1,45 +1,27 @@
-import { useState } from 'react';
-
-import { CatchForm } from './components/CatchForm';
 import { CatchCard } from './components/CatchCard';
-import type { CatchValues } from '@/schemas/CatchSchema';
+
+import { useLoadCatches } from './hooks/useLoadCatches';
 
 export const Catches = () => {
-    const [catches, setCatches] = useState<CatchValues[]>([
-        {
-            authorName: 'mihail',
-            coordinates: [42.335, 23.083],
-            title: 'I caught a big fish ',
-            imgLink:
-                'https://content.osgnetworks.tv/infisherman/content/photos/Fall-Pike-Just-Right-LEAD.JPG',
-        },
-        {
-            authorName: 'mihail',
-            coordinates: [43.0, -87.0],
-            title: 'Ended the day at lake Michigan with a nice bass',
-            imgLink:
-                'https://www.strikeking.com/contentassets/4aba65e48f11486394435bfd5c8a334b/angler_holding_large_fish.jpg',
-        },
-        {
-            authorName: 'Maria',
-            coordinates: [42.335, 23.083],
-            title: "The biggest catfish I've ever caught",
-            imgLink:
-                'https://midwestoutdoors.com/wp-content/uploads/2019/10/Durick-Advanced-Catfishing1500x1000.jpg',
-        },
-    ]);
+    const { catches } = useLoadCatches();
+
+    const catchContent = catches?.length ? (
+        catches.map((catchInfo) => (
+            <CatchCard key={catchInfo.title} {...catchInfo} />
+        ))
+    ) : (
+        <p>No catches have been published yet</p>
+    );
 
     return (
         <main className=" flex flex-col items-center">
             <div className="xl:w-2/3">
-                <CatchForm
+                {/* <CatchForm
                     onSuccess={(data) => setCatches([data, ...catches])}
-                />
+                /> */}
                 <h1 className="pt-20 pb-12">Recent catches</h1>
                 <section className="flex flex-col  gap-10 ">
-                    {catches.map((catchInfo) => (
-                        <CatchCard key={catchInfo.title} {...catchInfo} />
-                    ))}
+                    {catchContent}
                 </section>
             </div>
         </main>

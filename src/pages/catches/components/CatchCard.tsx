@@ -1,5 +1,6 @@
 import { AuthorField } from '@/components/AuthorField';
 import { LocationPreview } from '@/components/maps/LocationPreview';
+import type { CatchReturnValues } from '@/schemas/CatchSchema';
 import { useState } from 'react';
 
 export interface CatchValues {
@@ -10,16 +11,17 @@ export interface CatchValues {
 }
 
 export const CatchCard = ({
-    authorName,
+    user_username,
     title,
-    coordinates,
+    latitude,
+    longitude,
     imgLink,
-}: CatchValues) => {
+}: CatchReturnValues) => {
     const [locationDisplayed, setLocationDisplayed] = useState(false);
 
     return (
         <article className="w-full shadow-2xl rounded-big p-4 space-y-4">
-            <AuthorField name={authorName} />
+            <AuthorField name={user_username} />
 
             <h2 className="text-xl font-semibold">{title}</h2>
 
@@ -50,7 +52,9 @@ export const CatchCard = ({
                             : 'opacity-0 -translate-y-2'
                     }`}
                 >
-                    <LocationPreview markerCoordinates={coordinates} />
+                    <LocationPreview
+                        markerCoordinates={[latitude, longitude]}
+                    />
                 </div>
             </div>
         </article>

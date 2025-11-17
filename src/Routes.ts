@@ -20,6 +20,7 @@ export const SERVER_ROUTES = {
     LOGOUT_ALL: '/auth/logout-all',
     ME: '/users/me',
     QUESTIONS: '/questions',
+    CATCHES: '/catches',
 };
 
 export type ServerRoute = keyof typeof SERVER_ROUTES;
