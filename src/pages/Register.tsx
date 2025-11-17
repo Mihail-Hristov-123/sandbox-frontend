@@ -9,7 +9,8 @@ import { LabelledInput } from '../components/formRelated/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthService } from '../hooks/useAuthService';
 import { Link } from 'react-router';
-import { clientRoutes } from '../routes';
+import { CLIENT_ROUTES } from '../routes';
+import { SubmitButton } from '@/components/SubmitButton';
 
 const inputFields: {
     type: HTMLInputTypeAttribute;
@@ -67,11 +68,11 @@ export const Register = () => {
                     ))}
                 </div>
 
-                <input type="submit" />
+                <SubmitButton text="Register" />
             </form>
             <p>
                 Already have an account?{' '}
-                <Link to={clientRoutes.LOG_IN}>Log in</Link>
+                <Link to={CLIENT_ROUTES.LOG_IN}>Log in</Link>
             </p>
         </main>
     );

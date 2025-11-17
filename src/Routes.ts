@@ -1,4 +1,4 @@
-export const clientRoutes = {
+export const CLIENT_ROUTES = {
     HOME: '/',
     CATCHES: '/catches',
     REGISTER: '/register',
@@ -9,18 +9,17 @@ export const clientRoutes = {
     QUESTION_DETAILS: '/questions/:questionId',
 };
 
+export type ClientRoute = keyof typeof CLIENT_ROUTES;
+
 // to be mostly replaced by types from open-api
 
-type RouteGroup = 'auth' | 'users';
-
-const createApiRoute = (routeGroup: RouteGroup, path: string) =>
-    `/${routeGroup}/${path}`;
-
-export const apiRoutes = {
-    REGISTER: createApiRoute('auth', 'register'),
-    LOGIN: createApiRoute('auth', 'login'),
-    LOGOUT: createApiRoute('auth', 'logout'),
-    LOGOUT_ALL: createApiRoute('auth', 'logout-all'),
-    ME: createApiRoute('users', 'me'),
+export const SERVER_ROUTES = {
+    REGISTER: '/auth/register',
+    LOGIN: '/auth/login',
+    LOGOUT: '/auth/logout',
+    LOGOUT_ALL: '/auth/logout-all',
+    ME: '/users/me',
     QUESTIONS: '/questions',
 };
+
+export type ServerRoute = keyof typeof SERVER_ROUTES;

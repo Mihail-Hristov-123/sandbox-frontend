@@ -1,9 +1,9 @@
 export { Home } from './Home';
 export { Login } from './Login';
-export { Catches } from './Catches';
+export { Catches } from './catches/Catches';
 export { Register } from './Register';
 export { NotFound } from './NotFound';
 export { MyAccount } from './MyAccount';
-export { Questions } from './Questions';
+export { Questions } from './questions/Questions';
 export { Events } from './Events';
-export { QuestionDetails } from './details/QuestionDetails';
+export { QuestionDetails } from './questionDetails/QuestionDetails';

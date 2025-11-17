@@ -1,6 +1,6 @@
+import { AuthorField } from '@/components/AuthorField';
+import { LocationPreview } from '@/components/maps/LocationPreview';
 import { useState } from 'react';
-import { AuthorField } from '../AuthorField';
-import { LocationPreview } from '../maps/LocationPreview';
 
 export interface CatchValues {
     authorName: string;

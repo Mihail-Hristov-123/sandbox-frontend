@@ -9,16 +9,14 @@ import {
     QuestionDetails,
     Questions,
     Register,
-} from '../pages/index';
+} from '@/pages/index';
 
-import { clientRoutes } from '../routes';
+import { CLIENT_ROUTES, type ClientRoute } from '@/routes';
 import { ProtectedRoute } from './ProtectedRoute';
 
-const mapRoutes = (
-    routes: { path: keyof typeof clientRoutes; element: React.ReactNode }[],
-) =>
+const mapRoutes = (routes: { path: ClientRoute; element: React.ReactNode }[]) =>
     routes.map(({ path, element }) => (
-        <Route key={path} path={clientRoutes[path]} element={element} />
+        <Route key={path} path={CLIENT_ROUTES[path]} element={element} />
     ));
 
 export const AppRoutes = () => (

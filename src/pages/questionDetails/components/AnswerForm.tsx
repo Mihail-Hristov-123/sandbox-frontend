@@ -1,28 +1,26 @@
 import { useForm } from 'react-hook-form';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import profilePicPlaceholder from '../../assets/user.png';
+import profilePicPlaceholder from '@/assets/user.png';
 
-import { useAuthContext } from '../../contexts/auth/useAuthContext';
+import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
-import { clientRoutes } from '../../routes';
+import { CLIENT_ROUTES } from '@/routes';
 
 import {
     AnswerSchema,
     type AnswerValues,
-} from '../../schemas/questions/CommentSchema';
-import { ErrorMessage } from './ErrorMessage';
+} from '@/schemas/questions/AnswerSchema';
+import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
+import { useCreateAnswer } from '../hooks/useCreateAnswer';
+import { SubmitButton } from '@/components/SubmitButton';
 
 export const AnswerForm = ({
     questionId,
-    createAnswer,
+    updateAnswers,
 }: {
     questionId: number;
-    createAnswer: (
-        data: AnswerValues,
-        questionId: unknown,
-        onSuccess: () => void,
-    ) => Promise<void>;
+    updateAnswers: () => Promise<void>;
 }) => {
     const {
         register,
@@ -32,11 +30,14 @@ export const AnswerForm = ({
     } = useForm({ resolver: zodResolver(AnswerSchema) });
 
     const { isLoggedIn } = useAuthContext();
+    const { createAnswer } = useCreateAnswer(questionId);
     const errorMessage = errors.content?.message;
     const onSubmit = async (data: AnswerValues) => {
-        await createAnswer(data, questionId, () => {
+        const result = await createAnswer(data);
+        if (result.success) {
             reset();
-        });
+            await updateAnswers();
+        }
     };
 
     return (
@@ -54,7 +55,10 @@ export const AnswerForm = ({
                             placeholder="Your answer"
                             className=" grow p-2 border border-primary rounded-small max-h-[30vh] h-13 min-h-13"
                         />
-                        <input type="submit" className="h-fit text-lg" />
+                        <SubmitButton
+                            className="h-fit text-lg"
+                            text="Post answer"
+                        />
                     </div>
 
                     <ErrorMessage
@@ -64,8 +68,8 @@ export const AnswerForm = ({
                 </form>
             ) : (
                 <p className="text-center py-4 px-12 text-xl">
-                    <NavLink to={clientRoutes.LOG_IN}>Log in</NavLink> to answer
-                    the question
+                    <NavLink to={CLIENT_ROUTES.LOG_IN}>Log in</NavLink> to
+                    answer the question
                 </p>
             )}
         </div>

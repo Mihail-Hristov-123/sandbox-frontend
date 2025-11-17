@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
-import { useUserService } from '../../hooks/useUserService';
-import type { UserReturnValues } from '../../schemas/auth/RegisterSchema';
+import { useUserService } from '@/hooks/useUserService';
+import type { UserReturnValues } from '@/schemas/auth/RegisterSchema';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);

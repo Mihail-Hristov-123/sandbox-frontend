@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { CatchCard, type CatchValues } from '../components/cards/CatchCard';
-import { CatchForm } from '../components/formRelated/CatchForm';
+
+import { CatchForm } from './components/CatchForm';
+import { CatchCard } from './components/CatchCard';
 
 export const Catches = () => {
     const [catches, setCatches] = useState<CatchValues[]>([

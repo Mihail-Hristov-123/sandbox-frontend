@@ -1,12 +1,11 @@
-import { apiRoutes } from '../routes';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 import toast from 'react-hot-toast';
-import { useLoadingContext } from '../contexts/loading/useLoadingContext';
+import { SERVER_ROUTES, type ServerRoute } from '../routes';
+import { isServerPath } from '../utils/typeGuards/isServerPath';
 
-type Path = keyof typeof apiRoutes;
 export interface FetchParams {
-    path: Path | string;
+    path: ServerRoute | string;
     method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     body?: unknown;
     silent?: boolean;
@@ -20,17 +19,16 @@ export interface Response<ExpectedResponseBody> {
 
 export const useApi = () => {
     const { setIsLoggedIn } = useAuthContext();
-    const { setIsLoading } = useLoadingContext();
+
     const fetchWithAuthCheck = async <Data>({
         path,
         method = 'GET',
         body,
         silent = false,
     }: FetchParams): Promise<Response<Data> | void> => {
-        setIsLoading(true);
         try {
             const response = await fetch(
-                `/@api${path in apiRoutes ? apiRoutes[path as keyof typeof apiRoutes] : path}`,
+                `/@api${isServerPath(path) ? SERVER_ROUTES[path] : path}`,
                 {
                     method,
                     headers: body
@@ -58,8 +56,6 @@ export const useApi = () => {
         } catch (error) {
             console.error(`Error occurred during API fetch: ${error}`);
             toast.error('Failed to connect to the server');
-        } finally {
-            setIsLoading(false);
         }
     };
 

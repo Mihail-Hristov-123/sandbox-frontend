@@ -7,7 +7,7 @@ interface Props {
 
 export const AuthorField = ({ profilePictureLink, name }: Props) => {
     return (
-        <section className="flex w-fit px-2 py-1 items-center shrink-0 bg-primary rounded-small text-white cursor-pointer font-semibold gap-2">
+        <section className="flex size-fit px-4 py-3 font-bold items-center shrink-0 rounded-small text-white cursor-pointer bg-primary gap-2">
             <img
                 src={profilePictureLink || profilePicPlaceholder}
                 alt="Profile picture"

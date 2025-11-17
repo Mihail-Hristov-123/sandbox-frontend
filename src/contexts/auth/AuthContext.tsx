@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import type { UserReturnValues } from '../../schemas/auth/RegisterSchema';
+import type { UserReturnValues } from '@/schemas/auth/RegisterSchema';
 
 interface AuthValues {
     isLoggedIn: boolean;

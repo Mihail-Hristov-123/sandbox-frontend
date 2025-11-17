@@ -1,29 +1,17 @@
 import { Link, NavLink } from 'react-router';
 
-import { clientRoutes } from '../routes';
-import logo from '../assets/logo.png';
-import { MyProfileDropdown } from './MyProfileDropdown';
-import { useAuthContext } from '../contexts/auth/useAuthContext';
+import logo from '@/assets/logo.png';
+import { CLIENT_ROUTES, type ClientRoute } from '@/routes';
+import { useAuthContext } from '@/contexts/auth/useAuthContext';
+import { MyProfileDropdown } from '../MyProfileDropdown';
 
-const { HOME, LOG_IN, REGISTER } = clientRoutes;
+const { HOME, LOG_IN, REGISTER } = CLIENT_ROUTES;
 
-const pathsMap: { name: string; location: keyof typeof clientRoutes }[] = [
-    {
-        name: 'Home',
-        location: 'HOME',
-    },
-    {
-        name: 'Catches',
-        location: 'CATCHES',
-    },
-    {
-        name: 'Questions',
-        location: 'QUESTIONS',
-    },
-    {
-        name: 'Events',
-        location: 'EVENTS',
-    },
+const pathsMap: { name: string; location: ClientRoute }[] = [
+    { name: 'Home', location: 'HOME' },
+    { name: 'Catches', location: 'CATCHES' },
+    { name: 'Questions', location: 'QUESTIONS' },
+    { name: 'Events', location: 'EVENTS' },
 ];
 
 export const Nav = () => {
@@ -48,7 +36,7 @@ export const Nav = () => {
             </nav>
             <nav className="no-underline bg-white shadow-lg flex py-2 justify-center flex-wrap gap-8  ">
                 {pathsMap.map(({ name, location }) => (
-                    <NavLink to={clientRoutes[location]} key={location}>
+                    <NavLink to={CLIENT_ROUTES[location]} key={location}>
                         {name}
                     </NavLink>
                 ))}

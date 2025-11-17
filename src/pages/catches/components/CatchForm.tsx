@@ -1,17 +1,17 @@
 import { useForm } from 'react-hook-form';
-import { type CatchValues } from '../cards/CatchCard';
-import { LabelledInput } from './LabelledInput';
+
+import { LabelledInput } from '../../../components/formRelated/LabelledInput';
 import { Draggable, Map, Marker, ZoomControl } from 'pigeon-maps';
 
 import { useState } from 'react';
-import { CurrentLocationButton } from '../maps/CurrentLocationButton';
-import { useAuthContext } from '../../contexts/auth/useAuthContext';
-import { clientRoutes } from '../../routes';
+import { CurrentLocationButton } from '../../../components/maps/CurrentLocationButton';
+import { useAuthContext } from '../../../contexts/auth/useAuthContext';
+import { CLIENT_ROUTES } from '../../../routes';
 import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CatchSchema } from '../../schemas/CatchSchema';
+import { CatchSchema, type CatchValues } from '../../../schemas/CatchSchema';
 import toast from 'react-hot-toast';
-import { ErrorMessage } from './ErrorMessage';
+import { ErrorMessage } from '../../../components/formRelated/ErrorMessage';
 
 type FormData = Omit<CatchValues, 'authorName'>;
 
@@ -93,7 +93,7 @@ export const CatchForm = ({
                 </>
             ) : (
                 <p>
-                    <Link to={clientRoutes.LOG_IN}>Log in</Link> to share your
+                    <Link to={CLIENT_ROUTES.LOG_IN}>Log in</Link> to share your
                     catch
                 </p>
             )}

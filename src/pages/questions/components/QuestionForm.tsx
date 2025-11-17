@@ -1,22 +1,21 @@
 import { useForm } from 'react-hook-form';
-import { LabelledInput } from './LabelledInput';
+import { LabelledInput } from '@/components/formRelated/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
     QuestionSchema,
     type QuestionValues,
-} from '../../schemas/questions/QuestionSchema';
-import { LabelledTextArea } from './LabelledTextArea';
-import { useAuthContext } from '../../contexts/auth/useAuthContext';
+} from '@/schemas/questions/QuestionSchema';
+import { LabelledTextArea } from '@/components/formRelated/LabelledTextArea';
+import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
-import { clientRoutes } from '../../routes';
+import { CLIENT_ROUTES } from '@/routes';
+import { useCreateQuestion } from '../hooks/useCreateQuestion';
+import { SubmitButton } from '@/components/SubmitButton';
 
 export const QuestionForm = ({
-    createQuestion,
+    refreshQuestions,
 }: {
-    createQuestion: (
-        data: QuestionValues,
-        onSuccess: () => void,
-    ) => Promise<void>;
+    refreshQuestions: () => Promise<void>;
 }) => {
     const {
         register,
@@ -26,11 +25,11 @@ export const QuestionForm = ({
     } = useForm({ resolver: zodResolver(QuestionSchema) });
 
     const { isLoggedIn } = useAuthContext();
+    const { createQuestion } = useCreateQuestion(refreshQuestions);
 
     const onSubmit = async (data: QuestionValues) => {
-        await createQuestion(data, () => {
-            reset();
-        });
+        const result = await createQuestion(data);
+        if (result.success) reset();
     };
 
     return (
@@ -58,11 +57,11 @@ export const QuestionForm = ({
                             name="description"
                         />
                     </div>
-                    <input type="submit" />
+                    <SubmitButton text="Post question" />
                 </>
             ) : (
-                <p className="text-center">
-                    <NavLink to={clientRoutes.LOG_IN}>Log in</NavLink> to ask
+                <p className="text-center py-8 px-12 text-xl shadow-xl rounded-small">
+                    <NavLink to={CLIENT_ROUTES.LOG_IN}>Log in</NavLink> to ask
                     questions
                 </p>
             )}
