@@ -1,12 +1,15 @@
+import { Loader } from '@/components/Loader';
 import { CatchCard } from './components/CatchCard';
 import { CatchForm } from './components/CatchForm';
 
 import { useLoadCatches } from './hooks/useLoadCatches';
 
 export const Catches = () => {
-    const { catches, updateCatches } = useLoadCatches();
+    const { catches, updateCatches, loading } = useLoadCatches();
 
-    const catchContent = catches?.length ? (
+    const catchContent = loading ? (
+        <Loader />
+    ) : catches?.length ? (
         catches.map((catchInfo) => (
             <CatchCard key={catchInfo.title} {...catchInfo} />
         ))

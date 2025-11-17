@@ -11,6 +11,7 @@ import { CatchSchema, type CatchValues } from '@/schemas/CatchSchema';
 
 import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
 import { useCreateCatch } from '../hooks/useCreateCatch';
+import { SubmitButton } from '@/components/SubmitButton';
 
 export const CatchForm = ({
     updateCatches,
@@ -92,9 +93,15 @@ export const CatchForm = ({
                             setCurrentPosition={updateCoordinates}
                         />
                     </Map>
-                    <ErrorMessage errorMessage={errors.latitude?.message} />
-                    <ErrorMessage errorMessage={errors.longitude?.message} />
-                    <input type="submit" />
+                    <ErrorMessage
+                        errorMessage={
+                            (errors.latitude?.message ||
+                                errors.longitude?.message) &&
+                            'Catch coordinates are required'
+                        }
+                    />
+
+                    <SubmitButton text="Publish catch" />
                 </>
             ) : (
                 <p>

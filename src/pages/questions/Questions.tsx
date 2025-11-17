@@ -4,10 +4,9 @@ import { Loader } from '@/components/Loader';
 import { useLoadQuestions } from './hooks/useLoadQuestions';
 
 export const Questions = () => {
-    const { allQuestions, isLoadingQuestions, loadQuestions } =
-        useLoadQuestions();
+    const { allQuestions, loading, loadQuestions } = useLoadQuestions();
 
-    const questionsContent = isLoadingQuestions ? (
+    const questionsContent = loading ? (
         <Loader />
     ) : allQuestions?.length ? (
         allQuestions.map((question) => (
