@@ -3,7 +3,7 @@ import { useApi } from '@/hooks/useApi';
 import type { CatchValues } from '@/schemas/CatchSchema';
 import toast from 'react-hot-toast';
 
-export const useCreateCatch = () => {
+export const useCreateCatch = (updateCatches: () => Promise<void>) => {
     const { fetchWithAuthCheck } = useApi();
 
     const { userInfo } = useAuthContext();
@@ -15,6 +15,7 @@ export const useCreateCatch = () => {
         });
         if (result?.ok) {
             toast.success('Catch uploaded');
+            await updateCatches();
         }
         return result?.ok;
     };

@@ -11,7 +11,6 @@ export const useLoadCatches = () => {
         const response = await fetchWithAuthCheck<CatchReturnValues[]>({
             path: 'CATCHES',
         });
-        console.log(response?.data);
 
         setCatches(response?.data || null);
     };
@@ -20,5 +19,5 @@ export const useLoadCatches = () => {
         updateCatches();
     }, []);
 
-    return { catches };
+    return { catches, updateCatches };
 };

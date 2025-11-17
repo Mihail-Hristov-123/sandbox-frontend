@@ -12,7 +12,11 @@ import { CatchSchema, type CatchValues } from '@/schemas/CatchSchema';
 import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
 import { useCreateCatch } from '../hooks/useCreateCatch';
 
-export const CatchForm = () => {
+export const CatchForm = ({
+    updateCatches,
+}: {
+    updateCatches: () => Promise<void>;
+}) => {
     const {
         register,
         handleSubmit,
@@ -24,7 +28,7 @@ export const CatchForm = () => {
         resolver: zodResolver(CatchSchema) as Resolver<CatchValues>,
     });
 
-    const { createCatch } = useCreateCatch();
+    const { createCatch } = useCreateCatch(updateCatches);
 
     const onSubmit = async (data: CatchValues) => {
         const success = await createCatch(data);
@@ -38,6 +42,18 @@ export const CatchForm = () => {
     ]);
 
     const { isLoggedIn } = useAuthContext();
+
+    const updateCoordinates = (coordinates: [number, number]) => {
+        const [lat, lng] = coordinates;
+        setValue('latitude', lat, {
+            shouldValidate: true,
+        });
+        setValue('longitude', lng, {
+            shouldValidate: true,
+        });
+
+        setAnchor(coordinates);
+    };
 
     return (
         <form
@@ -62,37 +78,18 @@ export const CatchForm = () => {
                         height={300}
                         center={anchor}
                         defaultCenter={anchor}
-                        minZoom={3}
+                        minZoom={4}
                         defaultZoom={11}
                     >
                         <ZoomControl />
                         <Draggable
                             anchor={anchor}
-                            onDragEnd={(newPos) => {
-                                const [lat, lng] = newPos;
-                                setValue('latitude', lat, {
-                                    shouldValidate: true,
-                                });
-                                setValue('longitude', lng, {
-                                    shouldValidate: true,
-                                });
-                                setAnchor(newPos);
-                            }}
+                            onDragEnd={updateCoordinates}
                         >
                             <Marker />
                         </Draggable>
                         <CurrentLocationButton
-                            setCurrentPosition={(coordinates) => {
-                                const [lat, lng] = coordinates;
-                                setValue('latitude', lat, {
-                                    shouldValidate: true,
-                                });
-                                setValue('longitude', lng, {
-                                    shouldValidate: true,
-                                });
-
-                                setAnchor(coordinates);
-                            }}
+                            setCurrentPosition={updateCoordinates}
                         />
                     </Map>
                     <ErrorMessage errorMessage={errors.latitude?.message} />
