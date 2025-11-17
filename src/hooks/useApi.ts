@@ -2,10 +2,10 @@ import { useAuthContext } from '../contexts/auth/useAuthContext';
 
 import toast from 'react-hot-toast';
 import { SERVER_ROUTES, type ServerRoute } from '../routes';
-import { isServerPath } from '../utils/typeGuards/isServerPath';
 
 export interface FetchParams {
-    path: ServerRoute | string;
+    path: ServerRoute;
+    id?: number;
     method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
     body?: unknown;
     silent?: boolean;
@@ -24,11 +24,12 @@ export const useApi = () => {
         path,
         method = 'GET',
         body,
+        id,
         silent = false,
     }: FetchParams): Promise<Response<Data> | void> => {
         try {
             const response = await fetch(
-                `/@api${isServerPath(path) ? SERVER_ROUTES[path] : path}`,
+                `/@api${SERVER_ROUTES[path]}${id ? `/${id}` : ''}`,
                 {
                     method,
                     headers: body

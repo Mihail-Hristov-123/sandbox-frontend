@@ -4,7 +4,6 @@ import type {
     AnswerReturnValues,
     AnswerValues,
 } from '@/schemas/questions/AnswerSchema';
-import { getDynamicQuestionPath } from '../utils/getDynamicQuestionPath';
 
 export const useCreateAnswer = (questionId: number) => {
     const { fetchWithAuthCheck } = useApi();
@@ -13,7 +12,8 @@ export const useCreateAnswer = (questionId: number) => {
         data: AnswerValues,
     ): Promise<{ success: boolean }> => {
         const result = await fetchWithAuthCheck<AnswerReturnValues>({
-            path: getDynamicQuestionPath(questionId),
+            path: 'QUESTIONS',
+            id: questionId,
             body: data,
             method: 'POST',
         });

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useApi } from '@/hooks/useApi';
-import { getDynamicQuestionPath } from '../utils/getDynamicQuestionPath';
 
 export interface DetailedQuestionInfo {
     questionData: {
@@ -35,7 +34,8 @@ export const useLoadQuestionDetails = (questionId: unknown) => {
         }
 
         const response = await fetchWithAuthCheck<DetailedQuestionInfo>({
-            path: getDynamicQuestionPath(questionId as number),
+            path: 'QUESTIONS',
+            id: questionId as number,
             silent: true,
         });
 
