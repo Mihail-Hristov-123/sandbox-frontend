@@ -16,7 +16,7 @@ export const LocationPreview = ({
             <Marker width={50} anchor={markerCoordinates} />
 
             <ZoomControl />
-            <button className="bg-primary absolute bottom-0 right-0 text-white px-3 py-1 rounded-tl-big">
+            <button className="bg-primary absolute top-0 right-0 text-white px-3 py-1 rounded-bl-big">
                 {' '}
                 <Link
                     target="_blank"
