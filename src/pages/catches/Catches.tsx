@@ -22,7 +22,7 @@ export const Catches = () => {
             <div className="xl:w-2/3">
                 <CatchForm updateCatches={updateCatches} />
                 <h1 className="pt-20 pb-12">Recent catches</h1>
-                <section className="flex flex-col  gap-10 ">
+                <section className="flex flex-col  gap-16 ">
                     {catchContent}
                 </section>
             </div>

@@ -62,7 +62,7 @@ export const CatchForm = ({
             className="form border-0 shadow-xl py-8 px-6 gap-8"
         >
             {isLoggedIn ? (
-                <>
+                <div className=" input-container max-md:px-2 pb-0">
                     <LabelledInput
                         labelText="Title:"
                         register={register}
@@ -102,7 +102,7 @@ export const CatchForm = ({
                     />
 
                     <SubmitButton text="Publish catch" />
-                </>
+                </div>
             ) : (
                 <p>
                     <Link to={CLIENT_ROUTES.LOG_IN}>Log in</Link> to share your
