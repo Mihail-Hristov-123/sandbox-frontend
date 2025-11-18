@@ -10,8 +10,6 @@ export const useCreateQuestion = (refreshQuestions: () => Promise<void>) => {
     const createQuestion = async (
         data: QuestionValues,
     ): Promise<{ success: boolean }> => {
-        const ERROR_MESSAGE = 'Error occurred during question post';
-
         try {
             const response = await fetchWithAuthCheck(
                 createApiRoute(SERVER_ROUTES.QUESTIONS),
@@ -29,11 +27,11 @@ export const useCreateQuestion = (refreshQuestions: () => Promise<void>) => {
             }
             const responseData = await response.json();
 
-            toast.error(responseData.message || ERROR_MESSAGE);
+            toast.error(responseData.message);
             return { success: false };
         } catch (error) {
             console.error(error);
-            toast.error(ERROR_MESSAGE);
+            toast.error('Error occurred during question post');
             return { success: false };
         }
     };
