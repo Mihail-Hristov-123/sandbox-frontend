@@ -1,7 +1,21 @@
 import { useAuthContext } from '../contexts/auth/useAuthContext';
+import { useForm } from 'react-hook-form';
+
+type FormValues = {
+    image: FileList | null;
+};
 
 export const MyAccount = () => {
     const { userInfo } = useAuthContext();
+
+    const { register, watch, resetField } = useForm<FormValues>();
+
+    const fileList = watch('image');
+    const imageFile = fileList?.[0] ?? null;
+
+    const removeImage = () => {
+        resetField('image');
+    };
 
     return (
         <main>
@@ -19,6 +33,28 @@ export const MyAccount = () => {
                     </div>
                 </dl>
             </div>
+
+            <form>
+                {imageFile && (
+                    <div>
+                        <img
+                            src={URL.createObjectURL(imageFile)}
+                            alt="The image you uploaded"
+                        />
+                        <button type="button" onClick={removeImage}>
+                            Remove image
+                        </button>
+                    </div>
+                )}
+
+                <label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        {...register('image')}
+                    />
+                </label>
+            </form>
         </main>
     );
 };
