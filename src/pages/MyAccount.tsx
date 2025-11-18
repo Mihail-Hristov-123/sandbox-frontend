@@ -1,5 +1,10 @@
+import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
 import { useForm } from 'react-hook-form';
+import { SubmitButton } from '@/components/SubmitButton';
+import { useApi } from '@/hooks/useApi';
+import { createApiRoute } from '@/utils/createApiRoute';
+import { SERVER_ROUTES } from '@/routes';
 
 type FormValues = {
     image: FileList | null;
@@ -8,13 +13,28 @@ type FormValues = {
 export const MyAccount = () => {
     const { userInfo } = useAuthContext();
 
-    const { register, watch, resetField } = useForm<FormValues>();
+    const {
+        register,
+        watch,
+        resetField,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormValues>();
 
     const fileList = watch('image');
     const imageFile = fileList?.[0] ?? null;
-
+    const { fetchWithAuthCheck } = useApi();
     const removeImage = () => {
         resetField('image');
+    };
+    const onSubmit = async () => {
+        const formData = new FormData();
+        formData.append('image', imageFile!);
+        const response = await fetchWithAuthCheck(`/@api/users/upload-file`, {
+            method: 'POST',
+            body: formData,
+        });
+        console.log(response);
     };
 
     return (
@@ -34,7 +54,7 @@ export const MyAccount = () => {
                 </dl>
             </div>
 
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 {imageFile && (
                     <div>
                         <img
@@ -51,9 +71,16 @@ export const MyAccount = () => {
                     <input
                         type="file"
                         accept="image/*"
-                        {...register('image')}
+                        {...register('image', {
+                            required: {
+                                message: 'Image is required',
+                                value: true,
+                            },
+                        })}
                     />
+                    <ErrorMessage errorMessage={errors.image?.message} />
                 </label>
+                <SubmitButton text="Update profile picture" />
             </form>
         </main>
     );
