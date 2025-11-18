@@ -1,23 +1,26 @@
-import { useApi } from '@/hooks/useApi';
 import { useDelayedLoading } from '@/hooks/useDelayedLoading';
+import { SERVER_ROUTES } from '@/routes';
 import { type CatchReturnValues } from '@/schemas/CatchSchema';
+import { createApiRoute } from '@/utils/createApiRoute';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 export const useLoadCatches = () => {
     const [catches, setCatches] = useState<CatchReturnValues[] | null>(null);
     const { loading, setLoading } = useDelayedLoading();
-    const { fetchWithAuthCheck } = useApi();
 
     const updateCatches = async () => {
         setLoading(true);
-        const response = await fetchWithAuthCheck<CatchReturnValues[]>({
-            path: 'CATCHES',
-        });
-
-        setCatches(response?.data || null);
-        setTimeout(() => {
+        try {
+            const response = await fetch(createApiRoute(SERVER_ROUTES.CATCHES));
+            const body = await response.json();
+            setCatches(body.data || null);
+        } catch (error) {
+            console.error(error);
+            toast.error('Error occurred during catches fetch');
+        } finally {
             setLoading(false);
-        }, 500);
+        }
     };
 
     useEffect(() => {

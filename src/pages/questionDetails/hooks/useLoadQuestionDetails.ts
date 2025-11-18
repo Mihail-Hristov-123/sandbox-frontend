@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useApi } from '@/hooks/useApi';
+
 import type { QuestionReturnValue } from '@/schemas/questions/QuestionSchema';
 import type { AnswerReturnValues } from '@/schemas/questions/AnswerSchema';
+import { SERVER_ROUTES } from '@/routes';
+import { createApiRoute } from '@/utils/createApiRoute';
+import toast from 'react-hot-toast';
 
 export interface DetailedQuestionInfo {
     questionData: QuestionReturnValue;
@@ -9,8 +12,6 @@ export interface DetailedQuestionInfo {
 }
 
 export const useLoadQuestionDetails = (questionId: unknown) => {
-    const { fetchWithAuthCheck } = useApi();
-
     const [currentQuestionData, setCurrentQuestionData] =
         useState<DetailedQuestionInfo | null>(null);
 
@@ -24,14 +25,18 @@ export const useLoadQuestionDetails = (questionId: unknown) => {
             return;
         }
 
-        const response = await fetchWithAuthCheck<DetailedQuestionInfo>({
-            path: 'QUESTIONS',
-            id: Number(questionId),
-            silent: true,
-        });
-
-        setCurrentQuestionData(response?.data ?? null);
-        setIsLoading(false);
+        try {
+            const response = await fetch(
+                createApiRoute(`${SERVER_ROUTES.QUESTIONS}/${questionId}`),
+            );
+            const body = await response.json();
+            setCurrentQuestionData(body.data || null);
+        } catch (error) {
+            console.error(error);
+            toast.error('Failed to fetch question details');
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     useEffect(() => {
