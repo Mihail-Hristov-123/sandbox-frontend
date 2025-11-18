@@ -1,21 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useApi } from '@/hooks/useApi';
-import { getDynamicQuestionPath } from '../utils/getDynamicQuestionPath';
+import type { QuestionReturnValue } from '@/schemas/questions/QuestionSchema';
+import type { AnswerReturnValues } from '@/schemas/questions/AnswerSchema';
 
 export interface DetailedQuestionInfo {
-    questionData: {
-        user_username: string;
-        user_id: number;
-        description: string;
-        title: string;
-    };
-    answersData: {
-        question_id: number;
-        id: number;
-        content: string;
-        user_id: number;
-        user_username: string;
-    }[];
+    questionData: QuestionReturnValue;
+    answersData: AnswerReturnValues[];
 }
 
 export const useLoadQuestionDetails = (questionId: unknown) => {
@@ -35,7 +25,8 @@ export const useLoadQuestionDetails = (questionId: unknown) => {
         }
 
         const response = await fetchWithAuthCheck<DetailedQuestionInfo>({
-            path: getDynamicQuestionPath(questionId as number),
+            path: 'QUESTIONS',
+            id: Number(questionId),
             silent: true,
         });
 

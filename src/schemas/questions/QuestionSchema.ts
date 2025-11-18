@@ -7,7 +7,7 @@ export const QuestionSchema = z.object({
         .max(50, 'Question title must not be longer than 50 characters'),
     description: z
         .string()
-        .min(20, 'Question description must be at least 10 characters long')
+        .min(20, 'Question description must be at least 20 characters long')
         .max(200, 'Question description must not be longer than 50 characters'),
 });
 

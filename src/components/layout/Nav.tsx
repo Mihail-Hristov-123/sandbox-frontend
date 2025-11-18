@@ -9,7 +9,7 @@ const { HOME, LOG_IN, REGISTER } = CLIENT_ROUTES;
 
 const pathsMap: { name: string; location: ClientRoute }[] = [
     { name: 'Home', location: 'HOME' },
-    { name: 'Posts', location: 'POSTS' },
+    { name: 'Catches', location: 'CATCHES' },
     { name: 'Questions', location: 'QUESTIONS' },
     { name: 'Events', location: 'EVENTS' },
 ];

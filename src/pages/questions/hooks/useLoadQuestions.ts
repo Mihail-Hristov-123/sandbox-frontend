@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useApi } from '@/hooks/useApi';
 import type { QuestionReturnValue } from '@/schemas/questions/QuestionSchema';
+import { useDelayedLoading } from '@/hooks/useDelayedLoading';
 
 export const useLoadQuestions = () => {
     const { fetchWithAuthCheck } = useApi();
 
     const [allQuestions, setAllQuestions] = useState<QuestionReturnValue[]>([]);
-    const [isLoadingQuestions, setIsLoadingQuestions] = useState(true);
+    const { loading, setLoading } = useDelayedLoading();
 
     const loadQuestions = async () => {
-        setIsLoadingQuestions(true);
+        setLoading(true);
 
         const response = await fetchWithAuthCheck<QuestionReturnValue[]>({
             path: 'QUESTIONS',
@@ -17,7 +18,7 @@ export const useLoadQuestions = () => {
 
         setTimeout(() => {
             setAllQuestions(response?.data || []);
-            setIsLoadingQuestions(false);
+            setLoading(false);
         }, 500);
     };
 
@@ -26,7 +27,7 @@ export const useLoadQuestions = () => {
     }, []);
     return {
         allQuestions,
-        isLoadingQuestions,
+        loading,
         loadQuestions,
     };
 };

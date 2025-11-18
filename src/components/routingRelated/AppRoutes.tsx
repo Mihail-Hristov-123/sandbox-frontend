@@ -1,11 +1,11 @@
 import { Route, Routes } from 'react-router';
 import {
+    Catches,
     Events,
     Home,
     Login,
     MyAccount,
     NotFound,
-    Posts,
     QuestionDetails,
     Questions,
     Register,
@@ -23,7 +23,7 @@ export const AppRoutes = () => (
     <Routes>
         {mapRoutes([
             { path: 'HOME', element: <Home /> },
-            { path: 'POSTS', element: <Posts /> },
+            { path: 'CATCHES', element: <Catches /> },
             { path: 'QUESTIONS', element: <Questions /> },
             { path: 'QUESTION_DETAILS', element: <QuestionDetails /> },
             { path: 'EVENTS', element: <Events /> },

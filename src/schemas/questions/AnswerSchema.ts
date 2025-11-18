@@ -12,7 +12,7 @@ export type AnswerValues = z.infer<typeof AnswerSchema>;
 
 export type AnswerReturnValues = AnswerValues & {
     id: number;
-    authorId: number;
-    authorName: string;
-    questionId: number;
+    user_id: number;
+    user_username: string;
+    question_id: number;
 };

@@ -1,6 +1,6 @@
 export const CLIENT_ROUTES = {
     HOME: '/',
-    POSTS: '/posts',
+    CATCHES: '/catches',
     REGISTER: '/register',
     LOG_IN: '/login',
     MY_ACCOUNT: '/me',
@@ -20,6 +20,7 @@ export const SERVER_ROUTES = {
     LOGOUT_ALL: '/auth/logout-all',
     ME: '/users/me',
     QUESTIONS: '/questions',
+    CATCHES: '/catches',
 };
 
 export type ServerRoute = keyof typeof SERVER_ROUTES;
