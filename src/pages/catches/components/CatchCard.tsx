@@ -3,13 +3,6 @@ import { LocationPreview } from '@/pages/catches/components/maps/LocationPreview
 import type { CatchReturnValues } from '@/schemas/CatchSchema';
 import { useState } from 'react';
 
-export interface CatchValues {
-    authorName: string;
-    title: string;
-    coordinates: [number, number];
-    imgLink: string;
-}
-
 export const CatchCard = ({
     user_username,
     title,
