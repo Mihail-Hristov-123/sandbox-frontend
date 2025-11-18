@@ -20,7 +20,7 @@ export const useLoadQuestions = () => {
             setAllQuestions(body.data);
         } catch (error) {
             console.error(error);
-            toast.error('Failed to fetch the existing questions');
+            toast.error('Error occurred while fetching the questions');
         } finally {
             setLoading(false);
         }

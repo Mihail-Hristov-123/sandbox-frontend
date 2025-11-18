@@ -36,19 +36,20 @@ export const useAuthService = () => {
         }
     };
     const logOut = async (logoutScope: LogoutScope) => {
-        try {
-            await fetch(
-                createApiRoute(
-                    SERVER_ROUTES[
-                        logoutScope === 'thisDevice' ? 'LOGOUT' : 'LOGOUT_ALL'
-                    ],
-                ),
-                { method: 'POST' },
-            );
+        const response = await fetch(
+            createApiRoute(
+                SERVER_ROUTES[
+                    logoutScope === 'thisDevice' ? 'LOGOUT' : 'LOGOUT_ALL'
+                ],
+            ),
+            { method: 'POST' },
+        );
+
+        if (response.ok) {
             setIsLoggedIn(false);
-        } catch (error) {
-            console.error(error);
+            return;
         }
+        toast.error('Error occurred during logout');
     };
     const register = async (data: UserRegisterValues) => {
         try {
