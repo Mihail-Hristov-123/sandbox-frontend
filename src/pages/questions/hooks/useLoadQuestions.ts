@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { useApi } from '@/hooks/useApi';
 import type { QuestionReturnValue } from '@/schemas/questions/QuestionSchema';
 import { useDelayedLoading } from '@/hooks/useDelayedLoading';
+import { createApiRoute } from '@/utils/createApiRoute';
+import { SERVER_ROUTES } from '@/routes';
+import toast from 'react-hot-toast';
 
 export const useLoadQuestions = () => {
     const { fetchWithAuthCheck } = useApi();
@@ -12,14 +15,18 @@ export const useLoadQuestions = () => {
     const loadQuestions = async () => {
         setLoading(true);
 
-        const response = await fetchWithAuthCheck<QuestionReturnValue[]>({
-            path: 'QUESTIONS',
-        });
-
-        setTimeout(() => {
-            setAllQuestions(response?.data || []);
+        try {
+            const response = await fetchWithAuthCheck(
+                createApiRoute(SERVER_ROUTES.QUESTIONS),
+            );
+            const body = await response.json();
+            setAllQuestions(body.data);
+        } catch (error) {
+            console.error(error);
+            toast.error('Failed to fetch the existing questions');
+        } finally {
             setLoading(false);
-        }, 500);
+        }
     };
 
     useEffect(() => {
