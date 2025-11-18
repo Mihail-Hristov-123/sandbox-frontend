@@ -8,13 +8,10 @@ export const CurrentLocationButton = ({
     }
 
     const handleClick = () => {
-        navigator.geolocation.getCurrentPosition((position) => {
-            (setCurrentPosition([
-                position.coords.latitude,
-                position.coords.longitude,
-            ]),
-                console.log(position.coords));
-        });
+        navigator.geolocation.getCurrentPosition(
+            ({ coords: { latitude, longitude } }) =>
+                setCurrentPosition([latitude, longitude]),
+        );
     };
 
     return (

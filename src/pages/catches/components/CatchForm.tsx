@@ -2,7 +2,7 @@ import { useForm, type Resolver } from 'react-hook-form';
 import { LabelledInput } from '@/components/formRelated/LabelledInput';
 import { Draggable, Map, Marker, ZoomControl } from 'pigeon-maps';
 import { useState } from 'react';
-import { CurrentLocationButton } from '@/components/maps/CurrentLocationButton';
+import { CurrentLocationButton } from '@/pages/catches/components/maps/CurrentLocationButton';
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { CLIENT_ROUTES } from '@/routes';
 import { Link } from 'react-router';
@@ -33,8 +33,7 @@ export const CatchForm = ({
 
     const onSubmit = async (data: CatchValues) => {
         const success = await createCatch(data);
-        if (!success) return;
-        reset();
+        if (success) reset();
     };
 
     const [anchor, setAnchor] = useState<[number, number]>([
@@ -44,16 +43,16 @@ export const CatchForm = ({
 
     const { isLoggedIn } = useAuthContext();
 
-    const updateCoordinates = (coordinates: [number, number]) => {
-        const [lat, lng] = coordinates;
-        setValue('latitude', lat, {
+    const updateCoordinates = (newPoint: [number, number]) => {
+        const [latitude, longitude] = newPoint;
+        setValue('latitude', latitude, {
             shouldValidate: true,
         });
-        setValue('longitude', lng, {
+        setValue('longitude', longitude, {
             shouldValidate: true,
         });
 
-        setAnchor(coordinates);
+        setAnchor(newPoint);
     };
 
     return (
@@ -62,7 +61,7 @@ export const CatchForm = ({
             className="form border-0 shadow-xl py-8 px-6 gap-8"
         >
             {isLoggedIn ? (
-                <div className=" input-container max-md:px-2 pb-0">
+                <div className="input-container max-md:px-2 pb-0">
                     <LabelledInput
                         labelText="Title:"
                         register={register}

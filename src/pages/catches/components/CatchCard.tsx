@@ -1,5 +1,5 @@
 import { AuthorField } from '@/components/AuthorField';
-import { LocationPreview } from '@/components/maps/LocationPreview';
+import { LocationPreview } from '@/pages/catches/components/maps/LocationPreview';
 import type { CatchReturnValues } from '@/schemas/CatchSchema';
 import { useState } from 'react';
 
