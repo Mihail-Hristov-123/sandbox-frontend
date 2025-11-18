@@ -1,17 +1,15 @@
 import { useForm, type Resolver } from 'react-hook-form';
 import { LabelledInput } from '@/components/formRelated/LabelledInput';
-import { Draggable, Map, Marker, ZoomControl } from 'pigeon-maps';
-import { useState } from 'react';
-import { CurrentLocationButton } from '@/pages/catches/components/maps/CurrentLocationButton';
+
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { CLIENT_ROUTES } from '@/routes';
 import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CatchSchema, type CatchValues } from '@/schemas/CatchSchema';
 
-import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
 import { useCreateCatch } from '../hooks/useCreateCatch';
 import { SubmitButton } from '@/components/SubmitButton';
+import { CoordinateSelection } from './maps/CoordinateSelection';
 
 export const CatchForm = ({
     updateCatches,
@@ -36,78 +34,43 @@ export const CatchForm = ({
         if (success) reset();
     };
 
-    const [anchor, setAnchor] = useState<[number, number]>([
-        getValues('latitude') ?? 50.879,
-        getValues('longitude') ?? 4.6997,
-    ]);
-
     const { isLoggedIn } = useAuthContext();
 
-    const updateCoordinates = (newPoint: [number, number]) => {
-        const [latitude, longitude] = newPoint;
-        setValue('latitude', latitude, {
-            shouldValidate: true,
-        });
-        setValue('longitude', longitude, {
-            shouldValidate: true,
-        });
-
-        setAnchor(newPoint);
-    };
-
     return (
-        <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="form border-0 shadow-xl py-8 px-6 gap-8"
-        >
+        <div className="shadow-xl py-8 px-6 rounded-big">
             {isLoggedIn ? (
-                <div className="input-container max-md:px-2 pb-0">
-                    <LabelledInput
-                        labelText="Title:"
-                        register={register}
-                        errors={errors}
-                        name="title"
-                    />
-                    <LabelledInput
-                        labelText="Image link:"
-                        register={register}
-                        errors={errors}
-                        name="imgLink"
-                    />
-                    <Map
-                        height={300}
-                        center={anchor}
-                        defaultCenter={anchor}
-                        minZoom={4}
-                        defaultZoom={11}
-                    >
-                        <ZoomControl />
-                        <Draggable
-                            anchor={anchor}
-                            onDragEnd={updateCoordinates}
-                        >
-                            <Marker />
-                        </Draggable>
-                        <CurrentLocationButton
-                            setCurrentPosition={updateCoordinates}
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="form border-0  gap-8"
+                >
+                    <div className="input-container max-md:px-2 pb-0">
+                        <LabelledInput
+                            labelText="Title:"
+                            register={register}
+                            errors={errors}
+                            name="title"
                         />
-                    </Map>
-                    <ErrorMessage
-                        errorMessage={
-                            (errors.latitude?.message ||
-                                errors.longitude?.message) &&
-                            'Catch coordinates are required'
-                        }
-                    />
+                        <LabelledInput
+                            labelText="Image link:"
+                            register={register}
+                            errors={errors}
+                            name="imgLink"
+                        />
+                        <CoordinateSelection
+                            setValue={setValue}
+                            getValues={getValues}
+                            errors={errors}
+                        />
 
-                    <SubmitButton text="Publish catch" />
-                </div>
+                        <SubmitButton text="Publish catch" />
+                    </div>
+                </form>
             ) : (
-                <p>
+                <p className="text-center text-xl">
                     <Link to={CLIENT_ROUTES.LOG_IN}>Log in</Link> to share your
                     catch
                 </p>
             )}
-        </form>
+        </div>
     );
 };
