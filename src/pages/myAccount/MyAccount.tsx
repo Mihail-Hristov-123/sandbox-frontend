@@ -9,7 +9,7 @@ export const MyAccount = () => {
         <main className=" flex flex-col items-center gap-y-18">
             <h1 className="py-12">My information</h1>
 
-            <div className="flex flex-col items-center shadow-xl rounded-small w-1/3">
+            <div className="flex flex-col items-center shadow-xl rounded-small w-1/3 max-lg:w-2/3">
                 <img
                     src={userInfo?.profile_pic_url || profilePicPlaceholder}
                     alt="Your profile picture"

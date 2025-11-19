@@ -30,7 +30,7 @@ export const PictureUpdateForm = () => {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="shadow-2xl rounded-small flex flex-col items-center py-8 w-1/3 gap-8"
+            className="shadow-2xl rounded-small flex flex-col items-center py-8 max-lg:w-full w-1/3 gap-8"
         >
             <h2 className="text-2xl font-semibold">Change profile picture</h2>
             {imageFile ? (
