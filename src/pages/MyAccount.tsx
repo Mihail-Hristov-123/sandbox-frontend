@@ -30,10 +30,10 @@ export const MyAccount = () => {
     const onSubmit = async () => {
         const formData = new FormData();
         formData.append('image', imageFile!);
-        const response = await fetchWithAuthCheck(`/@api/users/upload-file`, {
-            method: 'POST',
-            body: formData,
-        });
+        const response = await fetchWithAuthCheck(
+            `${createApiRoute(SERVER_ROUTES.ME)}`,
+            { method: 'POST', body: formData },
+        );
         console.log(response);
     };
 
