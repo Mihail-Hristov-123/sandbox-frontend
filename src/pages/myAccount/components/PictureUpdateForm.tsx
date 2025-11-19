@@ -1,11 +1,7 @@
 import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
-
 import { useForm } from 'react-hook-form';
 import { SubmitButton } from '@/components/SubmitButton';
-import { useApi } from '@/hooks/useApi';
-import { createApiRoute } from '@/utils/createApiRoute';
-import { SERVER_ROUTES } from '@/routes';
-import toast from 'react-hot-toast';
+import { useUpdateProfilePicture } from '../hooks/useUpdateProfilePicture';
 
 type FormValues = {
     image: FileList | null;
@@ -20,27 +16,19 @@ export const PictureUpdateForm = () => {
         formState: { errors },
     } = useForm<FormValues>();
 
+    const { updateProfilePicture, loading } = useUpdateProfilePicture();
+
     const fileList = watch('image');
     const imageFile = fileList?.[0] ?? null;
-    const { fetchWithAuthCheck } = useApi();
+
     const removeImage = () => {
         resetField('image');
     };
+
     const onSubmit = async () => {
-        const formData = new FormData();
-        formData.append('image', imageFile!);
-        const response = await fetchWithAuthCheck(
-            `${createApiRoute(SERVER_ROUTES.ME)}`,
-            { method: 'POST', body: formData },
-        );
-        if (response.ok) {
-            toast.success('Profile picture updated');
-            resetField('image');
-            return;
-        }
-        const body = await response.json();
-        toast.error(body.message);
+        await updateProfilePicture(imageFile!, removeImage);
     };
+
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
@@ -65,7 +53,7 @@ export const PictureUpdateForm = () => {
                 </div>
             ) : (
                 <label className="cursor-pointer w-full">
-                    <div className="mx-20 h-36 rounded-small border-2 border-dashed border-gray-400 flex flex-col items-center justify-center gap-2 hover:border-primary hover:bg-gray-50 transition-colors">
+                    <div className="mx-20 h-36 rounded-small border-2 border-dashed border-gray-400 grid place-items-center gap-2 hover:border-primary hover:bg-gray-50 transition-colors">
                         <span>Click to upload</span>
                     </div>
 
@@ -87,7 +75,11 @@ export const PictureUpdateForm = () => {
                 </label>
             )}
 
-            <SubmitButton text="Update profile picture" className="m-0" />
+            <SubmitButton
+                text="Update profile picture"
+                className="m-0"
+                disabled={loading}
+            />
         </form>
     );
 };
