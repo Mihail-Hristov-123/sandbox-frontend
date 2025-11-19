@@ -1,7 +1,7 @@
 import profilePicPlaceholder from '../assets/user.png';
 
 interface Props {
-    profilePictureLink: string;
+    profilePictureLink: string | null;
     name: string;
 }
 

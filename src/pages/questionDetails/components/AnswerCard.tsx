@@ -7,7 +7,7 @@ export const AnswerCard = ({
 }: {
     content: string;
     username: string;
-    profile_pic_url: string;
+    profile_pic_url: string | null;
 }) => {
     return (
         <>

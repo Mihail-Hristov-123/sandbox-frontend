@@ -15,5 +15,5 @@ export type AnswerReturnValues = AnswerValues & {
     user_id: number;
     user_username: string;
     question_id: number;
-    profile_pic_url: string;
+    profile_pic_url: string | null;
 };

@@ -29,5 +29,5 @@ export type CatchReturnValues = CatchInsertValues & {
     id: number;
     user_id: number;
     user_username: string;
-    profile_pic_url: string;
+    profile_pic_url: string | null;
 };
