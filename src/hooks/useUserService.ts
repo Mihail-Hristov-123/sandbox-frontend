@@ -1,14 +1,13 @@
-import type { UserReturnValues } from '../schemas/auth/RegisterSchema';
+import { createApiRoute } from '@/utils/createApiRoute';
+
 import { useApi } from './useApi';
+import { SERVER_ROUTES } from '@/routes';
 
 export const useUserService = () => {
     const { fetchWithAuthCheck } = useApi();
 
     const getCurrentUserInfo = () =>
-        fetchWithAuthCheck<UserReturnValues>({
-            path: 'ME',
-            silent: true,
-        });
+        fetchWithAuthCheck(createApiRoute(SERVER_ROUTES.ME));
 
     return { getCurrentUserInfo };
 };
