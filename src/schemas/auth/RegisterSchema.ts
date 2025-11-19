@@ -19,4 +19,5 @@ export type UserReturnValues = Pick<
     'email' | 'username'
 > & {
     id: number;
+    profile_pic_url: string;
 };

@@ -7,7 +7,7 @@ export const SubmitButton = ({
 }) => (
     <button
         type="submit"
-        className={`text-white bg-primary rounded-small py-3 px-4 text-2xl mb-6 font-bold ${className}`}
+        className={`text-white bg-primary rounded-small py-3 px-4 text-2xl  font-bold ${className}`}
     >
         {text}
     </button>
