@@ -20,8 +20,8 @@ export const useUpdateProfilePicture = () => {
             formData.append('image', image);
 
             const response = await fetchWithAuthCheck(
-                `${createApiRoute(SERVER_ROUTES.ME)}`,
-                { method: 'POST', body: formData },
+                `${createApiRoute(SERVER_ROUTES.ME)}/profile-picture`,
+                { method: 'PATCH', body: formData },
             );
             if (response.ok) {
                 toast.success('Profile picture updated');
