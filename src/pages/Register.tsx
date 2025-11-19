@@ -54,7 +54,7 @@ export const Register = () => {
 
     return (
         <main className=" flex items-center justify-center pt-10 flex-col gap-8 ">
-            <form onSubmit={handleSubmit(onSubmit)} className="form">
+            <form onSubmit={handleSubmit(onSubmit)} className="form pb-6">
                 <h1>Create account</h1>
                 <div className=" input-container">
                     {inputFields.map((field) => (

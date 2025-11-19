@@ -9,12 +9,16 @@ export const CatchCard = ({
     latitude,
     longitude,
     imgLink,
+    profile_pic_url,
 }: CatchReturnValues) => {
     const [locationDisplayed, setLocationDisplayed] = useState(false);
 
     return (
         <article className="w-full shadow-2xl rounded-big p-4 space-y-4">
-            <AuthorField name={user_username} />
+            <AuthorField
+                name={user_username}
+                profilePictureLink={profile_pic_url}
+            />
 
             <h2 className="text-xl font-semibold">{title}</h2>
 

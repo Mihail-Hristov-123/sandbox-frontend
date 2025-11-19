@@ -10,6 +10,7 @@ export const QuestionCard = ({
     description,
     title,
     id,
+    profile_pic_url,
 }: QuestionReturnValue) => {
     const navigate = useNavigate();
     return (
@@ -18,7 +19,10 @@ export const QuestionCard = ({
             onClick={() => navigate(`${CLIENT_ROUTES.QUESTIONS}/${id}`)}
             className="shadow-sm shadow-primary rounded-big p-6 hover:shadow-md  transition-shadow duration-300 cursor-pointer space-y-2"
         >
-            <AuthorField name={user_username} />
+            <AuthorField
+                name={user_username}
+                profilePictureLink={profile_pic_url}
+            />
 
             <h2 className="text-2xl font-semibold">{title}</h2>
 

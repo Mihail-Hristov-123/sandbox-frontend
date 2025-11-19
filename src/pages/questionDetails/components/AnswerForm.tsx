@@ -29,7 +29,7 @@ export const AnswerForm = ({
         formState: { errors },
     } = useForm({ resolver: zodResolver(AnswerSchema) });
 
-    const { isLoggedIn } = useAuthContext();
+    const { isLoggedIn, userInfo } = useAuthContext();
     const { createAnswer } = useCreateAnswer(questionId);
     const errorMessage = errors.content?.message;
     const onSubmit = async (data: AnswerValues) => {
@@ -46,8 +46,11 @@ export const AnswerForm = ({
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="flex w-full gap-6 justify-around h-fit">
                         <img
-                            src={profilePicPlaceholder}
-                            className="size-13"
+                            src={
+                                userInfo?.profile_pic_url ||
+                                profilePicPlaceholder
+                            }
+                            className="size-13 avatar"
                             alt="Your profile picture"
                         />
                         <textarea

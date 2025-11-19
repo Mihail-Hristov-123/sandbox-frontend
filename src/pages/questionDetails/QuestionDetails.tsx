@@ -37,7 +37,10 @@ export const QuestionDetails = () => {
     return (
         <main className=" sm:px-12 md:px-24 lg:px-40 pt-10">
             <section className="bg-white  shadow-2xl rounded-xl p-10 space-y-8">
-                <AuthorField name={questionData.user_username} />
+                <AuthorField
+                    name={questionData.user_username}
+                    profilePictureLink={questionData.profile_pic_url}
+                />
 
                 <h2 className="text-3xl font-bold ">{questionData.title}</h2>
 
@@ -53,11 +56,11 @@ export const QuestionDetails = () => {
                         {answersData.length > 0 ? 'Answers' : 'No answers yet'}
                     </h3>
 
-                    {answersData.map(({ id, content, user_username }) => (
+                    {answersData.map(({ id, user_username, ...props }) => (
                         <AnswerCard
                             key={id}
-                            content={content}
                             username={user_username}
+                            {...props}
                         />
                     ))}
                 </div>

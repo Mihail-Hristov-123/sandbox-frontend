@@ -37,7 +37,7 @@ export const QuestionForm = ({
             {isLoggedIn ? (
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="form rounded-t-none border-0 shadow-xl pt-6 "
+                    className="form rounded-t-none border-0 shadow-xl py-6 "
                 >
                     <h1>Ask a question</h1>
                     <div className="input-container">
