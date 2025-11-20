@@ -4,9 +4,10 @@ interface Props {
     image: File | null;
     setImage: (image: File | null) => void;
     error: string | null;
+    className?: string;
 }
 
-export const PictureInput = ({ image, setImage, error }: Props) => {
+export const PictureInput = ({ image, setImage, error, className }: Props) => {
     if (image) {
         return (
             <div className="flex flex-col items-center gap-4 w-full">
@@ -28,8 +29,8 @@ export const PictureInput = ({ image, setImage, error }: Props) => {
     }
 
     return (
-        <label className="cursor-pointer w-full">
-            <div className="mx-20 h-36 rounded-small border-2 border-dashed border-gray-400 grid place-items-center gap-2 hover:border-primary hover:bg-gray-50 transition-colors">
+        <label className={`cursor-pointer w-full ${className}`}>
+            <div className="h-36 rounded-small border-2 border-dashed border-gray-400 grid place-items-center gap-2 hover:border-primary hover:bg-gray-50 transition-colors">
                 <span>Click to upload</span>
             </div>
 

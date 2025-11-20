@@ -27,8 +27,9 @@ export const PictureUpdateForm = () => {
             <h2 className="text-2xl font-semibold">Change profile picture</h2>
             <PictureInput
                 image={image}
-                setImage={(image) => setImage(image)}
+                setImage={setImage}
                 error={error}
+                className="px-12"
             />
             <SubmitButton
                 text="Update profile picture"

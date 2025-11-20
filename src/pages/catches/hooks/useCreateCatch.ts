@@ -10,14 +10,21 @@ export const useCreateCatch = (updateCatches: () => Promise<void>) => {
 
     const { userInfo } = useAuthContext();
 
-    const createCatch = async (data: CatchValues) => {
+    const createCatch = async (data: CatchValues, image: File) => {
         try {
+            const formData = new FormData();
+            Object.entries({ ...data, user_id: userInfo?.id }).forEach(
+                ([key, value]) => formData.append(key, value as string),
+            );
+
+            formData.append('catchImage', image);
+
             const response = await fetchWithAuthCheck(
                 createApiRoute(SERVER_ROUTES.CATCHES),
                 {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ ...data, user_id: userInfo!.id }),
+
+                    body: formData,
                 },
             );
             if (response.ok) {
