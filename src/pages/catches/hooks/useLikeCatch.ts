@@ -15,7 +15,7 @@ export const useLikeCatch = (catchId: number) => {
             return;
         }
         await fetchWithAuthCheck(
-            `${createApiRoute(SERVER_ROUTES.CATCHES)}/${catchId}/likes`,
+            `${createApiRoute(SERVER_ROUTES.LIKES)}/catches/${catchId}`,
             { method: 'POST' },
         );
     };

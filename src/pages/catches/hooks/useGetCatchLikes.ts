@@ -9,18 +9,18 @@ interface CatchLike {
     catch_id: number;
 }
 
-export const useGetCatchLikes = (catchId: number, userId?: number) => {
+export const useGetCatchLikes = (catchId: number) => {
     const [catchLikes, setCatchLikes] = useState<null | CatchLike[]>(null);
     const { userInfo } = useAuthContext();
 
     const loadCatchLikes = async () => {
         const response = await fetch(
-            `${createApiRoute(SERVER_ROUTES.CATCHES)}/${catchId}/likes`,
+            `${createApiRoute(SERVER_ROUTES.LIKES)}/catches/${catchId}`,
         );
 
         const body = await response.json();
 
-        setCatchLikes(body.data);
+        setCatchLikes(body.data ?? null);
     };
 
     useEffect(() => {
@@ -31,7 +31,6 @@ export const useGetCatchLikes = (catchId: number, userId?: number) => {
     const likedByUser = catchLikes?.some(
         (like) => like.user_id === userInfo?.id,
     );
-    console.log(likedByUser);
 
     return { likesCount, likedByUser, loadCatchLikes };
 };

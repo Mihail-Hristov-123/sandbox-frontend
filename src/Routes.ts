@@ -21,6 +21,7 @@ export const SERVER_ROUTES = {
     ME: '/users/me',
     QUESTIONS: '/questions',
     CATCHES: '/catches',
+    LIKES: '/likes',
 };
 
 export type ServerRoute = keyof typeof SERVER_ROUTES;
