@@ -17,6 +17,8 @@ export const CatchSchema = z.object({
         .number('Longitude is required')
         .min(-180, INVALID_LONGITUDE_MESSAGE)
         .max(180, INVALID_LONGITUDE_MESSAGE),
+
+    image: z.file('Image is required'),
 });
 
 export type CatchValues = z.infer<typeof CatchSchema>;

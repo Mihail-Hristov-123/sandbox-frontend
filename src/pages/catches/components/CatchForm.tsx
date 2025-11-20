@@ -1,4 +1,4 @@
-import { useForm, type Resolver } from 'react-hook-form';
+import { Controller, useForm, type Resolver } from 'react-hook-form';
 import { LabelledInput } from '@/components/formRelated/LabelledInput';
 
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
@@ -11,7 +11,6 @@ import { useCreateCatch } from '../hooks/useCreateCatch';
 import { SubmitButton } from '@/components/SubmitButton';
 import { CoordinateSelection } from './maps/CoordinateSelection';
 import { PictureInput } from '@/components/formRelated/PictureInput';
-import { useState, type FormEvent } from 'react';
 
 export const CatchForm = ({
     updateCatches,
@@ -24,6 +23,7 @@ export const CatchForm = ({
         setValue,
         reset,
         formState: { errors },
+        control,
         getValues,
     } = useForm<CatchValues>({
         resolver: zodResolver(CatchSchema) as Resolver<CatchValues>,
@@ -32,31 +32,18 @@ export const CatchForm = ({
     const { createCatch } = useCreateCatch(updateCatches);
     const { isLoggedIn } = useAuthContext();
 
-    const [image, setImage] = useState<File | null>(null);
-    const [imageError, setImageError] = useState<string | null>(null);
-
-    const onSubmit = async (e: FormEvent) => {
-        e.preventDefault();
-
-        if (!image) {
-            setImageError('Catch picture is required');
-        }
-
-        handleSubmit(async (data: CatchValues) => {
-            if (!image) return;
-            const success = await createCatch(data, image);
-            if (success) {
-                reset();
-                setImage(null);
-                setImageError(null);
-            }
-        })();
+    const onSubmit = async (data: CatchValues) => {
+        const success = await createCatch(data);
+        if (success) reset();
     };
 
     return (
         <div className="shadow-xl py-8 px-6 rounded-big">
             {isLoggedIn ? (
-                <form onSubmit={onSubmit} className="form border-0  gap-8">
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="form border-0  gap-8"
+                >
                     <div className="input-container max-md:px-2 pb-0">
                         <LabelledInput
                             labelText="Title:"
@@ -64,13 +51,21 @@ export const CatchForm = ({
                             errors={errors}
                             name="title"
                         />
-
-                        <PictureInput
-                            image={image}
-                            setImage={setImage}
-                            error={imageError}
-                            instructions="Upload fish image"
-                            imageClassName="w-full rounded-small"
+                        <Controller
+                            name="image"
+                            control={control}
+                            rules={{ required: 'Catch picture is required' }}
+                            render={({ field, fieldState }) => (
+                                <PictureInput
+                                    image={field.value}
+                                    setImage={(file: File | null) =>
+                                        field.onChange(file)
+                                    }
+                                    error={fieldState.error?.message || null}
+                                    instructions="Upload fish image"
+                                    imageClassName="w-full rounded-small"
+                                />
+                            )}
                         />
 
                         <CoordinateSelection

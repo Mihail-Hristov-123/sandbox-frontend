@@ -4,16 +4,19 @@ import { SERVER_ROUTES } from '@/routes';
 import type { CatchValues } from '@/schemas/CatchSchema';
 import { createApiRoute } from '@/utils/createApiRoute';
 import toast from 'react-hot-toast';
+import { data } from 'react-router';
 
 export const useCreateCatch = (updateCatches: () => Promise<void>) => {
     const { fetchWithAuthCheck } = useApi();
 
     const { userInfo } = useAuthContext();
 
-    const createCatch = async (data: CatchValues, image: File) => {
+    const createCatch = async (data: CatchValues) => {
         try {
             const formData = new FormData();
-            Object.entries({ ...data, user_id: userInfo?.id }).forEach(
+            const { image, ...fields } = data;
+
+            Object.entries({ ...fields, user_id: userInfo?.id }).forEach(
                 ([key, value]) => formData.append(key, value as string),
             );
 
