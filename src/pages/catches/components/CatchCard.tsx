@@ -8,7 +8,7 @@ export const CatchCard = ({
     title,
     latitude,
     longitude,
-    imgLink,
+    catch_pic_url,
     profile_pic_url,
 }: CatchReturnValues) => {
     const [locationDisplayed, setLocationDisplayed] = useState(false);
@@ -23,7 +23,7 @@ export const CatchCard = ({
             <h2 className="text-xl font-semibold">{title}</h2>
 
             <img
-                src={imgLink}
+                src={catch_pic_url}
                 alt="Fish photo"
                 className="rounded-md w-full object-cover"
             />

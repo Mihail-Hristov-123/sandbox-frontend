@@ -1,4 +1,4 @@
-import { useForm, type Resolver } from 'react-hook-form';
+import { Controller, useForm, type Resolver } from 'react-hook-form';
 import { LabelledInput } from '@/components/formRelated/LabelledInput';
 
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
@@ -10,6 +10,7 @@ import { CatchSchema, type CatchValues } from '@/schemas/CatchSchema';
 import { useCreateCatch } from '../hooks/useCreateCatch';
 import { SubmitButton } from '@/components/SubmitButton';
 import { CoordinateSelection } from './maps/CoordinateSelection';
+import { PictureInput } from '@/components/formRelated/PictureInput';
 
 export const CatchForm = ({
     updateCatches,
@@ -22,19 +23,19 @@ export const CatchForm = ({
         setValue,
         reset,
         formState: { errors },
+        control,
         getValues,
     } = useForm<CatchValues>({
         resolver: zodResolver(CatchSchema) as Resolver<CatchValues>,
     });
 
-    const { createCatch } = useCreateCatch(updateCatches);
+    const { createCatch, loading } = useCreateCatch(updateCatches);
+    const { isLoggedIn } = useAuthContext();
 
     const onSubmit = async (data: CatchValues) => {
         const success = await createCatch(data);
         if (success) reset();
     };
-
-    const { isLoggedIn } = useAuthContext();
 
     return (
         <div className="shadow-xl py-8 px-6 rounded-big">
@@ -50,19 +51,29 @@ export const CatchForm = ({
                             errors={errors}
                             name="title"
                         />
-                        <LabelledInput
-                            labelText="Image link:"
-                            register={register}
-                            errors={errors}
-                            name="imgLink"
+                        <Controller
+                            name="image"
+                            control={control}
+                            render={({ field, fieldState }) => (
+                                <PictureInput
+                                    image={field.value}
+                                    setImage={(file: File | null) =>
+                                        field.onChange(file)
+                                    }
+                                    error={fieldState.error?.message}
+                                    instructions="Upload fish image"
+                                    imageClassName="w-full rounded-small"
+                                />
+                            )}
                         />
+
                         <CoordinateSelection
                             setValue={setValue}
                             getValues={getValues}
                             errors={errors}
                         />
 
-                        <SubmitButton text="Publish catch" />
+                        <SubmitButton disabled={loading} text="Publish catch" />
                     </div>
                 </form>
             ) : (
