@@ -14,7 +14,9 @@ export const Catches = () => {
             <CatchCard key={catchInfo.title} {...catchInfo} />
         ))
     ) : (
-        <p>No catches have been published yet</p>
+        <p className=" text-center text-xl font-semibold">
+            No catches have been published yet
+        </p>
     );
 
     return (

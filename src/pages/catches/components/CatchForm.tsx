@@ -50,12 +50,7 @@ export const CatchForm = ({
                             errors={errors}
                             name="title"
                         />
-                        <LabelledInput
-                            labelText="Image link:"
-                            register={register}
-                            errors={errors}
-                            name="imgLink"
-                        />
+
                         <CoordinateSelection
                             setValue={setValue}
                             getValues={getValues}

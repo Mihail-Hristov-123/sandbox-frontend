@@ -17,17 +17,18 @@ export const CatchSchema = z.object({
         .number('Longitude is required')
         .min(-180, INVALID_LONGITUDE_MESSAGE)
         .max(180, INVALID_LONGITUDE_MESSAGE),
-
-    imgLink: z.url('Invalid image URL'),
 });
 
 export type CatchValues = z.infer<typeof CatchSchema>;
 
-export type CatchInsertValues = CatchValues & { user_id: number };
+export type CatchInsertValues = CatchValues & {
+    user_id: number;
+    catch_pic_url: string;
+};
 
 export type CatchReturnValues = CatchInsertValues & {
     id: number;
     user_id: number;
     user_username: string;
-    profile_pic_url: string | null;
+    profile_pic_url: string;
 };
