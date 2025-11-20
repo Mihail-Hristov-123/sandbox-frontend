@@ -29,7 +29,7 @@ export const CatchForm = ({
         resolver: zodResolver(CatchSchema) as Resolver<CatchValues>,
     });
 
-    const { createCatch } = useCreateCatch(updateCatches);
+    const { createCatch, loading } = useCreateCatch(updateCatches);
     const { isLoggedIn } = useAuthContext();
 
     const onSubmit = async (data: CatchValues) => {
@@ -73,7 +73,7 @@ export const CatchForm = ({
                             errors={errors}
                         />
 
-                        <SubmitButton text="Publish catch" />
+                        <SubmitButton disabled={loading} text="Publish catch" />
                     </div>
                 </form>
             ) : (

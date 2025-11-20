@@ -3,14 +3,16 @@ import { useApi } from '@/hooks/useApi';
 import { SERVER_ROUTES } from '@/routes';
 import type { CatchValues } from '@/schemas/CatchSchema';
 import { createApiRoute } from '@/utils/createApiRoute';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
 export const useCreateCatch = (updateCatches: () => Promise<void>) => {
     const { fetchWithAuthCheck } = useApi();
 
     const { userInfo } = useAuthContext();
-
+    const [loading, setLoading] = useState(false);
     const createCatch = async (data: CatchValues) => {
+        setLoading(true);
         try {
             const formData = new FormData();
             const { image, ...fields } = data;
@@ -42,8 +44,10 @@ export const useCreateCatch = (updateCatches: () => Promise<void>) => {
             console.error(error);
             toast.error('Error occurred during catch post');
             return false;
+        } finally {
+            setLoading(false);
         }
     };
 
-    return { createCatch };
+    return { createCatch, loading };
 };
