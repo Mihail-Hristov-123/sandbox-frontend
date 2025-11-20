@@ -4,7 +4,6 @@ import { SERVER_ROUTES } from '@/routes';
 import type { CatchValues } from '@/schemas/CatchSchema';
 import { createApiRoute } from '@/utils/createApiRoute';
 import toast from 'react-hot-toast';
-import { data } from 'react-router';
 
 export const useCreateCatch = (updateCatches: () => Promise<void>) => {
     const { fetchWithAuthCheck } = useApi();

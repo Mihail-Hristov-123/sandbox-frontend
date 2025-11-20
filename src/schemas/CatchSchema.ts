@@ -23,14 +23,10 @@ export const CatchSchema = z.object({
 
 export type CatchValues = z.infer<typeof CatchSchema>;
 
-export type CatchInsertValues = CatchValues & {
-    user_id: number;
-    catch_pic_url: string;
-};
-
-export type CatchReturnValues = CatchInsertValues & {
+export type CatchReturnValues = Omit<CatchValues, 'image'> & {
     id: number;
-    user_id: number;
     user_username: string;
+    user_id: number;
     profile_pic_url: string;
+    catch_pic_url: string;
 };

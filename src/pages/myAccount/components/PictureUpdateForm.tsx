@@ -25,11 +25,11 @@ export const PictureUpdateForm = () => {
                 name="image"
                 control={control}
                 rules={{ required: 'Please select an image' }}
-                render={({ field, fieldState }) => (
+                render={({ field, fieldState: { error } }) => (
                     <PictureInput
                         image={field.value}
                         setImage={(file: File | null) => field.onChange(file)}
-                        error={fieldState.error?.message}
+                        error={error?.message}
                         inputClassName="px-12"
                     />
                 )}
