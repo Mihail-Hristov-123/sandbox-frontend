@@ -3,7 +3,7 @@ import { ErrorMessage } from './ErrorMessage';
 interface Props {
     image: File | null;
     setImage: (image: File | null) => void;
-    error: string | null;
+    error?: string;
     inputClassName?: string;
     imageClassName?: string;
     instructions?: string;

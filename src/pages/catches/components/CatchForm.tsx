@@ -54,14 +54,13 @@ export const CatchForm = ({
                         <Controller
                             name="image"
                             control={control}
-                            rules={{ required: 'Catch picture is required' }}
                             render={({ field, fieldState }) => (
                                 <PictureInput
                                     image={field.value}
                                     setImage={(file: File | null) =>
                                         field.onChange(file)
                                     }
-                                    error={fieldState.error?.message || null}
+                                    error={fieldState.error?.message}
                                     instructions="Upload fish image"
                                     imageClassName="w-full rounded-small"
                                 />
