@@ -69,6 +69,8 @@ export const CatchForm = ({
                             image={image}
                             setImage={setImage}
                             error={imageError}
+                            instructions="Upload fish image"
+                            imageClassName="w-full rounded-small"
                         />
 
                         <CoordinateSelection

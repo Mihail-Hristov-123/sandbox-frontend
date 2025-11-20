@@ -29,7 +29,7 @@ export const PictureUpdateForm = () => {
                 image={image}
                 setImage={setImage}
                 error={error}
-                className="px-12"
+                inputClassName="px-12"
             />
             <SubmitButton
                 text="Update profile picture"
