@@ -11,8 +11,6 @@ export const CLIENT_ROUTES = {
 
 export type ClientRoute = keyof typeof CLIENT_ROUTES;
 
-// to be mostly replaced by types from open-api
-
 export const SERVER_ROUTES = {
     REGISTER: '/auth/register',
     LOGIN: '/auth/login',
@@ -23,5 +21,3 @@ export const SERVER_ROUTES = {
     CATCHES: '/catches',
     LIKES: '/likes',
 };
-
-export type ServerRoute = keyof typeof SERVER_ROUTES;
