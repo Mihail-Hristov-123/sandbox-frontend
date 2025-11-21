@@ -4,6 +4,7 @@ import { useApi } from './useApi';
 import { CLIENT_ROUTES, SERVER_ROUTES } from '@/routes';
 import { createApiRoute } from '@/utils/createApiRoute';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 type LikeableEntity = 'answers' | 'catches';
 
@@ -14,9 +15,8 @@ interface LikeData {
 
 export const useLikesService = (entity: LikeableEntity, entityId: number) => {
     const [likes, setLikes] = useState<null | LikeData[]>(null);
-    const { userInfo } = useAuthContext();
+    const { userInfo, isLoggedIn } = useAuthContext();
     const { fetchWithAuthCheck } = useApi();
-    const { isLoggedIn } = useAuthContext();
     const navigate = useNavigate();
 
     const updateLikes = async () => {
@@ -38,11 +38,16 @@ export const useLikesService = (entity: LikeableEntity, entityId: number) => {
             navigate(CLIENT_ROUTES.LOG_IN);
             return;
         }
-        await fetchWithAuthCheck(
-            `${createApiRoute(SERVER_ROUTES.LIKES)}/${entity}/${entityId}`,
-            { method: 'POST' },
-        );
-        await updateLikes();
+        try {
+            await fetchWithAuthCheck(
+                `${createApiRoute(SERVER_ROUTES.LIKES)}/${entity}/${entityId}`,
+                { method: 'POST' },
+            );
+            await updateLikes();
+        } catch (error) {
+            console.error(error);
+            toast.error('Something went wrong while updating your reaction');
+        }
     };
 
     const likesCount = likes?.length ?? 0;
