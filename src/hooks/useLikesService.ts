@@ -1,18 +1,23 @@
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
-import { SERVER_ROUTES } from '@/routes';
+import { useNavigate } from 'react-router';
+import { useApi } from './useApi';
+import { CLIENT_ROUTES, SERVER_ROUTES } from '@/routes';
 import { createApiRoute } from '@/utils/createApiRoute';
 import { useEffect, useState } from 'react';
+
+type LikeableEntity = 'answers' | 'catches';
 
 interface LikeData {
     id: number;
     user_id: number;
 }
 
-type LikeableEntity = 'answers' | 'catches';
-
-export const useGetLikes = (entity: LikeableEntity, entityId: number) => {
+export const useLikesService = (entity: LikeableEntity, entityId: number) => {
     const [likes, setLikes] = useState<null | LikeData[]>(null);
     const { userInfo } = useAuthContext();
+    const { fetchWithAuthCheck } = useApi();
+    const { isLoggedIn } = useAuthContext();
+    const navigate = useNavigate();
 
     const updateLikes = async () => {
         const response = await fetch(
@@ -28,8 +33,20 @@ export const useGetLikes = (entity: LikeableEntity, entityId: number) => {
         updateLikes();
     }, []);
 
+    const likeOrDislike = async () => {
+        if (!isLoggedIn) {
+            navigate(CLIENT_ROUTES.LOG_IN);
+            return;
+        }
+        await fetchWithAuthCheck(
+            `${createApiRoute(SERVER_ROUTES.LIKES)}/${entity}/${entityId}`,
+            { method: 'POST' },
+        );
+        await updateLikes();
+    };
+
     const likesCount = likes?.length ?? 0;
     const likedByUser = likes?.some((like) => like.user_id === userInfo?.id);
 
-    return { likesCount, likedByUser, updateLikes };
+    return { likesCount, likedByUser, likeOrDislike };
 };

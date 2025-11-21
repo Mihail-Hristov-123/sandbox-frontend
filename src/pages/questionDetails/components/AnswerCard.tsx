@@ -1,8 +1,6 @@
 import { AuthorField } from '@/components/AuthorField';
 import { LikeButton } from '@/components/LikeButton';
-
-import { useLikeAnswer } from '../hooks/useLikeAnswer';
-import { useGetLikes } from '@/hooks/useGetLikes';
+import { useLikesService } from '@/hooks/useLikesService';
 
 export const AnswerCard = ({
     content,
@@ -15,13 +13,10 @@ export const AnswerCard = ({
     profile_pic_url: string | null;
     id: number;
 }) => {
-    const { likedByUser, likesCount, updateLikes } = useGetLikes('answers', id);
-    const { likeOrDislike } = useLikeAnswer(id);
-
-    const handleLike = async () => {
-        await likeOrDislike();
-        await updateLikes();
-    };
+    const { likedByUser, likesCount, likeOrDislike } = useLikesService(
+        'answers',
+        id,
+    );
 
     return (
         <>
@@ -35,7 +30,7 @@ export const AnswerCard = ({
                 <LikeButton
                     likesCount={likesCount}
                     likedByUser={likedByUser}
-                    handleLike={handleLike}
+                    handleLike={likeOrDislike}
                 />
             </article>
         </>

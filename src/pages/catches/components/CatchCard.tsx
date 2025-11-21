@@ -2,9 +2,8 @@ import { AuthorField } from '@/components/AuthorField';
 import { LocationPreview } from '@/pages/catches/components/maps/LocationPreview';
 import type { CatchReturnValues } from '@/schemas/CatchSchema';
 import { useState } from 'react';
-import { useLikeCatch } from '../hooks/useLikeCatch';
 import { LikeButton } from '@/components/LikeButton';
-import { useGetLikes } from '@/hooks/useGetLikes';
+import { useLikesService } from '@/hooks/useLikesService';
 
 export const CatchCard = ({
     user_username,
@@ -16,13 +15,10 @@ export const CatchCard = ({
     id,
 }: CatchReturnValues) => {
     const [locationDisplayed, setLocationDisplayed] = useState(false);
-    const { likesCount, likedByUser, updateLikes } = useGetLikes('catches', id);
-    const { likeOrDislike } = useLikeCatch(id);
-
-    const handleLike = async () => {
-        await likeOrDislike();
-        await updateLikes();
-    };
+    const { likedByUser, likesCount, likeOrDislike } = useLikesService(
+        'catches',
+        id,
+    );
 
     return (
         <article className="w-full shadow-2xl rounded-big p-4 space-y-4">
@@ -35,7 +31,7 @@ export const CatchCard = ({
                 <LikeButton
                     likedByUser={likedByUser}
                     likesCount={likesCount}
-                    handleLike={handleLike}
+                    handleLike={likeOrDislike}
                 />
             </div>
 
