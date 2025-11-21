@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const LikeButton = ({ likedByUser, likesCount, handleLike }: Props) => (
-    <button onClick={handleLike}>
+    <button onClick={handleLike} className="min-w-fit">
         <img
             src={likedByUser ? likedSvg : nonLikedSVG}
             alt="Like/unlike icon"

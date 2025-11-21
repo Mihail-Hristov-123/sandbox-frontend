@@ -56,10 +56,10 @@ export const QuestionDetails = () => {
                         {answersData.length > 0 ? 'Answers' : 'No answers yet'}
                     </h3>
 
-                    {answersData.map(({ id, user_username, ...props }) => (
+                    {answersData.map((props) => (
                         <AnswerCard
-                            key={id}
-                            username={user_username}
+                            key={props.id}
+                            username={props.user_username}
                             {...props}
                         />
                     ))}
