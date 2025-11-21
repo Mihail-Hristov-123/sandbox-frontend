@@ -5,13 +5,10 @@ export const CLIENT_ROUTES = {
     LOG_IN: '/login',
     MY_ACCOUNT: '/me',
     QUESTIONS: '/questions',
-    EVENTS: '/events',
     QUESTION_DETAILS: '/questions/:questionId',
 };
 
 export type ClientRoute = keyof typeof CLIENT_ROUTES;
-
-// to be mostly replaced by types from open-api
 
 export const SERVER_ROUTES = {
     REGISTER: '/auth/register',
@@ -21,6 +18,5 @@ export const SERVER_ROUTES = {
     ME: '/users/me',
     QUESTIONS: '/questions',
     CATCHES: '/catches',
+    LIKES: '/likes',
 };
-
-export type ServerRoute = keyof typeof SERVER_ROUTES;

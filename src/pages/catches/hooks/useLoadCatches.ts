@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 
 export const useLoadCatches = () => {
     const [catches, setCatches] = useState<CatchReturnValues[] | null>(null);
-    console.log(catches);
+
     const { loading, setLoading } = useDelayedLoading();
 
     const updateCatches = async () => {

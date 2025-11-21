@@ -11,7 +11,7 @@ export const Catches = () => {
         <Loader />
     ) : catches?.length ? (
         catches.map((catchInfo) => (
-            <CatchCard key={catchInfo.title} {...catchInfo} />
+            <CatchCard key={catchInfo.id} {...catchInfo} />
         ))
     ) : (
         <p className=" text-center text-xl font-semibold">

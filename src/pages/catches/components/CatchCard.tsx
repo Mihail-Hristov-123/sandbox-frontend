@@ -2,6 +2,8 @@ import { AuthorField } from '@/components/AuthorField';
 import { LocationPreview } from '@/pages/catches/components/maps/LocationPreview';
 import type { CatchReturnValues } from '@/schemas/CatchSchema';
 import { useState } from 'react';
+import { LikeButton } from '@/components/LikeButton';
+import { useLikesService } from '@/hooks/useLikesService';
 
 export const CatchCard = ({
     user_username,
@@ -10,15 +12,28 @@ export const CatchCard = ({
     longitude,
     catch_pic_url,
     profile_pic_url,
+    id,
 }: CatchReturnValues) => {
     const [locationDisplayed, setLocationDisplayed] = useState(false);
+    const { likedByUser, likesCount, likeOrDislike } = useLikesService(
+        'catches',
+        id,
+    );
 
     return (
         <article className="w-full shadow-2xl rounded-big p-4 space-y-4">
-            <AuthorField
-                name={user_username}
-                profilePictureLink={profile_pic_url}
-            />
+            <div className="flex justify-between items-center">
+                {' '}
+                <AuthorField
+                    name={user_username}
+                    profilePictureLink={profile_pic_url}
+                />
+                <LikeButton
+                    likedByUser={likedByUser}
+                    likesCount={likesCount}
+                    handleLike={likeOrDislike}
+                />
+            </div>
 
             <h2 className="text-xl font-semibold">{title}</h2>
 
