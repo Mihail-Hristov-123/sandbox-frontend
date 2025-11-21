@@ -5,7 +5,6 @@ export const CLIENT_ROUTES = {
     LOG_IN: '/login',
     MY_ACCOUNT: '/me',
     QUESTIONS: '/questions',
-    EVENTS: '/events',
     QUESTION_DETAILS: '/questions/:questionId',
 };
 

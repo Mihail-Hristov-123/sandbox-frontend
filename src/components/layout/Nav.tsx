@@ -11,7 +11,6 @@ const pathsMap: { name: string; location: ClientRoute }[] = [
     { name: 'Home', location: 'HOME' },
     { name: 'Catches', location: 'CATCHES' },
     { name: 'Questions', location: 'QUESTIONS' },
-    { name: 'Events', location: 'EVENTS' },
 ];
 
 export const Nav = () => {
