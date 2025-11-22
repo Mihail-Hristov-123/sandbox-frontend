@@ -1,12 +1,13 @@
 import { useForm } from 'react-hook-form';
 import { LabelledInput } from '../components/formRelated/LabelledInput';
-import { LoginSchema, type UserLoginValues } from '../schemas/auth/LoginSchema';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { useAuthService } from '../hooks/useAuthService';
 import { Link } from 'react-router';
 import { CLIENT_ROUTES } from '../routes';
 import { SubmitButton } from '@/components/SubmitButton';
+import { LoginSchema, type LoginValues } from 'tacklebox-schemas';
 
 export const Login = () => {
     const {
@@ -19,7 +20,7 @@ export const Login = () => {
 
     const { logIn } = useAuthService();
 
-    const onSubmit = async (data: UserLoginValues) => await logIn(data);
+    const onSubmit = async (data: LoginValues) => await logIn(data);
     return (
         <main className="flex flex-col items-center justify-center gap-8">
             <form onSubmit={handleSubmit(onSubmit)} className="form pb-6">

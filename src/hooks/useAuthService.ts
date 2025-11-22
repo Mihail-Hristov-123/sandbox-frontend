@@ -1,11 +1,10 @@
 import { createApiRoute } from '@/utils/createApiRoute';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
-import type { UserLoginValues } from '../schemas/auth/LoginSchema';
 
 import { useApi } from './useApi';
 import { SERVER_ROUTES } from '@/routes';
 import toast from 'react-hot-toast';
-import type { RegisterValues } from 'tacklebox-schemas';
+import type { LoginValues, RegisterValues } from 'tacklebox-schemas';
 
 export type LogoutScope = 'thisDevice' | 'allDevices';
 
@@ -13,7 +12,7 @@ export const useAuthService = () => {
     const { fetchWithAuthCheck } = useApi();
     const { setIsLoggedIn } = useAuthContext();
 
-    const logIn = async (data: UserLoginValues) => {
+    const logIn = async (data: LoginValues) => {
         try {
             const response = await fetchWithAuthCheck(
                 createApiRoute(SERVER_ROUTES.LOGIN),
