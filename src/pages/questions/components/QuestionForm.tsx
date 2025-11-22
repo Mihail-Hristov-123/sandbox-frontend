@@ -1,10 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { LabelledInput } from '@/components/formRelated/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-    QuestionSchema,
-    type QuestionValues,
-} from '@/schemas/questions/QuestionSchema';
+import { QuestionSchema, type QuestionValues } from 'tacklebox-schemas';
 import { LabelledTextArea } from '@/components/formRelated/LabelledTextArea';
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';

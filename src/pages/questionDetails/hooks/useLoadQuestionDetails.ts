@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 
-import type { QuestionReturnValue } from '@/schemas/questions/QuestionSchema';
-
 import { SERVER_ROUTES } from '@/routes';
 import { createApiRoute } from '@/utils/createApiRoute';
 import toast from 'react-hot-toast';
-import type { Answer } from '@/types';
+import type { Answer, Question } from '@/types';
 
 export interface DetailedQuestionInfo {
-    questionData: QuestionReturnValue;
+    questionData: Question;
     answersData: Answer[];
 }
 

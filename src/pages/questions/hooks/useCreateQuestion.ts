@@ -1,6 +1,6 @@
 import toast from 'react-hot-toast';
 import { useApi } from '@/hooks/useApi';
-import type { QuestionValues } from '@/schemas/questions/QuestionSchema';
+import type { QuestionValues } from 'tacklebox-schemas';
 import { createApiRoute } from '@/utils/createApiRoute';
 import { SERVER_ROUTES } from '@/routes';
 

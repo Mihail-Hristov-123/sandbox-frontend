@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import type { QuestionReturnValue } from '@/schemas/questions/QuestionSchema';
+
 import { useDelayedLoading } from '@/hooks/useDelayedLoading';
 import { createApiRoute } from '@/utils/createApiRoute';
 import { SERVER_ROUTES } from '@/routes';
 import toast from 'react-hot-toast';
+import type { Question } from '@/types';
 
 export const useLoadQuestions = () => {
-    const [allQuestions, setAllQuestions] = useState<QuestionReturnValue[]>([]);
+    const [allQuestions, setAllQuestions] = useState<Question[]>([]);
     const { loading, setLoading } = useDelayedLoading();
 
     const loadQuestions = async () => {
