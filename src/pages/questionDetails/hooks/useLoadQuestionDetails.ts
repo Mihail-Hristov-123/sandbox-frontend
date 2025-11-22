@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import { SERVER_ROUTES } from '@/routes';
 import { createApiRoute } from '@/utils/createApiRoute';
 import toast from 'react-hot-toast';

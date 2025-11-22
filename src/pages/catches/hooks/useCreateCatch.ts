@@ -1,7 +1,6 @@
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { useApi } from '@/hooks/useApi';
 import { SERVER_ROUTES } from '@/routes';
-
 import { createApiRoute } from '@/utils/createApiRoute';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

@@ -5,30 +5,20 @@ import type {
     RegisterValues,
 } from 'tacklebox-schemas';
 
+type WithAuthorAndId<T> = T & {
+    id: number;
+    user_id: number;
+    user_username: string;
+    profile_pic_url: string | null;
+};
+
 export type User = Pick<RegisterValues, 'email' | 'username'> & {
     id: number;
     profile_pic_url: string | null;
 };
 
-export type Answer = AnswerValues & {
-    id: number;
-    user_id: number;
-    user_username: string;
-    question_id: number;
-    profile_pic_url: string | null;
-};
+export type Answer = WithAuthorAndId<AnswerValues> & { question_id: number };
 
-export type Question = QuestionValues & {
-    id: number;
-    user_id: number;
-    user_username: string;
-    profile_pic_url: string | null;
-};
+export type Question = WithAuthorAndId<QuestionValues>;
 
-export type Catch = Omit<CatchValues, 'image'> & {
-    id: number;
-    user_username: string;
-    user_id: number;
-    profile_pic_url: string;
-    catch_pic_url: string;
-};
+export type Catch = WithAuthorAndId<CatchValues> & { catch_pic_url: string };

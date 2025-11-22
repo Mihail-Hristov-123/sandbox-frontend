@@ -1,7 +1,6 @@
 import { Loader } from '@/components/Loader';
 import { CatchCard } from './components/CatchCard';
 import { CatchForm } from './components/CatchForm';
-
 import { useLoadCatches } from './hooks/useLoadCatches';
 
 export const Catches = () => {

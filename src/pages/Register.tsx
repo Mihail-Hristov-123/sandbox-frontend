@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-
 import type { HTMLInputTypeAttribute } from 'react';
 import { RegisterSchema, type RegisterValues } from 'tacklebox-schemas';
 import { LabelledInput } from '../components/formRelated/LabelledInput';

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-
 import { useDelayedLoading } from '@/hooks/useDelayedLoading';
 import { createApiRoute } from '@/utils/createApiRoute';
 import { SERVER_ROUTES } from '@/routes';

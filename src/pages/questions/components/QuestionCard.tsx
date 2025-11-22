@@ -1,7 +1,5 @@
 import { useNavigate } from 'react-router';
-
 import { AuthorField } from '@/components/AuthorField';
-
 import { CLIENT_ROUTES } from '@/routes';
 import type { Question } from '@/types';
 

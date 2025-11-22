@@ -1,8 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { LabelledInput } from '../components/formRelated/LabelledInput';
-
 import { zodResolver } from '@hookform/resolvers/zod';
-
 import { useAuthService } from '../hooks/useAuthService';
 import { Link } from 'react-router';
 import { CLIENT_ROUTES } from '../routes';
