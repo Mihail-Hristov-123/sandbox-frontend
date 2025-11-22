@@ -38,8 +38,8 @@ export const Home = () => (
     <main className="min-h-[130vh] pb-0">
         <div className="bg-cover bg-fixed h-[70vh] bg-[url('/landing-background.jpg')] max-lg:bg-center">
             <div className="backdrop-brightness-67 size-full flex flex-col justify-center text-white text-center px-10">
-                <h1 className="text-white text-5xl font-extrabold">
-                    Let's go fishing
+                <h1 className="text-white text-5xl max-sm:text-3xl font-extrabold capitalize">
+                    The tackle box: where anglers meet
                 </h1>
                 <p className="text-2xl">
                     Find the best spots and tips for your next fishing adventure
