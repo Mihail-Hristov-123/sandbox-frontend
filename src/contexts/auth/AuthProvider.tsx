@@ -1,13 +1,11 @@
 import { useEffect, useState } from 'react';
 import { AuthContext } from './AuthContext';
 import { useUserService } from '@/hooks/useUserService';
-import type { UserReturnValues } from '@/schemas/auth/RegisterSchema';
+import type { User } from '@/types';
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
-    const [userInfo, setUserInfo] = useState<UserReturnValues | undefined>(
-        undefined,
-    );
+    const [userInfo, setUserInfo] = useState<User | undefined>(undefined);
     const { getCurrentUserInfo } = useUserService();
 
     const updateAuth = async () => {

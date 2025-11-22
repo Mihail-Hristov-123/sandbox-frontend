@@ -1,10 +1,7 @@
 import { useForm } from 'react-hook-form';
 
 import type { HTMLInputTypeAttribute } from 'react';
-import {
-    RegisterSchema,
-    type UserRegisterValues,
-} from '../schemas/auth/RegisterSchema';
+import { RegisterSchema, type RegisterValues } from 'tacklebox-schemas';
 import { LabelledInput } from '../components/formRelated/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthService } from '../hooks/useAuthService';
@@ -15,7 +12,7 @@ import { SubmitButton } from '@/components/SubmitButton';
 const inputFields: {
     type: HTMLInputTypeAttribute;
     labelText: string;
-    name: keyof UserRegisterValues;
+    name: keyof RegisterValues;
 }[] = [
     {
         labelText: 'Username:',
@@ -44,13 +41,12 @@ export const Register = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<UserRegisterValues>({
+    } = useForm<RegisterValues>({
         resolver: zodResolver(RegisterSchema),
     });
 
     const { register: createAccount } = useAuthService();
-    const onSubmit = async (data: UserRegisterValues) =>
-        await createAccount(data);
+    const onSubmit = async (data: RegisterValues) => await createAccount(data);
 
     return (
         <main className=" flex items-center justify-center pt-10 flex-col gap-8 ">
