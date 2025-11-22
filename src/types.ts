@@ -1,5 +1,6 @@
 import type {
     AnswerValues,
+    CatchValues,
     QuestionValues,
     RegisterValues,
 } from 'tacklebox-schemas';
@@ -22,4 +23,12 @@ export type Question = QuestionValues & {
     user_id: number;
     user_username: string;
     profile_pic_url: string | null;
+};
+
+export type Catch = Omit<CatchValues, 'image'> & {
+    id: number;
+    user_username: string;
+    user_id: number;
+    profile_pic_url: string;
+    catch_pic_url: string;
 };

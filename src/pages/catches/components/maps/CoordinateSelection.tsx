@@ -6,13 +6,14 @@ import type {
     UseFormGetValues,
     UseFormSetValue,
 } from 'react-hook-form';
-import type { CatchValues } from '@/schemas/CatchSchema';
+
 import { useState } from 'react';
+import type { CatchWithImage } from '../../schemas/CatchWithImageSchema';
 
 interface Props {
-    getValues: UseFormGetValues<CatchValues>;
-    setValue: UseFormSetValue<CatchValues>;
-    errors: FieldErrors<CatchValues>;
+    getValues: UseFormGetValues<CatchWithImage>;
+    setValue: UseFormSetValue<CatchWithImage>;
+    errors: FieldErrors<CatchWithImage>;
 }
 
 export const CoordinateSelection = ({ getValues, setValue, errors }: Props) => {

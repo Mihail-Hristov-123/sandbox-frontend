@@ -1,9 +1,9 @@
 import { AuthorField } from '@/components/AuthorField';
 import { LocationPreview } from '@/pages/catches/components/maps/LocationPreview';
-import type { CatchReturnValues } from '@/schemas/CatchSchema';
 import { useState } from 'react';
 import { LikeButton } from '@/components/LikeButton';
 import { useLikesService } from '@/hooks/useLikesService';
+import type { Catch } from '@/types';
 
 export const CatchCard = ({
     user_username,
@@ -13,7 +13,7 @@ export const CatchCard = ({
     catch_pic_url,
     profile_pic_url,
     id,
-}: CatchReturnValues) => {
+}: Catch) => {
     const [locationDisplayed, setLocationDisplayed] = useState(false);
     const { likedByUser, likesCount, likeOrDislike } = useLikesService(
         'catches',
