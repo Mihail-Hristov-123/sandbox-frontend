@@ -13,6 +13,7 @@ export const CatchCard = ({
     catch_pic_url,
     profile_pic_url,
     id,
+    user_id,
 }: Catch) => {
     const [locationDisplayed, setLocationDisplayed] = useState(false);
     const { likedByUser, likesCount, likeOrDislike } = useLikesService(
@@ -25,6 +26,7 @@ export const CatchCard = ({
             <div className="flex justify-between items-center">
                 {' '}
                 <AuthorField
+                    userId={user_id}
                     name={user_username}
                     profilePictureLink={profile_pic_url}
                 />

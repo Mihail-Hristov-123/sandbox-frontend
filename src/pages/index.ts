@@ -6,3 +6,4 @@ export { NotFound } from './NotFound';
 export { MyAccount } from './myAccount/MyAccount';
 export { Questions } from './questions/Questions';
 export { QuestionDetails } from './questionDetails/QuestionDetails';
+export { UserDetails } from './userDetails/UserDetails';

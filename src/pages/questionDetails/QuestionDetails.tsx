@@ -36,6 +36,7 @@ export const QuestionDetails = () => {
         <main className=" sm:px-12 md:px-24 lg:px-40 pt-10">
             <section className="bg-white  shadow-2xl rounded-xl p-10 space-y-8">
                 <AuthorField
+                    userId={questionData.user_id}
                     name={questionData.user_username}
                     profilePictureLink={questionData.profile_pic_url}
                 />
@@ -55,11 +56,7 @@ export const QuestionDetails = () => {
                     </h3>
 
                     {answersData.map((props) => (
-                        <AnswerCard
-                            key={props.id}
-                            username={props.user_username}
-                            {...props}
-                        />
+                        <AnswerCard key={props.id} {...props} />
                     ))}
                 </div>
             </section>

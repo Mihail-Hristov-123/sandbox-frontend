@@ -6,6 +6,8 @@ export const CLIENT_ROUTES = {
     MY_ACCOUNT: '/me',
     QUESTIONS: '/questions',
     QUESTION_DETAILS: '/questions/:questionId',
+    USERS: '/users',
+    USER_DETAILS: '/users/:userId',
 };
 
 export type ClientRoute = keyof typeof CLIENT_ROUTES;

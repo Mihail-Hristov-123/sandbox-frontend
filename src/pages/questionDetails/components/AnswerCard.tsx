@@ -1,18 +1,15 @@
 import { AuthorField } from '@/components/AuthorField';
 import { LikeButton } from '@/components/LikeButton';
 import { useLikesService } from '@/hooks/useLikesService';
+import type { Answer } from '@/types';
 
 export const AnswerCard = ({
     content,
-    username,
+    user_username,
+    user_id,
     profile_pic_url,
     id,
-}: {
-    content: string;
-    username: string;
-    profile_pic_url: string | null;
-    id: number;
-}) => {
+}: Answer) => {
     const { likedByUser, likesCount, likeOrDislike } = useLikesService(
         'answers',
         id,
@@ -22,7 +19,8 @@ export const AnswerCard = ({
         <>
             <article className="flex justify-between p-6 gap-6 items-center rounded-small shadow-md text-primary max-xl:flex-col max-xl:text-center ">
                 <AuthorField
-                    name={username}
+                    userId={user_id}
+                    name={user_username}
                     profilePictureLink={profile_pic_url}
                 />
                 <p className=" wrap-anywhere w-3/4">{content}</p>

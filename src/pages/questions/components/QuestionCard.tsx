@@ -8,6 +8,7 @@ export const QuestionCard = ({
     description,
     title,
     id,
+    user_id,
     profile_pic_url,
 }: Question) => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const QuestionCard = ({
             className="shadow-sm shadow-primary rounded-big p-6 hover:shadow-md  transition-shadow duration-300 cursor-pointer space-y-2"
         >
             <AuthorField
+                userId={user_id}
                 name={user_username}
                 profilePictureLink={profile_pic_url}
             />
