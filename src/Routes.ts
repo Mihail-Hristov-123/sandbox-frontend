@@ -21,4 +21,5 @@ export const SERVER_ROUTES = {
     QUESTIONS: '/questions',
     CATCHES: '/catches',
     LIKES: '/likes',
+    USERS: '/users',
 };

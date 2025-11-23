@@ -22,8 +22,8 @@ export const CatchCard = ({
     );
 
     return (
-        <article className="w-full shadow-2xl rounded-big p-4 space-y-4">
-            <div className="flex justify-between items-center">
+        <article className="w-fit shadow-2xl rounded-big p-4 space-y-4">
+            <div className="flex justify-between items-center flex-wrap gap-6">
                 {' '}
                 <AuthorField
                     userId={user_id}
@@ -42,7 +42,7 @@ export const CatchCard = ({
             <img
                 src={catch_pic_url}
                 alt="Fish photo"
-                className="rounded-md w-full object-cover"
+                className="rounded-md object-contain max-h-[75vh]"
             />
 
             <button
