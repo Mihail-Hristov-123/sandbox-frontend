@@ -2,13 +2,26 @@ import { useParams } from 'react-router';
 import { useGetUserDetails } from './hooks/useGetUserDetails';
 import { UserInfoCard } from '@/components/UserInfoCard';
 import { CatchCard } from '../catches/components/CatchCard';
+import { Loader } from '@/components/Loader';
 
 export const UserDetails = () => {
     const { userId } = useParams();
-    const { userDetails } = useGetUserDetails(Number(userId));
+    const { userDetails, loading } = useGetUserDetails(Number(userId));
+
+    if (loading) {
+        return (
+            <main className="h-screen">
+                <Loader />
+            </main>
+        );
+    }
 
     if (!userDetails) {
-        return <h1>This user does not exist</h1>;
+        return (
+            <main>
+                <h1>This user does not exist</h1>;
+            </main>
+        );
     }
 
     const { email, username, profile_pic_url } = userDetails.user;

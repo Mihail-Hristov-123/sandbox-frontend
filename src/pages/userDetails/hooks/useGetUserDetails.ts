@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { UserDetails } from '../UserDetails';
 import { SERVER_ROUTES } from '@/Routes';
 import { createApiRoute } from '@/utils/createApiRoute';
+import { useDelayedLoading } from '@/hooks/useDelayedLoading';
 
 interface UserDetails {
     user: User;
@@ -11,8 +12,10 @@ interface UserDetails {
 
 export const useGetUserDetails = (userId: number) => {
     const [userDetails, setUserDetails] = useState<null | UserDetails>(null);
+    const { loading, setLoading } = useDelayedLoading();
 
     const updateUserDetails = async () => {
+        setLoading(true);
         try {
             const response = await fetch(
                 `${createApiRoute(SERVER_ROUTES.USERS)}/${userId}`,
@@ -21,6 +24,8 @@ export const useGetUserDetails = (userId: number) => {
             setUserDetails(body.data ?? null);
         } catch (error) {
             console.error(error);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -28,5 +33,5 @@ export const useGetUserDetails = (userId: number) => {
         updateUserDetails();
     }, []);
 
-    return { userDetails };
+    return { userDetails, loading };
 };
