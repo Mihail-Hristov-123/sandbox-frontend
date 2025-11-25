@@ -31,7 +31,7 @@ jobs:
                   LATEST: ${{ steps.latest.outputs.latest_version }}
               run: |
                   INSTALLED_PATH=$(npm list tacklebox-schemas --parseable=true --depth=0)
-                  INSTALLED_VERSION=$(basename "$INSTALLED_PATH")
+                 INSTALLED_VERSION=$(npm list tacklebox-schemas --depth=0 --json | jq -r '.dependencies["tacklebox-schemas"].version')
 
                   echo "Installed version: $INSTALLED_VERSION"
                   echo "Latest version: $LATEST"
