@@ -1,41 +1,45 @@
 name: Ensure Tacklebox Schemas Version
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+    pull_request:
+        types: [opened, synchronize, reopened]
 
 jobs:
-  check-tacklebox-version:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    check-tacklebox-version:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "18"
+            - name: Set up Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
+                  cache: 'npm'
 
-      - name: Get latest tacklebox-schemas version
-        id: latest
-        run: |
-          LATEST=$(npm view tacklebox-schemas version)
-          echo "latest_version=$LATEST" >> $GITHUB_ENV
+            - name: Install dependencies
+              run: npm ci
 
-      - name: Check tacklebox-schemas version
-        env:
-          LATEST_VERSION: ${{ env.latest_version }}
-        run: |
-          # Get actual installed version
-          INSTALLED=$(npm list tacklebox-schemas --depth=0 --json | jq -r '.dependencies["tacklebox-schemas"].version')
+            - name: Get latest tacklebox-schemas version
+              id: latest
+              run: |
+                  LATEST_VERSION=$(npm view tacklebox-schemas version)
+                  echo "latest_version=$LATEST_VERSION" >> $GITHUB_OUTPUT
 
-          echo "Installed version: $INSTALLED"
-          echo "Latest version: $LATEST_VERSION"
+            - name: Check tacklebox-schemas version
+              env:
+                  LATEST: ${{ steps.latest.outputs.latest_version }}
+              run: |
+                  INSTALLED_PATH=$(npm list tacklebox-schemas --parseable=true --depth=0)
+                  INSTALLED_VERSION=$(basename "$INSTALLED_PATH")
 
-          if [ "$INSTALLED" != "$LATEST_VERSION" ]; then
-            echo "tacklebox-schemas version mismatch. Expected $LATEST_VERSION, found $INSTALLED"
-            echo "Run: npm install tacklebox-schemas@latest"
-            exit 1
-          else
-            echo "tacklebox-schemas version is up-to-date"
-          fi
+                  echo "Installed version: $INSTALLED_VERSION"
+                  echo "Latest version: $LATEST"
+
+                  if [ "$INSTALLED_VERSION" != "$LATEST" ]; then
+                    echo "::error file=package.json::tacklebox-schemas version mismatch. Expected $LATEST, found $INSTALLED_VERSION" 
+                    echo "Run 'npm install tacklebox-schemas@latest' to fix."
+                    exit 1
+                  else
+                    echo "tacklebox-schemas version is up-to-date"
+                  fi
