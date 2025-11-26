@@ -1,17 +1,17 @@
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { useApi } from '@/hooks/useApi';
 import { SERVER_ROUTES } from '@/routes';
-import type { CatchValues } from '@/schemas/CatchSchema';
 import { createApiRoute } from '@/utils/createApiRoute';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { type CatchWithImage } from '../schemas/CatchWithImageSchema';
 
 export const useCreateCatch = (updateCatches: () => Promise<void>) => {
     const { fetchWithAuthCheck } = useApi();
 
     const { userInfo } = useAuthContext();
     const [loading, setLoading] = useState(false);
-    const createCatch = async (data: CatchValues) => {
+    const createCatch = async (data: CatchWithImage) => {
         setLoading(true);
         try {
             const formData = new FormData();

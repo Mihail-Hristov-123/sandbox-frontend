@@ -1,19 +1,13 @@
 import { useForm } from 'react-hook-form';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import profilePicPlaceholder from '@/assets/user.png';
-
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
 import { CLIENT_ROUTES } from '@/routes';
-
-import {
-    AnswerSchema,
-    type AnswerValues,
-} from '@/schemas/questions/AnswerSchema';
 import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
 import { useCreateAnswer } from '../hooks/useCreateAnswer';
 import { SubmitButton } from '@/components/SubmitButton';
+import { AnswerSchema, type AnswerValues } from 'tacklebox-schemas';
 
 export const AnswerForm = ({
     questionId,

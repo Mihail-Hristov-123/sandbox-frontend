@@ -1,9 +1,7 @@
 import { useNavigate } from 'react-router';
-
 import { AuthorField } from '@/components/AuthorField';
-
-import type { QuestionReturnValue } from '@/schemas/questions/QuestionSchema';
 import { CLIENT_ROUTES } from '@/routes';
+import type { Question } from '@/types';
 
 export const QuestionCard = ({
     user_username,
@@ -11,7 +9,7 @@ export const QuestionCard = ({
     title,
     id,
     profile_pic_url,
-}: QuestionReturnValue) => {
+}: Question) => {
     const navigate = useNavigate();
     return (
         <article

@@ -1,4 +1,4 @@
-import { useAuthContext } from '../../contexts/auth/useAuthContext';
+import { useAuthContext } from '@/contexts/auth/useAuthContext';
 
 import profilePicPlaceholder from '@/assets/user.png';
 import { PictureUpdateForm } from './components/PictureUpdateForm';

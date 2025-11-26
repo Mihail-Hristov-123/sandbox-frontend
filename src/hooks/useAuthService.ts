@@ -1,10 +1,10 @@
 import { createApiRoute } from '@/utils/createApiRoute';
 import { useAuthContext } from '../contexts/auth/useAuthContext';
-import type { UserLoginValues } from '../schemas/auth/LoginSchema';
-import type { UserRegisterValues } from '../schemas/auth/RegisterSchema';
+
 import { useApi } from './useApi';
 import { SERVER_ROUTES } from '@/routes';
 import toast from 'react-hot-toast';
+import type { LoginValues, RegisterValues } from 'tacklebox-schemas';
 
 export type LogoutScope = 'thisDevice' | 'allDevices';
 
@@ -12,7 +12,7 @@ export const useAuthService = () => {
     const { fetchWithAuthCheck } = useApi();
     const { setIsLoggedIn } = useAuthContext();
 
-    const logIn = async (data: UserLoginValues) => {
+    const logIn = async (data: LoginValues) => {
         try {
             const response = await fetchWithAuthCheck(
                 createApiRoute(SERVER_ROUTES.LOGIN),
@@ -51,7 +51,7 @@ export const useAuthService = () => {
         }
         toast.error('Error occurred during logout');
     };
-    const register = async (data: UserRegisterValues) => {
+    const register = async (data: RegisterValues) => {
         try {
             const response = await fetch(
                 createApiRoute(SERVER_ROUTES.REGISTER),

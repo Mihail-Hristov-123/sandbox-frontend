@@ -1,16 +1,18 @@
 import { Controller, useForm, type Resolver } from 'react-hook-form';
 import { LabelledInput } from '@/components/formRelated/LabelledInput';
-
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { CLIENT_ROUTES } from '@/routes';
 import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { CatchSchema, type CatchValues } from '@/schemas/CatchSchema';
-
 import { useCreateCatch } from '../hooks/useCreateCatch';
 import { SubmitButton } from '@/components/SubmitButton';
 import { CoordinateSelection } from './maps/CoordinateSelection';
 import { PictureInput } from '@/components/formRelated/PictureInput';
+
+import {
+    CatchWithImageSchema,
+    type CatchWithImage,
+} from '../schemas/CatchWithImageSchema';
 
 export const CatchForm = ({
     updateCatches,
@@ -25,14 +27,14 @@ export const CatchForm = ({
         formState: { errors },
         control,
         getValues,
-    } = useForm<CatchValues>({
-        resolver: zodResolver(CatchSchema) as Resolver<CatchValues>,
+    } = useForm<CatchWithImage>({
+        resolver: zodResolver(CatchWithImageSchema) as Resolver<CatchWithImage>,
     });
 
     const { createCatch, loading } = useCreateCatch(updateCatches);
     const { isLoggedIn } = useAuthContext();
 
-    const onSubmit = async (data: CatchValues) => {
+    const onSubmit = async (data: CatchWithImage) => {
         const success = await createCatch(data);
         if (success) reset();
     };
