@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Register } from './Register';
 import { MemoryRouter, Route, Routes } from 'react-router';
-import { Login } from '../Login';
+import { Login } from '../login/Login';
 
 const registerMock = vi.fn();
 
@@ -21,7 +21,7 @@ const validRegisterData = {
     confirmedPassword: '12345678',
 };
 
-describe('Register', () => {
+describe('Register page', () => {
     beforeEach(() => {
         render(
             <MemoryRouter initialEntries={['/register']}>

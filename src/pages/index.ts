@@ -1,7 +1,7 @@
 export { Home } from './Home';
-export { Login } from './Login';
+export { Login } from './login/Login';
 export { Catches } from './catches/Catches';
-export { Register } from './Register/Register';
+export { Register } from './register/Register';
 export { NotFound } from './NotFound';
 export { MyAccount } from './myAccount/MyAccount';
 export { Questions } from './questions/Questions';

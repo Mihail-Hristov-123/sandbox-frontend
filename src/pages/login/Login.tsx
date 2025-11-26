@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { LabelledInput } from '../components/formRelated/LabelledInput';
+import { LabelledInput } from '@/components/formRelated/LabelledInput';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAuthService } from '../hooks/useAuthService';
+import { useAuthService } from '@/hooks/useAuthService';
 import { Link } from 'react-router';
-import { CLIENT_ROUTES } from '../routes';
+import { CLIENT_ROUTES } from '@/routes';
 import { SubmitButton } from '@/components/SubmitButton';
 import { LoginSchema, type LoginValues } from 'tacklebox-schemas';
 
