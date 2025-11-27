@@ -1,8 +1,6 @@
 import { Controller, useForm, type Resolver } from 'react-hook-form';
 import { LabelledInput } from '@/components/formRelated/LabelledInput';
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
-import { CLIENT_ROUTES } from '@/routes';
-import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCreateCatch } from '../hooks/useCreateCatch';
 import { SubmitButton } from '@/components/SubmitButton';

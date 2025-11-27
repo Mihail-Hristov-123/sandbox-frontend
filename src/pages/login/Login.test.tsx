@@ -37,7 +37,7 @@ describe('Login page', () => {
         expect(linkToRegister).toBeInTheDocument();
         await user.click(linkToRegister);
         expect(
-            await screen.findByRole('heading', { name: 'Create account' }),
+            screen.getByRole('heading', { name: 'Create account' }),
         ).toBeInTheDocument();
     });
 

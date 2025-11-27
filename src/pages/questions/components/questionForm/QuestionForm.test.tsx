@@ -1,7 +1,6 @@
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router';
+import { MemoryRouter } from 'react-router';
 import { QuestionForm } from './QuestionForm';
-import { Login } from '@/pages/login/Login';
 import userEvent from '@testing-library/user-event';
 
 let isLoggedInMock: boolean;
@@ -35,10 +34,10 @@ const renderComponent = () =>
     );
 
 const getFormElements = async () => ({
-    heading: await screen.findByRole('heading', { name: /ask a question/i }),
-    titleInput: await screen.findByLabelText(/question title:/i),
-    descriptionTextarea: await screen.findByLabelText(/description:/i),
-    submitButton: await screen.findByRole('button', { name: /post question/i }),
+    heading: screen.getByRole('heading', { name: /ask a question/i }),
+    titleInput: screen.getByLabelText(/question title:/i),
+    descriptionTextarea: screen.getByLabelText(/description:/i),
+    submitButton: screen.getByRole('button', { name: /post question/i }),
 });
 
 describe('QuestionForm', () => {
@@ -49,7 +48,7 @@ describe('QuestionForm', () => {
     it('should render the LoginRedirector component if the user is not authenticated', async () => {
         isLoggedInMock = false;
         renderComponent();
-        const loginLink = await screen.findByRole('link', { name: /log in/i });
+        const loginLink = screen.getByRole('link', { name: /log in/i });
         expect(loginLink).toBeInTheDocument();
     });
 
