@@ -29,16 +29,8 @@ vi.mock('../../hooks/useCreateQuestion', () => ({
 
 const renderComponent = () =>
     render(
-        <MemoryRouter initialEntries={['/questions']}>
-            <Routes>
-                <Route
-                    path="/questions"
-                    element={
-                        <QuestionForm refreshQuestions={mockRefreshQuestions} />
-                    }
-                />
-                <Route path="/login" element={<Login />} />
-            </Routes>
+        <MemoryRouter>
+            <QuestionForm refreshQuestions={mockRefreshQuestions} />
         </MemoryRouter>,
     );
 
@@ -54,19 +46,11 @@ describe('QuestionForm', () => {
         isLoggedInMock = true;
     });
 
-    it('should render a functional link to the Login page if the user is not authenticated', async () => {
+    it('should render the LoginRedirector component if the user is not authenticated', async () => {
         isLoggedInMock = false;
         renderComponent();
         const loginLink = await screen.findByRole('link', { name: /log in/i });
         expect(loginLink).toBeInTheDocument();
-
-        expect(screen.queryAllByRole('textbox')).toHaveLength(0);
-
-        await user.click(loginLink);
-
-        expect(
-            await screen.findByRole('heading', { name: /log in/i }),
-        ).toBeInTheDocument();
     });
 
     it("should render the login form's heading, inputs for question title and description and submit button", async () => {

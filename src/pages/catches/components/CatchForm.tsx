@@ -13,6 +13,7 @@ import {
     CatchWithImageSchema,
     type CatchWithImage,
 } from '../schemas/CatchWithImageSchema';
+import { LoginRedirector } from '@/components/LoginRedirector';
 
 export const CatchForm = ({
     updateCatches,
@@ -79,10 +80,10 @@ export const CatchForm = ({
                     </div>
                 </form>
             ) : (
-                <p className="text-center text-xl">
-                    <Link to={CLIENT_ROUTES.LOG_IN}>Log in</Link> to share your
-                    catch
-                </p>
+                <LoginRedirector
+                    additionalText="to share you catch"
+                    className="text-center text-xl"
+                />
             )}
         </div>
     );
