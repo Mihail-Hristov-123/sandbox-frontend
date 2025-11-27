@@ -1,23 +1,31 @@
 # The Tackle Box/frontend
 
-A hybrid platform combining social media and forum, designed for fishing enthusiasts of any experience to share stories, tips and events, while offering a space to discuss any related topics.
+A forum designed for fishing enthusiasts of any experience to share catches and angling locations, while offering a space to ask and answer questions.
 
 ## How to run the project:
 
-1. Install dependencies
+1. [Ensure that the server is configured and running](https://github.com/Mihail-Hristov-123/sandbox-backend/#readme)
+
+2. Install dependencies
 
 ```shell
 npm install
 ```
 
-2. Build the project
+3. Build the project
 
 ```shell
 npm build
 ```
 
-3. Start the application
+4. Start the application
 
 ```shell
 npm start
+```
+
+## How to run tests
+
+```shell
+npm run test
 ```
