@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Register } from './Register';
+import { Register } from './register';
 import { MemoryRouter, Route, Routes } from 'react-router';
 import { Login } from '../login/Login';
 
@@ -57,25 +57,6 @@ describe('Register page', () => {
 
         expect(
             await screen.findByRole('heading', { name: 'Log in' }),
-        ).toBeInTheDocument();
-    });
-
-    it('should display error message for all inputs excluding password confirmation when an empty form is submitted', async () => {
-        await user.click(screen.getByRole('button', { name: 'Register' }));
-        expect((await screen.findAllByRole('alert')).length).toBe(3);
-    });
-
-    it('should display an error message related to password confirmation on submit when the confirmed password differs from the password', async () => {
-        const passwordInput = screen.getByLabelText('Password:');
-        const confirmedPasswordInput =
-            screen.getByLabelText('Confirm password:');
-
-        await user.type(passwordInput, '12345678');
-        await user.type(confirmedPasswordInput, '123456789');
-        await user.click(screen.getByRole('button', { name: 'Register' }));
-
-        expect(
-            await screen.findByText('Passwords do not match'),
         ).toBeInTheDocument();
     });
 

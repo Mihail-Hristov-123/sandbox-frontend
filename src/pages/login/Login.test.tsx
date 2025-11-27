@@ -53,7 +53,7 @@ describe('Login page', () => {
         ).toBeInTheDocument();
     });
 
-    it('should call the login function with the data from the inputs', async () => {
+    it('should call the login function with the data from the form', async () => {
         await user.type(screen.getByLabelText('Email:'), validLoginData.email);
         await user.type(
             screen.getByLabelText('Password:'),

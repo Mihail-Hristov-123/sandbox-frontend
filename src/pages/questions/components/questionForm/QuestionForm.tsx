@@ -6,7 +6,7 @@ import { LabelledTextArea } from '@/components/formRelated/LabelledTextArea';
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
 import { CLIENT_ROUTES } from '@/routes';
-import { useCreateQuestion } from '../hooks/useCreateQuestion';
+import { useCreateQuestion } from '../../hooks/useCreateQuestion';
 import { SubmitButton } from '@/components/SubmitButton';
 
 export const QuestionForm = ({
