@@ -14,6 +14,7 @@ const routeMap: Record<Resource, keyof typeof SERVER_ROUTES> = {
 export const useDeleteResource = (
     resourceType: Resource,
     resourceId: number,
+    onSuccess?: () => Promise<void> | void,
 ) => {
     const { fetchWithAuthCheck } = useApi();
 
@@ -28,7 +29,7 @@ export const useDeleteResource = (
                 },
             );
             if (response.ok) {
-                toast.success('Successful deletion');
+                await onSuccess?.();
                 return;
             }
             const body = await response.json();

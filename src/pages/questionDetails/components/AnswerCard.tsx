@@ -7,19 +7,23 @@ import type { Answer } from '@/types';
 import { useDeleteResource } from '@/hooks/useDeleteResource';
 
 export const AnswerCard = ({
-    content,
-    user_username,
-    user_id,
-    profile_pic_url,
-    id,
-}: Answer) => {
+    info: { content, user_username, user_id, profile_pic_url, id },
+    updateAnswers,
+}: {
+    info: Answer;
+    updateAnswers: () => Promise<void>;
+}) => {
     const { likedByUser, likesCount, likeOrDislike } = useLikesService(
         'answers',
         id,
     );
 
     const { isOwner } = useCheckIsOwner(user_id);
-    const { deleteResource: deleteAnswer } = useDeleteResource('answer', id);
+    const { deleteResource: deleteAnswer } = useDeleteResource(
+        'answer',
+        id,
+        updateAnswers,
+    );
 
     return (
         <>

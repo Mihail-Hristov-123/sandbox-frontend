@@ -7,18 +7,18 @@ import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
 import { useDeleteResource } from '@/hooks/useDeleteResource';
 
 export const QuestionCard = ({
-    user_username,
-    description,
-    title,
-    id,
-    user_id,
-    profile_pic_url,
-}: Question) => {
+    info: { user_username, description, title, id, user_id, profile_pic_url },
+    updateQuestions,
+}: {
+    info: Question;
+    updateQuestions: () => Promise<void>;
+}) => {
     const navigate = useNavigate();
     const { isOwner } = useCheckIsOwner(user_id);
     const { deleteResource: deleteQuestion } = useDeleteResource(
         'question',
         id,
+        updateQuestions,
     );
     return (
         <article

@@ -9,22 +9,33 @@ import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
 import { useDeleteResource } from '@/hooks/useDeleteResource';
 
 export const CatchCard = ({
-    user_username,
-    title,
-    latitude,
-    longitude,
-    catch_pic_url,
-    profile_pic_url,
-    id,
-    user_id,
-}: Catch) => {
+    info: {
+        id,
+        user_id,
+        profile_pic_url,
+        user_username,
+        title,
+        catch_pic_url,
+        latitude,
+        longitude,
+    },
+    updateCatches,
+}: {
+    info: Catch;
+    updateCatches: () => Promise<void>;
+}) => {
     const [locationDisplayed, setLocationDisplayed] = useState(false);
+
     const { likedByUser, likesCount, likeOrDislike } = useLikesService(
         'catches',
         id,
     );
     const { isOwner } = useCheckIsOwner(user_id);
-    const { deleteResource: deleteCatch } = useDeleteResource('catch', id);
+    const { deleteResource: deleteCatch } = useDeleteResource(
+        'catch',
+        id,
+        updateCatches,
+    );
 
     return (
         <article className="w-fit shadow-2xl rounded-big p-4 space-y-4">
