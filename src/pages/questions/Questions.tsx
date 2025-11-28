@@ -10,7 +10,11 @@ export const Questions = () => {
         <Loader />
     ) : allQuestions?.length ? (
         allQuestions.map((question) => (
-            <QuestionCard key={question.title} {...question} />
+            <QuestionCard
+                key={question.title}
+                info={question}
+                updateQuestions={loadQuestions}
+            />
         ))
     ) : (
         <p className="text-center text-xl">

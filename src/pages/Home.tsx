@@ -21,6 +21,7 @@ const Section = ({
             className={`px-20 space-y-6 py-16 ${className} max-lg:text-center max-xl:px-8 `}
         >
             <h2 className="text-4xl font-semibold">{title}</h2>
+
             <p className="text-xl">{text}</p>
             <button className="bg-accent text-primary px-6 py-3 rounded-4xl">
                 <Link
@@ -46,6 +47,7 @@ export const Home = () => (
                 </p>
             </div>
         </div>
+
         <Section
             title="Top Fishing Locations"
             text="Can't seem to find the fish? Discover the spots where others are reeling them in."

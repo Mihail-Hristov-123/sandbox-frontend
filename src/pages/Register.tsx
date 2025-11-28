@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthService } from '../hooks/useAuthService';
 import { Link } from 'react-router';
 import { CLIENT_ROUTES } from '../routes';
-import { SubmitButton } from '@/components/SubmitButton';
+import { SubmitButton } from '@/components/buttons/SubmitButton';
 
 const inputFields: {
     type: HTMLInputTypeAttribute;

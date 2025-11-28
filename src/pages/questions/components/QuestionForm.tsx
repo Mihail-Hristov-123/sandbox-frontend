@@ -7,7 +7,7 @@ import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { NavLink } from 'react-router';
 import { CLIENT_ROUTES } from '@/routes';
 import { useCreateQuestion } from '../hooks/useCreateQuestion';
-import { SubmitButton } from '@/components/SubmitButton';
+import { SubmitButton } from '@/components/buttons/SubmitButton';
 
 export const QuestionForm = ({
     refreshQuestions,

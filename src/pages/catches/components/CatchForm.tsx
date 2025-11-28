@@ -5,7 +5,7 @@ import { CLIENT_ROUTES } from '@/routes';
 import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCreateCatch } from '../hooks/useCreateCatch';
-import { SubmitButton } from '@/components/SubmitButton';
+import { SubmitButton } from '@/components/buttons/SubmitButton';
 import { CoordinateSelection } from './maps/CoordinateSelection';
 import { PictureInput } from '@/components/formRelated/PictureInput';
 

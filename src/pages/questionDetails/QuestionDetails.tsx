@@ -1,14 +1,17 @@
-import { Link, useParams } from 'react-router';
+import { Link, useNavigate, useParams } from 'react-router';
 import { CLIENT_ROUTES } from '@/routes';
 import { AuthorField } from '@/components/AuthorField';
 import { AnswerForm } from './components/AnswerForm';
 import { useLoadQuestionDetails } from './hooks/useLoadQuestionDetails';
 import { AnswerCard } from './components/AnswerCard';
 import { Loader } from '@/components/Loader';
+import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
+import { DeleteButton } from '@/components/buttons/DeleteButton';
+import { useDeleteResource } from '@/hooks/useDeleteResource';
 
 export const QuestionDetails = () => {
     const { questionId } = useParams();
-
+    const navigate = useNavigate();
     const { updateCurrentQuestionData, currentQuestionData, isLoading } =
         useLoadQuestionDetails(questionId);
 
@@ -32,14 +35,26 @@ export const QuestionDetails = () => {
     }
 
     const { questionData, answersData } = currentQuestionData;
+    const isOwner = useCheckIsOwner(questionData.user_id);
+    const { deleteResource: deleteQuestion } = useDeleteResource(
+        'question',
+        questionData.id,
+        () => navigate(CLIENT_ROUTES.QUESTIONS),
+    );
+
     return (
         <main className=" sm:px-12 md:px-24 lg:px-40 pt-10">
             <section className="bg-white  shadow-2xl rounded-xl p-10 space-y-8">
-                <AuthorField
-                    userId={questionData.user_id}
-                    name={questionData.user_username}
-                    profilePictureLink={questionData.profile_pic_url}
-                />
+                <div className="flex justify-between items-center">
+                    <AuthorField
+                        userId={questionData.user_id}
+                        name={questionData.user_username}
+                        profilePictureLink={questionData.profile_pic_url}
+                    />
+                    {isOwner && (
+                        <DeleteButton deleteResource={deleteQuestion} />
+                    )}
+                </div>
 
                 <h2 className="text-3xl font-bold ">{questionData.title}</h2>
 
@@ -56,7 +71,11 @@ export const QuestionDetails = () => {
                     </h3>
 
                     {answersData.map((props) => (
-                        <AnswerCard key={props.id} {...props} />
+                        <AnswerCard
+                            key={props.id}
+                            info={props}
+                            updateAnswers={updateCurrentQuestionData}
+                        />
                     ))}
                 </div>
             </section>
