@@ -13,6 +13,7 @@ export const CatchCard = ({
     catch_pic_url,
     profile_pic_url,
     id,
+    user_id,
 }: Catch) => {
     const [locationDisplayed, setLocationDisplayed] = useState(false);
     const { likedByUser, likesCount, likeOrDislike } = useLikesService(
@@ -21,10 +22,11 @@ export const CatchCard = ({
     );
 
     return (
-        <article className="w-full shadow-2xl rounded-big p-4 space-y-4">
-            <div className="flex justify-between items-center">
+        <article className="w-fit shadow-2xl rounded-big p-4 space-y-4">
+            <div className="flex justify-between items-center flex-wrap gap-6">
                 {' '}
                 <AuthorField
+                    userId={user_id}
                     name={user_username}
                     profilePictureLink={profile_pic_url}
                 />
@@ -40,7 +42,7 @@ export const CatchCard = ({
             <img
                 src={catch_pic_url}
                 alt="Fish photo"
-                className="rounded-md w-full object-cover"
+                className="rounded-md object-contain max-h-[75vh]"
             />
 
             <button

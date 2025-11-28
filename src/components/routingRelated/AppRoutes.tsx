@@ -7,6 +7,7 @@ import {
     NotFound,
     QuestionDetails,
     Questions,
+    UserDetails,
     Register,
 } from '@/pages/index';
 
@@ -25,6 +26,7 @@ export const AppRoutes = () => (
             { path: 'CATCHES', element: <Catches /> },
             { path: 'QUESTIONS', element: <Questions /> },
             { path: 'QUESTION_DETAILS', element: <QuestionDetails /> },
+            { path: 'USER_DETAILS', element: <UserDetails /> },
         ])}
 
         <Route element={<ProtectedRoute routesToBlock="public" />}>
