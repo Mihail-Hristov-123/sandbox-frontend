@@ -6,7 +6,7 @@ import { useLoadQuestionDetails } from './hooks/useLoadQuestionDetails';
 import { AnswerCard } from './components/AnswerCard';
 import { Loader } from '@/components/Loader';
 import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
-import { DeleteButton } from '@/components/DeleteButton';
+import { DeleteButton } from '@/components/buttons/DeleteButton';
 import { useDeleteResource } from '@/hooks/useDeleteResource';
 
 export const QuestionDetails = () => {
@@ -35,7 +35,7 @@ export const QuestionDetails = () => {
     }
 
     const { questionData, answersData } = currentQuestionData;
-    const { isOwner } = useCheckIsOwner(questionData.user_id);
+    const isOwner = useCheckIsOwner(questionData.user_id);
     const { deleteResource: deleteQuestion } = useDeleteResource(
         'question',
         questionData.id,

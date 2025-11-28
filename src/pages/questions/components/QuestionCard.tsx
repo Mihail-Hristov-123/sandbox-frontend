@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router';
 import { AuthorField } from '@/components/AuthorField';
 import { CLIENT_ROUTES } from '@/routes';
 import type { Question } from '@/types';
-import { DeleteButton } from '@/components/DeleteButton';
+import { DeleteButton } from '@/components/buttons/DeleteButton';
 import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
 import { useDeleteResource } from '@/hooks/useDeleteResource';
 
@@ -14,7 +14,7 @@ export const QuestionCard = ({
     updateQuestions: () => Promise<void>;
 }) => {
     const navigate = useNavigate();
-    const { isOwner } = useCheckIsOwner(user_id);
+    const isOwner = useCheckIsOwner(user_id);
     const { deleteResource: deleteQuestion } = useDeleteResource(
         'question',
         id,

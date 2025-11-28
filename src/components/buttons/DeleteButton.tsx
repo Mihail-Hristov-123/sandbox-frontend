@@ -7,7 +7,11 @@ export const DeleteButton = ({
 }) => {
     const handleDeletion = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
-        if (window.confirm('Do you really want to delete this publication?')) {
+        if (
+            window.confirm(
+                'Are you sure you want to delete this? This action cannot be undone.',
+            )
+        ) {
             await deleteResource();
         }
     };

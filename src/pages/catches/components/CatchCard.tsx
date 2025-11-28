@@ -1,10 +1,10 @@
 import { AuthorField } from '@/components/AuthorField';
 import { LocationPreview } from '@/pages/catches/components/maps/LocationPreview';
 import { useState } from 'react';
-import { LikeButton } from '@/components/LikeButton';
+import { LikeButton } from '@/components/buttons/LikeButton';
 import { useLikesService } from '@/hooks/useLikesService';
 import type { Catch } from '@/types';
-import { DeleteButton } from '@/components/DeleteButton';
+import { DeleteButton } from '@/components/buttons/DeleteButton';
 import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
 import { useDeleteResource } from '@/hooks/useDeleteResource';
 
@@ -30,7 +30,7 @@ export const CatchCard = ({
         'catches',
         id,
     );
-    const { isOwner } = useCheckIsOwner(user_id);
+    const isOwner = useCheckIsOwner(user_id);
     const { deleteResource: deleteCatch } = useDeleteResource(
         'catch',
         id,

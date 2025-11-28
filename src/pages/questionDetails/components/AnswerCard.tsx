@@ -1,6 +1,6 @@
 import { AuthorField } from '@/components/AuthorField';
-import { DeleteButton } from '@/components/DeleteButton';
-import { LikeButton } from '@/components/LikeButton';
+import { DeleteButton } from '@/components/buttons/DeleteButton';
+import { LikeButton } from '@/components/buttons/LikeButton';
 import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
 import { useLikesService } from '@/hooks/useLikesService';
 import type { Answer } from '@/types';
@@ -18,7 +18,7 @@ export const AnswerCard = ({
         id,
     );
 
-    const { isOwner } = useCheckIsOwner(user_id);
+    const isOwner = useCheckIsOwner(user_id);
     const { deleteResource: deleteAnswer } = useDeleteResource(
         'answer',
         id,
