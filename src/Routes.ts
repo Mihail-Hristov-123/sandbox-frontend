@@ -22,4 +22,5 @@ export const SERVER_ROUTES = {
     CATCHES: '/catches',
     LIKES: '/likes',
     USERS: '/users',
+    ANSWERS: '/answers',
 };

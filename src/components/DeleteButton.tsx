@@ -1,10 +1,14 @@
 import deleteSVG from '@/assets/delete.svg';
 
-export const DeleteButton = () => {
-    const handleDeletion = (e: React.MouseEvent<HTMLButtonElement>) => {
+export const DeleteButton = ({
+    deleteResource,
+}: {
+    deleteResource: () => Promise<void>;
+}) => {
+    const handleDeletion = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation();
         if (window.confirm('Do you really want to delete this publication?')) {
-            console.log('Deleted');
+            await deleteResource();
         }
     };
 

@@ -4,6 +4,7 @@ import { LikeButton } from '@/components/LikeButton';
 import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
 import { useLikesService } from '@/hooks/useLikesService';
 import type { Answer } from '@/types';
+import { useDeleteAnswer } from '../hooks/useDeleteAnswer';
 
 export const AnswerCard = ({
     content,
@@ -18,6 +19,7 @@ export const AnswerCard = ({
     );
 
     const { isOwner } = useCheckIsOwner(user_id);
+    const { deleteAnswer } = useDeleteAnswer(id);
 
     return (
         <>
@@ -30,7 +32,7 @@ export const AnswerCard = ({
                 <p className=" wrap-anywhere w-3/4">{content}</p>
 
                 {isOwner ? (
-                    <DeleteButton />
+                    <DeleteButton deleteResource={deleteAnswer} />
                 ) : (
                     <LikeButton
                         likesCount={likesCount}
