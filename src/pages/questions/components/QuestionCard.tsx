@@ -4,7 +4,7 @@ import { CLIENT_ROUTES } from '@/routes';
 import type { Question } from '@/types';
 import { DeleteButton } from '@/components/DeleteButton';
 import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
-import { useDeleteQuestion } from '@/pages/questionDetails/hooks/useDeleteQuestion';
+import { useDeleteResource } from '@/hooks/useDeleteResource';
 
 export const QuestionCard = ({
     user_username,
@@ -16,7 +16,10 @@ export const QuestionCard = ({
 }: Question) => {
     const navigate = useNavigate();
     const { isOwner } = useCheckIsOwner(user_id);
-    const { deleteQuestion } = useDeleteQuestion(id);
+    const { deleteResource: deleteQuestion } = useDeleteResource(
+        'question',
+        id,
+    );
     return (
         <article
             title="View details"

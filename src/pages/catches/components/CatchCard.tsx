@@ -6,7 +6,7 @@ import { useLikesService } from '@/hooks/useLikesService';
 import type { Catch } from '@/types';
 import { DeleteButton } from '@/components/DeleteButton';
 import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
-import { useDeleteCatch } from '../hooks/useDeleteCatch';
+import { useDeleteResource } from '@/hooks/useDeleteResource';
 
 export const CatchCard = ({
     user_username,
@@ -24,7 +24,7 @@ export const CatchCard = ({
         id,
     );
     const { isOwner } = useCheckIsOwner(user_id);
-    const { deleteCatch } = useDeleteCatch(id);
+    const { deleteResource: deleteCatch } = useDeleteResource('catch', id);
 
     return (
         <article className="w-fit shadow-2xl rounded-big p-4 space-y-4">
