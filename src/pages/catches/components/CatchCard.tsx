@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { LikeButton } from '@/components/LikeButton';
 import { useLikesService } from '@/hooks/useLikesService';
 import type { Catch } from '@/types';
+import { DeleteButton } from '@/components/DeleteButton';
+import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
 
 export const CatchCard = ({
     user_username,
@@ -20,6 +22,7 @@ export const CatchCard = ({
         'catches',
         id,
     );
+    const { isOwner } = useCheckIsOwner(user_id);
 
     return (
         <article className="w-fit shadow-2xl rounded-big p-4 space-y-4">
@@ -30,11 +33,15 @@ export const CatchCard = ({
                     name={user_username}
                     profilePictureLink={profile_pic_url}
                 />
-                <LikeButton
-                    likedByUser={likedByUser}
-                    likesCount={likesCount}
-                    handleLike={likeOrDislike}
-                />
+                {isOwner ? (
+                    <DeleteButton />
+                ) : (
+                    <LikeButton
+                        likedByUser={likedByUser}
+                        likesCount={likesCount}
+                        handleLike={likeOrDislike}
+                    />
+                )}
             </div>
 
             <h2 className="text-xl font-semibold">{title}</h2>

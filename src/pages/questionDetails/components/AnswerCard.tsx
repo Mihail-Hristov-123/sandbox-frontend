@@ -1,5 +1,7 @@
 import { AuthorField } from '@/components/AuthorField';
+import { DeleteButton } from '@/components/DeleteButton';
 import { LikeButton } from '@/components/LikeButton';
+import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
 import { useLikesService } from '@/hooks/useLikesService';
 import type { Answer } from '@/types';
 
@@ -15,6 +17,8 @@ export const AnswerCard = ({
         id,
     );
 
+    const { isOwner } = useCheckIsOwner(user_id);
+
     return (
         <>
             <article className="flex justify-between p-6 gap-6 items-center rounded-small shadow-md text-primary max-xl:flex-col max-xl:text-center ">
@@ -25,11 +29,15 @@ export const AnswerCard = ({
                 />
                 <p className=" wrap-anywhere w-3/4">{content}</p>
 
-                <LikeButton
-                    likesCount={likesCount}
-                    likedByUser={likedByUser}
-                    handleLike={likeOrDislike}
-                />
+                {isOwner ? (
+                    <DeleteButton />
+                ) : (
+                    <LikeButton
+                        likesCount={likesCount}
+                        likedByUser={likedByUser}
+                        handleLike={likeOrDislike}
+                    />
+                )}
             </article>
         </>
     );

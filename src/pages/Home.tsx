@@ -1,4 +1,3 @@
-import { OptionsMenu } from '@/components/OptionsMenu';
 import { CLIENT_ROUTES } from '@/routes';
 import { Link } from 'react-router';
 
@@ -48,7 +47,7 @@ export const Home = () => (
                 </p>
             </div>
         </div>
-        <OptionsMenu />
+
         <Section
             title="Top Fishing Locations"
             text="Can't seem to find the fish? Discover the spots where others are reeling them in."
