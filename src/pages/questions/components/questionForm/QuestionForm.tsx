@@ -5,7 +5,7 @@ import { QuestionSchema, type QuestionValues } from 'tacklebox-schemas';
 import { LabelledTextArea } from '@/components/formRelated/LabelledTextArea';
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { useCreateQuestion } from '../../hooks/useCreateQuestion';
-import { SubmitButton } from '@/components/SubmitButton';
+import { SubmitButton } from '@/components/buttons/SubmitButton';
 import { LoginRedirector } from '@/components/LoginRedirector';
 
 export const QuestionForm = ({

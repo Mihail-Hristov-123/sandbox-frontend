@@ -12,7 +12,7 @@ export const useCreateAnswer = (questionId: number) => {
     ): Promise<{ success: boolean }> => {
         try {
             const response = await fetchWithAuthCheck(
-                createApiRoute(`${SERVER_ROUTES.QUESTIONS}/${questionId}`),
+                createApiRoute(`${SERVER_ROUTES.ANSWERS}/${questionId}`),
                 {
                     method: 'POST',
                     body: JSON.stringify(data),

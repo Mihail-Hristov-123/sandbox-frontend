@@ -1,4 +1,4 @@
-import { SubmitButton } from '@/components/SubmitButton';
+import { SubmitButton } from '@/components/buttons/SubmitButton';
 import { useUpdateProfilePicture } from '../hooks/useUpdateProfilePicture';
 import { PictureInput } from '@/components/formRelated/PictureInput';
 import { Controller, useForm } from 'react-hook-form';

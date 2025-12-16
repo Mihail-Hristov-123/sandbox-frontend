@@ -3,10 +3,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import profilePicPlaceholder from '@/assets/user.png';
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
 import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
-import { useCreateAnswer } from '../../hooks/useCreateAnswer';
-import { SubmitButton } from '@/components/SubmitButton';
+
+import { SubmitButton } from '@/components/buttons/SubmitButton';
 import { AnswerSchema, type AnswerValues } from 'tacklebox-schemas';
 import { LoginRedirector } from '@/components/LoginRedirector';
+import { useCreateAnswer } from '../../hooks/useCreateAnswer';
 
 export const AnswerForm = ({
     questionId,

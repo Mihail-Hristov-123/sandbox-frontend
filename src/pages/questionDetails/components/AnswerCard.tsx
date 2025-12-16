@@ -1,18 +1,28 @@
 import { AuthorField } from '@/components/AuthorField';
-import { LikeButton } from '@/components/LikeButton';
+import { DeleteButton } from '@/components/buttons/DeleteButton';
+import { LikeButton } from '@/components/buttons/LikeButton';
+import { useCheckIsOwner } from '@/hooks/useCheckIsOwner';
 import { useLikesService } from '@/hooks/useLikesService';
 import type { Answer } from '@/types';
+import { useDeleteResource } from '@/hooks/useDeleteResource';
 
 export const AnswerCard = ({
-    content,
-    user_username,
-    user_id,
-    profile_pic_url,
-    id,
-}: Answer) => {
+    info: { content, user_username, user_id, profile_pic_url, id },
+    updateAnswers,
+}: {
+    info: Answer;
+    updateAnswers: () => Promise<void>;
+}) => {
     const { likedByUser, likesCount, likeOrDislike } = useLikesService(
         'answers',
         id,
+    );
+
+    const isOwner = useCheckIsOwner(user_id);
+    const { deleteResource: deleteAnswer } = useDeleteResource(
+        'answer',
+        id,
+        updateAnswers,
     );
 
     return (
@@ -25,11 +35,15 @@ export const AnswerCard = ({
                 />
                 <p className=" wrap-anywhere w-3/4">{content}</p>
 
-                <LikeButton
-                    likesCount={likesCount}
-                    likedByUser={likedByUser}
-                    handleLike={likeOrDislike}
-                />
+                {isOwner ? (
+                    <DeleteButton deleteResource={deleteAnswer} />
+                ) : (
+                    <LikeButton
+                        likesCount={likesCount}
+                        likedByUser={likedByUser}
+                        handleLike={likeOrDislike}
+                    />
+                )}
             </article>
         </>
     );
