@@ -2,12 +2,12 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import profilePicPlaceholder from '@/assets/user.png';
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
-import { NavLink } from 'react-router';
-import { CLIENT_ROUTES } from '@/routes';
 import { ErrorMessage } from '@/components/formRelated/ErrorMessage';
-import { useCreateAnswer } from '../hooks/useCreateAnswer';
+
 import { SubmitButton } from '@/components/buttons/SubmitButton';
 import { AnswerSchema, type AnswerValues } from 'tacklebox-schemas';
+import { LoginRedirector } from '@/components/LoginRedirector';
+import { useCreateAnswer } from '../../hooks/useCreateAnswer';
 
 export const AnswerForm = ({
     questionId,
@@ -64,10 +64,11 @@ export const AnswerForm = ({
                     />
                 </form>
             ) : (
-                <p className="text-center py-4 px-12 text-xl">
-                    <NavLink to={CLIENT_ROUTES.LOG_IN}>Log in</NavLink> to
-                    answer the question
-                </p>
+                <LoginRedirector
+                    additionalText="to answer the
+                    question"
+                    className="text-center py-4 px-12 text-xl"
+                />
             )}
         </div>
     );

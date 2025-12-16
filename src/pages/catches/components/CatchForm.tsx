@@ -1,8 +1,6 @@
 import { Controller, useForm, type Resolver } from 'react-hook-form';
 import { LabelledInput } from '@/components/formRelated/LabelledInput';
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
-import { CLIENT_ROUTES } from '@/routes';
-import { Link } from 'react-router';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCreateCatch } from '../hooks/useCreateCatch';
 import { SubmitButton } from '@/components/buttons/SubmitButton';
@@ -13,6 +11,7 @@ import {
     CatchWithImageSchema,
     type CatchWithImage,
 } from '../schemas/CatchWithImageSchema';
+import { LoginRedirector } from '@/components/LoginRedirector';
 
 export const CatchForm = ({
     updateCatches,
@@ -79,10 +78,10 @@ export const CatchForm = ({
                     </div>
                 </form>
             ) : (
-                <p className="text-center text-xl">
-                    <Link to={CLIENT_ROUTES.LOG_IN}>Log in</Link> to share your
-                    catch
-                </p>
+                <LoginRedirector
+                    additionalText="to share you catch"
+                    className="text-center text-xl"
+                />
             )}
         </div>
     );

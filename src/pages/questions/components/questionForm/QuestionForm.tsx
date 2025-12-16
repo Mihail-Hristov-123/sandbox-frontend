@@ -4,10 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { QuestionSchema, type QuestionValues } from 'tacklebox-schemas';
 import { LabelledTextArea } from '@/components/formRelated/LabelledTextArea';
 import { useAuthContext } from '@/contexts/auth/useAuthContext';
-import { NavLink } from 'react-router';
-import { CLIENT_ROUTES } from '@/routes';
-import { useCreateQuestion } from '../hooks/useCreateQuestion';
+import { useCreateQuestion } from '../../hooks/useCreateQuestion';
 import { SubmitButton } from '@/components/buttons/SubmitButton';
+import { LoginRedirector } from '@/components/LoginRedirector';
 
 export const QuestionForm = ({
     refreshQuestions,
@@ -57,10 +56,10 @@ export const QuestionForm = ({
                     <SubmitButton text="Post question" />
                 </form>
             ) : (
-                <p className="text-center py-8 px-12 text-xl shadow-xl rounded-small">
-                    <NavLink to={CLIENT_ROUTES.LOG_IN}>Log in</NavLink> to ask
-                    questions
-                </p>
+                <LoginRedirector
+                    additionalText="to ask questions"
+                    className="text-center py-8 px-12 text-xl shadow-xl rounded-small"
+                />
             )}
         </div>
     );

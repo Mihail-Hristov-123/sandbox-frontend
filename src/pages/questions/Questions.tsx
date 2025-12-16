@@ -1,5 +1,5 @@
 import { QuestionCard } from './components/QuestionCard';
-import { QuestionForm } from './components/QuestionForm';
+import { QuestionForm } from './components/questionForm/QuestionForm';
 import { Loader } from '@/components/Loader';
 import { useLoadQuestions } from './hooks/useLoadQuestions';
 
